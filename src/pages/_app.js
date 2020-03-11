@@ -23,7 +23,9 @@ export default class MyApp extends App {
           <title>DevMoi</title>
         </Head>
         <style global jsx>{`
-          html,
+          html{
+            height:calc(100% - 3.5625rem)
+          }
           body,
           #__next {
             height: 100%;
