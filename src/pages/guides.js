@@ -1,21 +1,19 @@
+import fs from "fs";
+import path from "path";
 import Head from "next/head";
 import moifetch from "moifetch";
 const ReactMarkdown = require("react-markdown");
-import path from "path";
-import fs from "fs";
+import React, { useState, useEffect } from "react";
 
 export async function getStaticProps() {
   let branch;
   let guides = [];
   fs.readdir(path.join("_posts"), (err, files) => {
-    if (files) {
-      files.forEach(file => {
-        // Mounts commnds
-        guides.push(file);
-      });
-    } else {
-      console.log("Component Not Found...");
-    }
+    files
+      ? files.forEach(file => {
+          guides.push(file);
+        })
+      : console.log("Component Not Found...");
   });
 
   process.env.NODE_ENV == "development"
@@ -29,28 +27,23 @@ export async function getStaticProps() {
   return {
     props: {
       data,
-      guides
+      guides,
+      branch
     }
   };
 }
 
-export default ({ data, guides }) => {
+export default ({ data, guides, branch }) => {
   process.env.NODE_ENV == "development"
     ? console.log("dev")
     : console.log("prod");
+
   return (
     <div className="container-fluid h-100">
-      <a
-        onClick={() => {
-          window.location.pathname = "/";
-        }}
-      >
-        Back
-      </a>
       <div className="row h-100">
-        <div className="col-3 h-100 overflow-auto">
-          {guides.map(guide => {
-            return <p>{guide}</p>;
+        <div className="col-3 h-100 overflow-auto border-left border-right border-bottom border-dark">
+          {guides.map((guide, i) => {
+            return <p key={i}>{guide}</p>;
           })}
         </div>
         <div className="col-9 overflow-auto">
