@@ -9,6 +9,7 @@ export async function getStaticProps() {
   const res = await moifetch(
     `https://raw.githubusercontent.com/NodeGG/devmoi/${branch}/_posts/getting-started.md`
   );
+  console.log(process.env.NODE_ENV);
   const data = await res;
   return {
     props: {
