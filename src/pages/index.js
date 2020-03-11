@@ -22,6 +22,7 @@ export default ({ data }) => {
           <br />
           <a href="https://discord.gg/DnbkrC8" target="_blank">
             <img
+              className="border border-dark"
               src="https://img.shields.io/discord/687169639712686097?style=for-the-badge&logo=discord"
               alt="Discord Icon"
             />
