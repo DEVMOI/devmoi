@@ -32,7 +32,7 @@ export default ({ data }) => {
       <div className="row h-100">
         <div className="col-2 h-100 overflow-auto"></div>
         <div className="col-10 overflow-auto">
-          <ReactMarkdown className="" source={""} />
+          <ReactMarkdown className="" source={data.body} />
         </div>
       </div>
     </div>
