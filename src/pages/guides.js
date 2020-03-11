@@ -35,6 +35,9 @@ export async function getStaticProps() {
 }
 
 export default ({ data, guides }) => {
+  process.env.NODE_ENV == "development"
+    ? console.log("dev")
+    : console.log("prod");
   return (
     <div className="container-fluid h-100">
       <a
