@@ -2,8 +2,12 @@ import Head from "next/head";
 import moifetch from "moifetch";
 const ReactMarkdown = require("react-markdown");
 export async function getStaticProps() {
+  let branch;
+  process.env.NODE_ENV == "development"
+    ? (branch = "dev")
+    : (branch = "master");
   const res = await moifetch(
-    "https://raw.githubusercontent.com/NodeGG/LEARN.NODEGG-DOCS/master/docs/README.md"
+    `https://raw.githubusercontent.com/NodeGG/devmoi/${branch}/_posts/getting-started.md`
   );
   const data = await res;
   return {
