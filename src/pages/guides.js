@@ -37,17 +37,63 @@ export default ({ data, guides, branch }) => {
   process.env.NODE_ENV == "development"
     ? console.log("dev")
     : console.log("prod");
-
+  const [isClosed, setSidebarStatus] = useState(false);
   return (
-    <div className="container-fluid h-100">
+    <div className="container h-100">
+      <style jsx>
+        {`
+          .guide {
+            max-width: 68.125rem;
+            margin-left: 9.375rem;
+          }
+          .guide-list-open {
+            width: 9.375rem;
+            margin-top: 3.5625rem;
+            position: fixed;
+            top: 0;
+            z-index: 1030;
+          }
+          .guide-list-closed {
+            width: 2.5078rem;
+            margin-top: 3.5625rem;
+            position: fixed;
+            top: 0;
+            z-index: 1030;
+          }
+        `}
+      </style>
       <div className="row h-100">
-        <div className="col-3 h-100 overflow-auto border-left border-right border-bottom border-dark">
-          {guides.map((guide, i) => {
-            return <p key={i}>{guide}</p>;
-          })}
+        <div
+          className={
+            isClosed
+              ? "guide-list-closed h-100 overflow-auto border-right border-bottom border-dark"
+              : "guide-list-open h-100 overflow-auto border-right border-bottom border-dark"
+          }
+        >
+          {!isClosed
+            ? guides.map((guide, i) => {
+                return (
+                  <p
+                    className="mb-0 text-center py-3 border-bottom border-dark"
+                    key={i}
+                  >
+                    {guide}
+                  </p>
+                );
+              })
+            : null}
         </div>
-        <div className="col-9 overflow-auto">
-          <ReactMarkdown className="" source={data.body} />
+        <div
+          className={
+            isClosed
+              ? "guide h-100 w-100 ml-5 border-right border-dark"
+              : "guide w-100 border-right border-dark"
+          }
+        >
+          <ReactMarkdown
+            className="h-100 overflow-auto ml-2 mr-auto"
+            source={data.body}
+          />
         </div>
       </div>
     </div>
