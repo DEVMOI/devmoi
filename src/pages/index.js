@@ -10,6 +10,7 @@ export default () => {
   });
 
   return (
+    
     <div className="container-fluid h-100 border border-dark">
       <style jsx>{``}</style>
       <style global jsx>{`
