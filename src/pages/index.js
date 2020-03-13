@@ -10,6 +10,7 @@ export default () => {
   });
 
   return (
+    
     <div className="container-fluid h-100 border border-dark">
       <style jsx>{``}</style>
       <style global jsx>{`
@@ -19,7 +20,7 @@ export default () => {
       `}</style>
       <div className="d-flex flex-column align-items-center justify-content-center mx-auto h-100">
         <h1 className="display-3">DEVMOI</h1>
-        <h5>A Community Driven resource for developers.</h5>
+        <h5>A Community of Developers and Creators.</h5>
         <p className="lead">
           Join us:
           <br />
@@ -32,12 +33,12 @@ export default () => {
           </a>
         </p>
         <a
-          className="btn btn-outline-dark"
+          className="btn btn-outline-dark text-uppercase"
           onClick={() => {
-            window.location.pathname = "/guides";
+            window.location.pathname = "/home";
           }}
         >
-          Get Started
+          enter
         </a>
       </div>
     </div>
