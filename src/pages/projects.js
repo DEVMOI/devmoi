@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import moifetch from "moifetch";
-
+import { Layout } from "../components";
 export async function getStaticProps() {
   const data = null;
 
@@ -14,8 +14,9 @@ export default ({ maintainer }) => {
   const [npmData, setData] = useState({});
   useEffect(() => {});
   return (
-    <div className="container">
+    <Layout classes='mt'>
       <h3>Projects</h3>
-    </div>
+      Links Coming Soon...
+    </Layout>
   );
 };
