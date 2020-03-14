@@ -1,23 +1,27 @@
-import {Layout} from "../components";
+import { Layout } from "../components";
 import { useState, useEffect } from "react";
 import moifetch from "moifetch";
 
 export async function getStaticProps() {
-  const data = null;
+  const res = moifetch(
+    "https://github.com/organizations/NodeGG/Moikapy.private.atom?token=AELYH7E3PYESPTOH4PKAOWV4PBDEQ"
+  );
+  const data = res;
 
   return {
     props: {
-      data
+      data: JSON.stringify(data)
     }
   };
 }
 export default ({ data }) => {
+  console.log(data)
   const [npmData, setData] = useState({});
   useEffect(() => {});
   return (
-    <Layout>
-      <div className="mt-3 row">
-        <h3>Home</h3>
+    <Layout classes="pt-3 h-100">
+      <div>
+        <h3>Annoucements:</h3>
       </div>
     </Layout>
   );
