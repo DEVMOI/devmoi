@@ -32,6 +32,7 @@ export default ({ data }) => {
     let parser = new Parser();
     let arr = [];
     parser.parseString(data.body, (err, feed) => {
+
       feed.items.forEach(
         ({ title, link, pubDate, author, content, contentSnippet }) => {
           arr.push({
@@ -47,7 +48,8 @@ export default ({ data }) => {
       setData(arr);
     });
     document.querySelectorAll(".push .body .border-bottom") !== undefined
-      ? (document
+      ?
+        (document
           .querySelectorAll(".activity-item .border-bottom")
           .forEach(el => {
             el.classList.remove("border-bottom");
@@ -63,6 +65,7 @@ export default ({ data }) => {
         }))
       : null;
   });
+  console.log(data.statusCode)
   return (
     <Layout classes="pt-3 h-100">
       <div className="d-flex flex-column h-100">
@@ -80,7 +83,7 @@ export default ({ data }) => {
               <a
                 key={key}
                 href={link}
-                target="_blank"
+                target='_blank'
                 className="activity-item text-wrap text-break text-decoration-none"
               >
                 {/* //Content */}
