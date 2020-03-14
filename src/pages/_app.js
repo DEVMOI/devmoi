@@ -31,6 +31,18 @@ export default class MyApp extends App {
           main {
             height: 100%;
           }
+          .fnt-size-12 {
+            font-size: 12px;
+          }
+          .fnt-color-000{
+            color:#000 !important;
+          }
+          .list-style-none{
+            list-style:none!important;
+          }
+          .text-decoration-none{
+            text-decoration:none
+          }
         `}</style>
         <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top border-bottom border-dark">
           <div className="container">
