@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
-
-export default ({ classes, children }) => {
-  const [npmData, setData] = useState({});
-  useEffect(() => {});
+export default ({ isFluid = false, classes, children }) => {
   return (
-    <div className={`container ${classes !== undefined ? classes : null}`}>
-      {children}
-    </div>
+    <main>
+      <div
+        className={`${isFluid ? "container-fluid" : "container"} ${
+          classes !== undefined ? classes : null
+        }`}
+      >
+        {children}
+      </div>
+    </main>
   );
 };

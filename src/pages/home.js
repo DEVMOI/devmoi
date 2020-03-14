@@ -1,4 +1,4 @@
-import Layout from "../components/Layout";
+import {Layout} from "../components";
 import { useState, useEffect } from "react";
 import moifetch from "moifetch";
 
@@ -16,7 +16,7 @@ export default ({ data }) => {
   useEffect(() => {});
   return (
     <Layout>
-      <div className="row">
+      <div className="mt-3 row">
         <h3>Home</h3>
       </div>
     </Layout>

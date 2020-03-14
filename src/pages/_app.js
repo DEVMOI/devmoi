@@ -27,7 +27,8 @@ export default class MyApp extends App {
             height: calc(100% - 3.5625rem);
           }
           body,
-          #__next {
+          #__next,
+          main {
             height: 100%;
           }
         `}</style>
@@ -53,14 +54,19 @@ export default class MyApp extends App {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="/home">
-                    Home <span class="sr-only">(current)</span>
+                <li className="nav-item active">
+                  <a className="nav-link" href="/home">
+                    Home <span className="sr-only">(current)</span>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/projects">
+                <li className="nav-item">
+                  <a className="nav-link" href="/projects">
                     Projects
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/minecraft">
+                    Minecraft
                   </a>
                 </li>
               </ul>
