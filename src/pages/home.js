@@ -32,7 +32,7 @@ export default ({ data }) => {
     let parser = new Parser();
     let arr = [];
     parser.parseString(data.body, (err, feed) => {
-      // console.log(feed);
+
       feed.items.forEach(
         ({ title, link, pubDate, author, content, contentSnippet }) => {
           arr.push({
@@ -48,7 +48,7 @@ export default ({ data }) => {
       setData(arr);
     });
     document.querySelectorAll(".push .body .border-bottom") !== undefined
-      ? // /feee
+      ?
         (document
           .querySelectorAll(".activity-item .border-bottom")
           .forEach(el => {
@@ -65,6 +65,7 @@ export default ({ data }) => {
         }))
       : null;
   });
+  console.log(data.statusCode)
   return (
     <Layout classes="pt-3 h-100">
       <div className="d-flex flex-column h-100">
