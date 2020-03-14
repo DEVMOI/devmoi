@@ -65,7 +65,7 @@ export default ({ data }) => {
         }))
       : null;
   });
-  console.log(data.statusCode)
+  // console.log(data.statusCode)
   return (
     <Layout classes="pt-3 h-100">
       <div className="d-flex flex-column h-100">
