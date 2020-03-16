@@ -53,6 +53,7 @@ export default ({ data }) => {
             el.classList.remove('border-bottom');
           }),
         document.querySelectorAll('.activity-item a').forEach(el => {
+          el.title = 'Click for More Information...';
           el.target = '_blank';
           !el.href.includes('https://github.com')
             ? (el.href = el.href.replace(
@@ -81,7 +82,7 @@ export default ({ data }) => {
               <a
                 key={key}
                 href={link}
-                title='Click for More Information...'
+                title="Click for More Information..."
                 target="_blank"
                 className="activity-item text-wrap text-break text-decoration-none">
                 {/* //Content */}
