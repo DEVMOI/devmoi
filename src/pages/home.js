@@ -63,7 +63,7 @@ export default ({ data }) => {
         }))
       : null;
   });
-  // console.log(data.statusCode)
+
   return (
     <Layout classes="pt-3 h-100">
       <div className="d-flex flex-column h-100">
@@ -81,6 +81,7 @@ export default ({ data }) => {
               <a
                 key={key}
                 href={link}
+                title='Click for More Information...'
                 target="_blank"
                 className="activity-item text-wrap text-break text-decoration-none">
                 {/* //Content */}
