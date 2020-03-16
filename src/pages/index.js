@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 export default () => {
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
     window !== undefined
-      ? window.location.pathname == "/"
-        ? document.querySelector(".navbar").classList.add("d-none")
+      ? window.location.pathname == '/'
+        ? document.querySelector('.navbar').classList.add('d-none')
         : null
       : null;
   });
@@ -22,7 +22,7 @@ export default () => {
         <h5>A Community of Developers and Creators.</h5>
 
         <br />
-        <a className='mb-4' href="https://discord.gg/DnbkrC8" target="_blank">
+        <a className="mb-4" href="https://discord.gg/DnbkrC8" target="_blank">
           <img
             className="border border-dark"
             src="https://img.shields.io/discord/687169639712686097?style=for-the-badge&logo=discord"
@@ -33,9 +33,8 @@ export default () => {
         <a
           className="btn btn-outline-dark text-uppercase"
           onClick={() => {
-            window.location.pathname = "/home";
-          }}
-        >
+            window.location.pathname = '/home';
+          }}>
           enter
         </a>
       </div>

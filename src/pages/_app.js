@@ -1,7 +1,7 @@
 // pages/_app.js
-import App from "next/app";
-import Head from "next/head";
-import React from "react";
+import App from 'next/app';
+import Head from 'next/head';
+import React from 'react';
 
 export default class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -34,14 +34,14 @@ export default class MyApp extends App {
           .fnt-size-12 {
             font-size: 12px;
           }
-          .fnt-color-000{
-            color:#000 !important;
+          .fnt-color-000 {
+            color: #000 !important;
           }
-          .list-style-none{
-            list-style:none!important;
+          .list-style-none {
+            list-style: none !important;
           }
-          .text-decoration-none{
-            text-decoration:none
+          .text-decoration-none {
+            text-decoration: none;
           }
         `}</style>
         <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top border-bottom border-dark">
@@ -56,15 +56,13 @@ export default class MyApp extends App {
               data-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
+              aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
 
             <div
               className="collapse navbar-collapse"
-              id="navbarSupportedContent"
-            >
+              id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item active">
                   <a className="nav-link" href="/home">
