@@ -68,10 +68,33 @@ export default ({ data }) => {
   return (
     <Layout classes="pt-3 h-100">
       <div className="d-flex flex-column h-100">
-        <style jsx>
+        <style global jsx>
           {`
             .activity-item {
               color: #000;
+            }
+            a.activity-item:hover {
+              color: black;
+            }
+
+            @media (max-width: 575.98px) {
+              .body > div {
+                flex-direction: column;
+              }
+              .body > div > div > div > div {
+                flex-direction: column-reverse;
+              }
+
+              .commits ul {
+                padding-inline-start: 0 !important;
+                padding-left: 0 !important;
+              }
+              .commits ul li {
+                flex-direction: column;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
             }
           `}
         </style>
@@ -87,7 +110,7 @@ export default ({ data }) => {
                 className="activity-item text-wrap text-break text-decoration-none">
                 {/* //Content */}
                 <div
-                  className="w-100 border border-dark px-5"
+                  className="w-100 border border-dark px-3 px-sm-5 text-decoration-none"
                   dangerouslySetInnerHTML={{
                     __html: `${content}`,
                   }}

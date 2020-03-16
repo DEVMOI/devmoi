@@ -41,7 +41,7 @@ export default class MyApp extends App {
             list-style: none !important;
           }
           .text-decoration-none {
-            text-decoration: none;
+            text-decoration: none !important;
           }
         `}</style>
         <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top border-bottom border-dark">
