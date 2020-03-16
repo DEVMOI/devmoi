@@ -1,20 +1,20 @@
-import { Layout } from "../components";
-import { useState, useEffect } from "react";
-import moifetch from "moifetch";
-import Parser from "rss-parser";
-export async function getStaticProps() {
+import { Layout } from '../components';
+import { useState, useEffect } from 'react';
+import moifetch from 'moifetch';
+import Parser from 'rss-parser';
+export async function getServerSideProps() {
   const res = await moifetch(
-    "https://github.com/organizations/NodeGG/Moikapy.private.atom?token=AELYH7E3PYESPTOH4PKAOWV4PBDEQ"
+    'https://github.com/organizations/NodeGG/Moikapy.private.atom?token=AELYH7E3PYESPTOH4PKAOWV4PBDEQ'
   );
   const data = await res;
   return {
     props: {
-      data
-    }
+      data,
+    },
   };
 }
 
-const parseDate = (date = "", seperator = "/") => {
+const parseDate = (date = '', seperator = '/') => {
   let current_datetime = new Date(date);
   let formatted_date =
     current_datetime.getMonth() +
@@ -32,7 +32,6 @@ export default ({ data }) => {
     let parser = new Parser();
     let arr = [];
     parser.parseString(data.body, (err, feed) => {
-
       feed.items.forEach(
         ({ title, link, pubDate, author, content, contentSnippet }) => {
           arr.push({
@@ -41,25 +40,24 @@ export default ({ data }) => {
             pubDate,
             author,
             content,
-            contentSnippet
+            contentSnippet,
           });
         }
       );
       setData(arr);
     });
-    document.querySelectorAll(".push .body .border-bottom") !== undefined
-      ?
-        (document
-          .querySelectorAll(".activity-item .border-bottom")
+    document.querySelectorAll('.push .body .border-bottom') !== undefined
+      ? (document
+          .querySelectorAll('.activity-item .border-bottom')
           .forEach(el => {
-            el.classList.remove("border-bottom");
+            el.classList.remove('border-bottom');
           }),
-        document.querySelectorAll(".activity-item a").forEach(el => {
-          el.target = "_blank";
-          !el.href.includes("https://github.com")
+        document.querySelectorAll('.activity-item a').forEach(el => {
+          el.target = '_blank';
+          !el.href.includes('https://github.com')
             ? (el.href = el.href.replace(
                 `${window.location.origin}`,
-                "https://github.com"
+                'https://github.com'
               ))
             : null;
         }))
@@ -83,14 +81,13 @@ export default ({ data }) => {
               <a
                 key={key}
                 href={link}
-                target='_blank'
-                className="activity-item text-wrap text-break text-decoration-none"
-              >
+                target="_blank"
+                className="activity-item text-wrap text-break text-decoration-none">
                 {/* //Content */}
                 <div
                   className="w-100 border border-dark px-5"
                   dangerouslySetInnerHTML={{
-                    __html: `${content}`
+                    __html: `${content}`,
                   }}
                 />
               </a>

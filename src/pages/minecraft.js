@@ -1,4 +1,4 @@
-import { Layout } from "../components";
+import { Layout } from '../components';
 export default () => {
   return (
     <Layout isFluid classes="minecraft h-100 p-0 m-0 w-100">
@@ -12,8 +12,7 @@ export default () => {
               href="#home"
               role="tab"
               aria-controls="home"
-              aria-selected="true"
-            >
+              aria-selected="true">
               Server Info
             </a>
           </li>
@@ -25,8 +24,7 @@ export default () => {
               href="#profile"
               role="tab"
               aria-controls="profile"
-              aria-selected="false"
-            >
+              aria-selected="false">
               Map
             </a>
           </li>
@@ -36,8 +34,7 @@ export default () => {
             className="tab-pane fade show active"
             id="home"
             role="tabpanel"
-            aria-labelledby="home-tab"
-          >
+            aria-labelledby="home-tab">
             <div className="container mx-2 p-3">
               <h4 className="text-capitalize"> welcome to moia</h4>
               <p className="lead">
@@ -63,13 +60,11 @@ export default () => {
             className="tab-pane fade h-100"
             id="profile"
             role="tabpanel"
-            aria-labelledby="profile-tab"
-          >
+            aria-labelledby="profile-tab">
             <iframe
               className="p-0 w-100 h-100"
               src="http://142.4.206.234:8123/index.html?worldname=Moia&mapname=flat&zoom=5&x=-25&y=64&z=-526"
-              frameBorder="0"
-            ></iframe>
+              frameBorder="0"></iframe>
           </div>
         </div>
       </div>

@@ -9,8 +9,7 @@ export default ({ children }) => {
               type="button"
               className="close"
               data-dismiss="modal"
-              aria-label="Close"
-            >
+              aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -19,8 +18,7 @@ export default ({ children }) => {
             <button
               type="button"
               className="btn btn-secondary"
-              data-dismiss="modal"
-            >
+              data-dismiss="modal">
               Close
             </button>
             <button type="button" className="btn btn-primary">

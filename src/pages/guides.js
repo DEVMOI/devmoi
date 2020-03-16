@@ -1,24 +1,24 @@
-import fs from "fs";
-import path from "path";
-import Head from "next/head";
-import moifetch from "moifetch";
-const ReactMarkdown = require("react-markdown");
-import React, { useState, useEffect } from "react";
+import fs from 'fs';
+import path from 'path';
+import Head from 'next/head';
+import moifetch from 'moifetch';
+const ReactMarkdown = require('react-markdown');
+import React, { useState, useEffect } from 'react';
 
 export async function getStaticProps() {
   let branch;
   let guides = [];
-  fs.readdir(path.join("_posts"), (err, files) => {
+  fs.readdir(path.join('_posts'), (err, files) => {
     files
       ? files.forEach(file => {
           guides.push(file);
         })
-      : console.log("Component Not Found...");
+      : console.log('Component Not Found...');
   });
 
-  process.env.NODE_ENV == "development"
-    ? (branch = "dev")
-    : (branch = "master");
+  process.env.NODE_ENV == 'development'
+    ? (branch = 'dev')
+    : (branch = 'master');
   const res = await moifetch(
     `https://raw.githubusercontent.com/NodeGG/devmoi/${branch}/_posts/getting-started.md`
   );
@@ -28,15 +28,15 @@ export async function getStaticProps() {
     props: {
       data,
       guides,
-      branch
-    }
+      branch,
+    },
   };
 }
 
 export default ({ data, guides, branch }) => {
-  process.env.NODE_ENV == "development"
-    ? console.log("dev")
-    : console.log("prod");
+  process.env.NODE_ENV == 'development'
+    ? console.log('dev')
+    : console.log('prod');
   const [isClosed, setSidebarStatus] = useState(false);
   return (
     <div className="container h-100">
@@ -66,17 +66,15 @@ export default ({ data, guides, branch }) => {
         <div
           className={
             isClosed
-              ? "guide-list-closed h-100 overflow-auto border-right border-bottom border-dark"
-              : "guide-list-open h-100 overflow-auto border-right border-bottom border-dark"
-          }
-        >
+              ? 'guide-list-closed h-100 overflow-auto border-right border-bottom border-dark'
+              : 'guide-list-open h-100 overflow-auto border-right border-bottom border-dark'
+          }>
           {!isClosed
             ? guides.map((guide, i) => {
                 return (
                   <p
                     className="mb-0 text-center py-3 border-bottom border-dark"
-                    key={i}
-                  >
+                    key={i}>
                     {guide}
                   </p>
                 );
@@ -86,10 +84,9 @@ export default ({ data, guides, branch }) => {
         <div
           className={
             isClosed
-              ? "guide h-100 w-100 ml-5 border-right border-dark"
-              : "guide w-100 border-right border-dark"
-          }
-        >
+              ? 'guide h-100 w-100 ml-5 border-right border-dark'
+              : 'guide w-100 border-right border-dark'
+          }>
           <ReactMarkdown
             className="h-100 overflow-auto ml-2 mr-auto"
             source={data.body}
