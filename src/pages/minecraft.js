@@ -63,7 +63,7 @@ export default () => {
             aria-labelledby="profile-tab">
             <iframe
               className="p-0 w-100 h-100"
-              src="http://142.4.206.234:8123/index.html?worldname=Moia&mapname=flat&zoom=5&x=-25&y=64&z=-526"
+              src="https://tinyurl.com/wvduqbf"
               frameBorder="0"></iframe>
           </div>
         </div>
