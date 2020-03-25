@@ -1,29 +1,52 @@
 import { Layout } from '../components';
+import {copyToClipboard} from '../utils'
 export default () => {
   return (
-    <Layout isFluid classes="minecraft h-100 p-0 m-0 w-100">
-      <div className="d-flex flex-column h-100">
-        <div className="container p-3">
-          <h4 className="text-capitalize"> welcome to moia</h4>
-          <p className="lead">
-            Server IP: <span>moia.ramshard.net</span>
-          </p>
-          <p>
-            We host a MineCraft Server for our Community, and open to the public
-            as well as ages so we ask all that play to follow a few rules to
-            keep things as chill and as fun as possible.
-          </p>
-          <p>
-            Server Rules:
-            <ol>
-              <li>Be Chill</li>
-              <li>Don't Cheat</li>
-              <li>Don't Grief</li>
-              <li>Respect the Mods</li>
-            </ol>
-          </p>
+    <Layout classes="minecraft h-100 pt-5 px-0 w-100">
+      <style>
+        {`
+          .minecraft{
+            color:#000;
+            text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+          }
+          .minecraft-background{
+            background:url('/moia.png') center no-repeat;
+            background-size:fit;
+          }
+        `}
+      </style>
+      <h4 className="minecraft-background text-monospace w-100 text-capitalize display-4 text-center p-5 mb-5">
+        welcome to moia
+      </h4>
+      <div className="p-5 d-flex flex-column justify-content-center ">
+        <p className="lead pt-3">
+          Server IP:{` `}
+          <span
+            title="Click to Copy"
+            className="minecraft-ip text-monospace"
+            onClick={() => {
+              copyToClipboard('moia.ramshard.net');
+            }}>
+            <u>moia.ramshard.net</u>
+          </span>
+        </p>
+        <p>
+          We host a Minecraft Server for our Community, and open to the public
+          as well as all ages, so we ask that you follow a few rules to keep
+          things as chill and as fun as possible.
+        </p>
+        <div className="d-flex flex-column align-content-center pt-3">
+          <p className="lead mb-0">Server Rules:</p>
+          <ol>
+            <li>Be Chill</li>
+            <li>Don't Cheat</li>
+            <li>Don't Grief</li>
+            <li>Respect the Mods</li>
+          </ol>
+        </div>
+        <div className="pt-4 w-100">
           <a
-            className="btn btn-outline-dark"
+            className="btn w-100 btn-outline-dark"
             href="http://moia.ramshard.net:8123/index.html?worldname=Moia&mapname=flat&zoom=5&x=-25&y=64&z=-526"
             target="_blank"
             rel="noopener noreferrer">
