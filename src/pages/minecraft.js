@@ -1,5 +1,5 @@
 import { Layout } from '../components';
-import {copyToClipboard} from '../utils'
+import { copyToClipboard } from '../utils';
 export default () => {
   return (
     <Layout classes="minecraft h-100 pt-5 px-0 w-100">
@@ -15,9 +15,11 @@ export default () => {
           }
         `}
       </style>
-      <h4 className="minecraft-background text-monospace w-100 text-capitalize display-4 text-center p-5 mb-5">
-        welcome to moia
-      </h4>
+      <div className="minecraft-background w-100 p-5 mb-5">
+        <h4 className="text-capitalize display-4 text-center text-monospace">
+          welcome to moia
+        </h4>
+      </div>
       <div className="p-5 d-flex flex-column justify-content-center ">
         <p className="lead pt-3">
           Server IP:{` `}
