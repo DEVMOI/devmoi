@@ -76,7 +76,9 @@ export default ({ data }) => {
             a.activity-item:hover {
               color: black;
             }
-
+            .width-full div .d-flex div {
+              max-width: 25rem;
+            }
             @media (max-width: 575.98px) {
               .body > div {
                 flex-direction: column;
