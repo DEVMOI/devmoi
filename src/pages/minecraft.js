@@ -1,71 +1,58 @@
 import { Layout } from '../components';
+import { copyToClipboard } from '../utils';
 export default () => {
   return (
-    <Layout isFluid classes="minecraft h-100 p-0 m-0 w-100">
-      <div className="d-flex flex-column h-100">
-        <ul className="nav nav-tabs" id="mctabs" role="tablist">
-          <li className="nav-item">
-            <a
-              className="nav-link active"
-              id="home-tab"
-              data-toggle="tab"
-              href="#home"
-              role="tab"
-              aria-controls="home"
-              aria-selected="true">
-              Server Info
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link"
-              id="profile-tab"
-              data-toggle="tab"
-              href="#profile"
-              role="tab"
-              aria-controls="profile"
-              aria-selected="false">
-              Map
-            </a>
-          </li>
-        </ul>
-        <div className="tab-content h-100" id="mctabconteny">
-          <div
-            className="tab-pane fade show active"
-            id="home"
-            role="tabpanel"
-            aria-labelledby="home-tab">
-            <div className="container mx-2 p-3">
-              <h4 className="text-capitalize"> welcome to moia</h4>
-              <p className="lead">
-                Server IP: <span>moia.ramshard.net</span>
-              </p>
-              <p>
-                We host a MineCraft Server for our Community, but allow it to be
-                open to the public and to all ages so we ask all that play to
-                follow a few rules to keep things as chill and as fun as
-                possible.
-              </p>
-              <p>
-                Server Rules:
-                <ol>
-                  <li>Be Chill</li>
-                  <li>Respect the Mods</li>
-                  <li>Don't Cheat</li>
-                </ol>
-              </p>
-            </div>
-          </div>
-          <div
-            className="tab-pane fade h-100"
-            id="profile"
-            role="tabpanel"
-            aria-labelledby="profile-tab">
-            <iframe
-              className="p-0 w-100 h-100"
-              src="https://tinyurl.com/wvduqbf"
-              frameBorder="0"></iframe>
-          </div>
+    <Layout classes="minecraft h-100 pt-5 px-0 w-100">
+      <style>
+        {`
+          .minecraft{
+            color:#000;
+            text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+          }
+          .minecraft-background{
+            background:url('/moia.png') center no-repeat;
+            background-size:fit;
+          }
+        `}
+      </style>
+      <div className="minecraft-background w-100 p-5 mb-5">
+        <h4 className="text-capitalize display-4 text-center text-monospace">
+          welcome to moia
+        </h4>
+      </div>
+      <div className="p-5 d-flex flex-column justify-content-center ">
+        <p
+          className="lead pt-3 text-center"
+          onClick={() => {
+            copyToClipboard('moia.ramshard.net');
+          }}>
+          Server IP:{` `}
+          <span title="Click to Copy" className="minecraft-ip text-monospace">
+            <u>moia.ramshard.net</u>
+          </span>
+        </p>
+        <p className="w-75 mx-auto">
+          We host a Minecraft Server for our Community, and open to the public
+          as well as all ages, so we ask that you follow a few rules to keep
+          things as chill and as fun as possible.
+        </p>
+        <div className="d-flex flex-column align-content-center mx-auto pt-3">
+          <p className="lead mb-0">Server Rules:</p>
+          <ol>
+            <li>Be Chill</li>
+            <li>Don't Cheat</li>
+            <li>Don't Grief</li>
+            <li>Respect the Mods</li>
+          </ol>
+        </div>
+        <div className="pt-4 text-center w-100">
+          <a
+            className="btn btn-outline-dark"
+            href="http://moia.ramshard.net:8123/index.html?worldname=Moia&mapname=flat&zoom=5&x=-25&y=64&z=-526"
+            target="_blank"
+            rel="noopener noreferrer">
+            World Map 🌎
+          </a>
         </div>
       </div>
     </Layout>
