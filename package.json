@@ -2,13 +2,14 @@
   "name": "devmoi",
   "version": "0.1.0",
   "private": true,
+  "description": "Devmoi Community Site.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "moifetch": "^0.0.0-b",
+    "moifetch": "^0.0.4",
     "next": "^9.4.4",
     "next-offline": "^5.0.0",
     "react": "16.13.0",
