@@ -4,7 +4,7 @@ import moifetch from 'moifetch';
 import Parser from 'rss-parser';
 export async function getServerSideProps() {
   const res = await moifetch(
-    'https://github.com/organizations/NodeGG/Moikapy.private.atom?token=AELYH7E3PYESPTOH4PKAOWV4PBDEQ'
+    'https://github.com/organizations/DEVMOI/Moikapy.private.atom?token=AELYH7GAXWBCUCRPWXFR3CN5DSMQE'
   );
   const data = await res;
   return {
@@ -49,10 +49,10 @@ export default ({ data }) => {
     document.querySelectorAll('.push .body .border-bottom') !== undefined
       ? (document
           .querySelectorAll('.activity-item .border-bottom')
-          .forEach(el => {
+          .forEach((el) => {
             el.classList.remove('border-bottom');
           }),
-        document.querySelectorAll('.activity-item a').forEach(el => {
+        document.querySelectorAll('.activity-item a').forEach((el) => {
           el.title = 'Click for More Information...';
           el.target = '_blank';
           !el.href.includes('https://github.com')
