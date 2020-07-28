@@ -3,19 +3,19 @@ services:
   web:
     build: .
     depends_on:
-      - mongoConsort
+      - mongoDevmoi
     command: bash -c "npm i && cd src && npm run dev"
     volumes:
       - .:/usr/app
       - /usr/app/node_modules
     working_dir: /usr/app
     ports:
-      - '3000:3000'
-  mongo:
-    container_name: mongoConsort
+      - '3001:3000'
+  mongo_devmoi:
+    container_name: mongoDevmoi
     image: mongo
     ports:
-      - '27017:27017'
+      - '27018:27017'
   nginx:
     build: ./nginx-docker
     ports:

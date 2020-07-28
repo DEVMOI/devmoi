@@ -3,7 +3,7 @@ services:
   web_devmoi:
     build: .
     depends_on:
-      - mongo_devmoi
+      - mongoDevmoi
     command: bash -c "npm i && cd src && npm run dev"
     volumes:
       - .:/usr/app
@@ -11,7 +11,8 @@ services:
     working_dir: /usr/app
     ports:
       - '3001:3000'
-  mongo_devmoi:
+  mongoDevmoi:
+    container_name: mongoDevmoi
     image: mongo
     ports:
       - '27018:27017'
