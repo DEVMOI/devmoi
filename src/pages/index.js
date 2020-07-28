@@ -1,5 +1,7 @@
 import Layout from "../components/Layout";
 
+export default () => {
+
 const Landing= () => {
 
   return (

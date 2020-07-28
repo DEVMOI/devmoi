@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-const Layout = ({ isFluid = false, classes, children }) => {
+export default ({ isFluid = false, classes, children }) => {
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
     window !== undefined
