@@ -1,16 +1,9 @@
-import { useEffect } from 'react';
-export default () => {
-  // Similar to componentDidMount and componentDidUpdate:
-  useEffect(() => {
-    window !== undefined
-      ? window.location.pathname == '/'
-        ? document.querySelector('.navbar').classList.add('d-none')
-        : null
-      : null;
-  });
+import Layout from "../components/Layout";
+
+const Landing= () => {
 
   return (
-    <div className="container-fluid h-100 border border-dark">
+    <Layout isFluid={true} classes="container-fluid h-100 border border-dark">
       <style jsx>{``}</style>
       <style global jsx>{`
         html {
@@ -38,6 +31,7 @@ export default () => {
           enter
         </a>
       </div>
-    </div>
+    </Layout>
   );
 };
+export default Landing;

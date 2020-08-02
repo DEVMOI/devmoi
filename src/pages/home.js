@@ -2,18 +2,18 @@ import { Layout } from '../components';
 import { useState, useEffect } from 'react';
 import moifetch from 'moifetch';
 import Parser from 'rss-parser';
+
 export async function getServerSideProps() {
-  const res = await moifetch(
+  const res = await moifetch.GET(
     'https://github.com/organizations/DEVMOI/Moikapy.private.atom?token=AELYH7GAXWBCUCRPWXFR3CN5DSMQE'
   );
   const data = await res;
   return {
     props: {
-      data,
+      res: data,
     },
   };
 }
-
 const parseDate = (date = '', seperator = '/') => {
   let current_datetime = new Date(date);
   let formatted_date =
@@ -26,25 +26,27 @@ const parseDate = (date = '', seperator = '/') => {
   return formatted_date;
 };
 
-export default ({ data }) => {
+export default ({ res }) => {
   const [rssActivityArr, setData] = useState([]);
   useEffect(() => {
     let parser = new Parser();
     let arr = [];
-    parser.parseString(data.body, (err, feed) => {
-      feed.items.forEach(
-        ({ title, link, pubDate, author, content, contentSnippet }) => {
-          arr.push({
-            title,
-            link,
-            pubDate,
-            author,
-            content,
-            contentSnippet,
-          });
-        }
-      );
-      setData(arr);
+    parser.parseString(res.data, (err, feed) => {
+      if (feed !== undefined) {
+        feed.items.forEach(
+          ({ title, link, pubDate, author, content, contentSnippet }) => {
+            arr.push({
+              title,
+              link,
+              pubDate,
+              author,
+              content,
+              contentSnippet,
+            });
+          }
+        );
+        setData(arr);
+      }
     });
     document.querySelectorAll('.push .body .border-bottom') !== undefined
       ? (document
@@ -63,7 +65,7 @@ export default ({ data }) => {
             : null;
         }))
       : null;
-  });
+  }, [res]);
 
   return (
     <Layout classes="pt-3 h-100">
