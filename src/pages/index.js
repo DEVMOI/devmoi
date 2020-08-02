@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 
-export default () => {
+const Landing= () => {
 
   return (
     <Layout isFluid={true} classes="container-fluid h-100 border border-dark">
@@ -34,3 +34,4 @@ export default () => {
     </Layout>
   );
 };
+export default Landing;

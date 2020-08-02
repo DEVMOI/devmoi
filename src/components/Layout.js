@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-export default ({ isFluid = false, classes, children }) => {
+const Layout = ({ isFluid = false, classes, children }) => {
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
     window !== undefined
@@ -80,3 +80,4 @@ export default ({ isFluid = false, classes, children }) => {
     </div>
   );
 };
+export default Layout
