@@ -4,9 +4,9 @@
   "private": true,
   "description": "Devmoi Community Site.",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "nodemon app/index.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js -p $PORT"
+    "start": "NODE_ENV=production node app/index.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.10.4",

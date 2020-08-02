@@ -1,9 +1,0 @@
-name: devmoi
-namespace: moikapy
-services:
-  web:
-   image:okteto/nodejs 
-   build:
-      context: .
-      dockerfile: Dockerfile
-    
