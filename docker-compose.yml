@@ -17,6 +17,6 @@ services:
     ports:
       - '27017:27017'
   nginx:
-    build: ./nginx-docker
+    build: ./nginx
     ports:
       - '80:80'
