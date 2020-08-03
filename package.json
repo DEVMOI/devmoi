@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon app/index.js",
     "build": "next build",
-    "start": "NODE_ENV=production node app/index.js"
+    "start": "node app/index.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
