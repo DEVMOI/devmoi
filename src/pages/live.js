@@ -7,23 +7,24 @@ function Live(props) {
       width: '100%',
       height: '100%',
       channel: twitchUser,
+      parent: ['www.devmoi.com', 'devmoi.com'],
     });
   }, []);
   return (
     <Layout isFluid>
       <style jsx>
         {`
-          #twitch-embed{
-            height:100%;
+          #twitch-embed {
+            height: 100%;
             max-height: 43.75rem;
           }
         `}
       </style>
       {/* <!-- Add a placeholder for the Twitch embed --> */}
-      <div id="twitch-embed" className="mx-auto w-100"></div>
+      <div id="twitch-embed" className="mx-auto w-100" />
 
       {/* <!-- Load the Twitch embed script --> */}
-      <script src="http://embed.twitch.tv/embed/v1.js"></script>
+      <script src="https://embed.twitch.tv/embed/v1.js"></script>
     </Layout>
   );
 }
