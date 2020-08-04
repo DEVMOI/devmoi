@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 function Live(props) {
+  const isDev = process.env.NODE_ENV === 'development'
+
   const [twitchUser, setTwitchUser] = useState('moikapy');
   useEffect(() => {
-    new Twitch.Embed('twitch-embed', {
-      width: '100%',
-      height: '100%',
-      channel: twitchUser,
-      parent: ['http://www.devmoi.com'],
-    });
+    if (isDev) {
+      new Twitch.Embed('twitch-embed', {
+        width: '100%',
+        height: '100%',
+        channel: twitchUser,
+        parent: ['www.devmoi.com', 'devmoi.com'],
+      });
+    }
   }, []);
   return (
     <Layout isFluid>
@@ -21,7 +25,14 @@ function Live(props) {
         `}
       </style>
       {/* <!-- Add a placeholder for the Twitch embed --> */}
-      <div id="twitch-embed" className="mt-5 mx-auto w-100 border border-dark" />
+      {isDev ? (
+        <div
+          id="twitch-embed"
+          className="mt-5 mx-auto w-100 border border-dark"
+        />
+      ) : (
+        <div>Under Construction...</div>
+      )}
 
       {/* <!-- Load the Twitch embed script --> */}
       <script src="https://embed.twitch.tv/embed/v1.js"></script>
