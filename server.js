@@ -1,3 +1,4 @@
+const http = require('http');
 require('dotenv').config();
 require('@babel/polyfill');
 const { join } = require('path');
@@ -10,11 +11,11 @@ const GridFStorage = require('multer-gridfs-storage');
 const cors = require('cors');
 const next = require('next');
 const bcrypt = require('bcryptjs');
-const mongoConn = require('../src/db');
+const mongoConn = require('./src/db');
 
 // Import Models
-const authSchema = require('../src/models/Auth');
-const pagesSchema = require('../src/models/Pages');
+const authSchema = require('./src/models/Auth');
+const pagesSchema = require('./src/models/Pages');
 
 let app;
 const PORT = parseInt(process.env.PORT, 10) || 3000;
@@ -105,43 +106,52 @@ mongoConn.connectDB(async (err) => {
 
   const dev = process.env.NODE_ENV !== 'production';
   app = next({ dev });
-  let server = express();
-  server.use(cors({ origin: 'localhost:7878' }));
+  const handle = app.getRequestHandler();
+  // let server = express();
+  // server.use(cors({ origin: 'localhost:7878' }));
   app.prepare().then(() => {
-    server.use(bodyParser.json());
-    server.use(bodyParser.urlencoded({ extended: true }));
+    // server.use(bodyParser.json());
+    // server.use(bodyParser.urlencoded({ extended: true }));
     // server.use(upload.any());
 
     // Routes to use
-    require('../src/api/Auth')(server, app);
-    require('../src/api/Media')(server, app);
-    require('../src/api/Pages')(server, app, upload);
+    // require('./src/api/Auth')(server, app);
+    // require('./src/api/Media')(server, app);
+    // require('./src/api/Pages')(server, app, upload);
 
-    const handle = app.getRequestHandler();
-
-    server.get(
-      '/',
-      async (req, res) => await ssrCache({ req, res, pagePath: '/' })
-    );
-    server.get('/service-worker.js', (req, res) => {
+    // cors.js
+    var server;
+    server = http.createServer(function (req, res) {
+      // Set CORS headers
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Request-Method', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+      res.setHeader('Access-Control-Allow-Headers', '*');
+      if (req.method === 'OPTIONS') {
+        res.writeHead(200);
+        res.end();
+        return;
+      }
       const parsedUrl = parse(req.url, true);
       const { pathname } = parsedUrl;
-      const filePath = join(__dirname, '.next', pathname);
-      console.log(filePath);
-      app.serveStatic(req, res, filePath);
+      // handle GET request to /service-worker.js
+
+      if (pathname === '/') {
+        async (req, res) => await ssrCache({ req, res, pagePath: '/' });
+      }
+
+      if (pathname === '/service-worker.js') {
+        const filePath = join(__dirname, '.next', pathname);
+        console.log('PWA');
+        app.serveStatic(req, res, filePath);
+      } else {
+        handle(req, res, parsedUrl);
+      }
     });
-
-    server.all('*', (req, res) => handle(req, res));
-
+    // ...
     server.listen(PORT, (err) => {
       if (err) throw err;
       console.log(`> Ready on http://localhost:${PORT}`);
     });
   });
-  // const desired = true;
-  // if (desired) {
-  //   // Use disconnectDB for clean driver disconnect
-  //   mongoConn.disconnectDB();
-  //   process.exit(0);
-  // }
 });
