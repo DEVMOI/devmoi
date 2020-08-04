@@ -23,7 +23,7 @@ function Live(props) {
       <div id="twitch-embed" className="mx-auto w-100"></div>
 
       {/* <!-- Load the Twitch embed script --> */}
-      <script src="https://embed.twitch.tv/embed/v1.js"></script>
+      <script src="http://embed.twitch.tv/embed/v1.js"></script>
     </Layout>
   );
 }
