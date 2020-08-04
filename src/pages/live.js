@@ -7,7 +7,7 @@ function Live(props) {
       width: '100%',
       height: '100%',
       channel: twitchUser,
-      parent: ['www.devmoi.com', 'devmoi.com'],
+      parent: ['http://www.devmoi.com'],
     });
   }, []);
   return (
@@ -21,7 +21,7 @@ function Live(props) {
         `}
       </style>
       {/* <!-- Add a placeholder for the Twitch embed --> */}
-      <div id="twitch-embed" className="mx-auto w-100" />
+      <div id="twitch-embed" className="mt-5 mx-auto w-100 border border-dark" />
 
       {/* <!-- Load the Twitch embed script --> */}
       <script src="https://embed.twitch.tv/embed/v1.js"></script>
