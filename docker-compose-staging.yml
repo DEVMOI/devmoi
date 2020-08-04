@@ -18,5 +18,7 @@ services:
       - '27017:27017'
   nginx:
     build: ./nginx
+    depends_on:
+      - web_devmoi
     ports:
       - '80:80'

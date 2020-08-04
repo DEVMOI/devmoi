@@ -29,4 +29,4 @@ docker-openssl/
 =======
 **/public/workbox-*.js
 **/public/sw.js
->>>>>>> add live page and update server
+package-lock.json
