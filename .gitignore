@@ -24,4 +24,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+<<<<<<< master
 docker-openssl/
+=======
+**/public/workbox-*.js
+**/public/sw.js
+>>>>>>> add live page and update server

@@ -10,7 +10,7 @@ const Layout = ({ isFluid = false, classes, children }) => {
   });
 
   return (
-    <div className='h-100'>
+    <div className="h-100">
       <style global jsx>{`
         html {
           height: calc(100% - 3.5625rem);
@@ -59,6 +59,11 @@ const Layout = ({ isFluid = false, classes, children }) => {
               <li className="nav-item">
                 <a className="nav-link" href="/projects">
                   Projects
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/live">
+                  Live
                 </a>
               </li>
               <li className="nav-item">

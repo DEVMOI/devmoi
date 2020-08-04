@@ -14,7 +14,7 @@ const Landing= () => {
       `}</style>
       <div className="d-flex flex-column align-items-center justify-content-center mx-auto h-100">
         <h1 className="display-3">DEVMOI</h1>
-        <h5>A Community of Developers and Creators.</h5>
+        <h5>A Community of Developers and Content Creators.</h5>
 
         <br />
         <a className="mb-4" href="https://discord.gg/DnbkrC8" target="_blank">
