@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web_devmoi:
+    build: .
+    depends_on:
+      - mongoDevmoi
+    command: bash -c "npm i && cd src && npm start dev"
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
+    working_dir: /usr/app
+    ports:
+      - '3000:3000'
+  mongoDevmoi:
+    container_name: mongoDevmoi
+    image: mongo
+    ports:
+      - '27017:27017'
+  nginx:
+    build: ./nginx
+    ports:
+      - '80:80'
