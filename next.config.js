@@ -130,6 +130,7 @@ const nextConfig = {
     mongoURI: process.env.mongoURI,
     PORT: process.env.PORT,
     SECRETKEY: process.env.SECRETKEY,
+    NODE_ENV: process.env.NODE_ENV
   },
   webpackDevMiddleware: (config) => {
     // Solve compiling problem via vagrant
