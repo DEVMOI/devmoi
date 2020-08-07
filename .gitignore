@@ -31,4 +31,4 @@ docker-openssl/
 **/public/sw.js
 package-lock.json
 
-openssl/certs/
+**/certs/
