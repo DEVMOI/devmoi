@@ -22,5 +22,6 @@ services:
       - web_devmoi
     ports:
       - '80:80'
+      - '443:443'
   openssl:
     build: ./openssl
