@@ -30,3 +30,5 @@ docker-openssl/
 **/public/workbox-*.js
 **/public/sw.js
 package-lock.json
+
+openssl/certs/

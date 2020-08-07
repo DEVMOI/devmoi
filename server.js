@@ -107,51 +107,45 @@ mongoConn.connectDB(async (err) => {
   const dev = process.env.NODE_ENV !== 'production';
   app = next({ dev });
   const handle = app.getRequestHandler();
-  // let server = express();
-  // server.use(cors({ origin: 'localhost:7878' }));
-  app.prepare().then(() => {
-    // server.use(bodyParser.json());
-    // server.use(bodyParser.urlencoded({ extended: true }));
-    // server.use(upload.any());
+  app
+    .prepare()
+    .then(() => {
+      let server = express();
+      server.use(cors({ origin: 'localhost:7878' }));
+      server.use(bodyParser.json());
+      server.use(bodyParser.urlencoded({ extended: true }));
+      server.use(upload.any());
 
-    // Routes to use
-    // require('./src/api/Auth')(server, app);
-    // require('./src/api/Media')(server, app);
-    // require('./src/api/Pages')(server, app, upload);
+      // Routes to use
+      require('./src/api/Auth')(server, app);
+      // require('./src/api/Media')(server, app);
+      // require('./src/api/Pages')(server, app, upload);
 
-    // cors.js
-    var server;
-    server = http.createServer(function (req, res) {
-      // Set CORS headers
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader('Access-Control-Request-Method', '*');
-      res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
-      res.setHeader('Access-Control-Allow-Headers', '*');
-      if (req.method === 'OPTIONS') {
-        res.writeHead(200);
-        res.end();
-        return;
-      }
-      const parsedUrl = parse(req.url, true);
-      const { pathname } = parsedUrl;
-      // handle GET request to /service-worker.js
+      server.get('*', (req, res) => {
+        const parsedUrl = parse(req.url, true);
+        const { pathname } = parsedUrl;
+        if (pathname === '/') {
+          async (req, res) => await ssrCache({ req, res, pagePath: '/' });
+          // handle GET request to /service-worker.jss
+        } else if (pathname === '/service-worker.js') {
+          const filePath = join(__dirname, '.next', pathname);
+          console.log('PWA');
+          return app.serveStatic(req, res, filePath);
+        } else {
+          return handle(req, res, parsedUrl);
+        }
+      });
 
-      if (pathname === '/') {
-        async (req, res) => await ssrCache({ req, res, pagePath: '/' });
-      }
+      server.listen(3000, (err) => {
+        if (err) {
+          throw err;
+        }
 
-      if (pathname === '/service-worker.js') {
-        const filePath = join(__dirname, '.next', pathname);
-        console.log('PWA');
-        app.serveStatic(req, res, filePath);
-      } else {
-        handle(req, res, parsedUrl);
-      }
+        console.log('Listening on http://localhost:3000');
+      });
+    })
+    .catch((ex) => {
+      console.error(ex.stack);
+      process.exit(1);
     });
-    // ...
-    server.listen(PORT, (err) => {
-      if (err) throw err;
-      console.log(`> Ready on http://localhost:${PORT}`);
-    });
-  });
 });

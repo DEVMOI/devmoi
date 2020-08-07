@@ -15,7 +15,7 @@ function Live(props) {
     }
   }, []);
   return (
-    <Layout isFluid>
+    <Layout isFluid classes={'mt-5'}>
       <style jsx>
         {`
           #twitch-embed {
@@ -26,10 +26,7 @@ function Live(props) {
       </style>
       {/* <!-- Add a placeholder for the Twitch embed --> */}
       {isDev ? (
-        <div
-          id="twitch-embed"
-          className="mt-5 mx-auto w-100 border border-dark"
-        />
+        <div id="twitch-embed" className="mx-auto w-100 border border-dark" />
       ) : (
         <div>Under Construction...</div>
       )}
