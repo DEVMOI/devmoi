@@ -14,6 +14,7 @@ export async function getServerSideProps() {
     },
   };
 }
+
 const parseDate = (date = '', seperator = '/') => {
   let current_datetime = new Date(date);
   let formatted_date =
@@ -26,7 +27,7 @@ const parseDate = (date = '', seperator = '/') => {
   return formatted_date;
 };
 
-export default ({ res }) => {
+const Home = ({ res, isServer }) => {
   const [rssActivityArr, setData] = useState([]);
   useEffect(() => {
     let parser = new Parser();
@@ -102,7 +103,7 @@ export default ({ res }) => {
             }
           `}
         </style>
-        <h3>Activity Feed:</h3>
+        <h3>Change Log:</h3>
         <div className="border border-dark my-3 overflow-auto">
           {rssActivityArr.map(({ link, content }, key) => {
             return (
@@ -127,3 +128,4 @@ export default ({ res }) => {
     </Layout>
   );
 };
+export default Home;

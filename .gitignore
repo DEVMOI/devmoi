@@ -27,3 +27,5 @@ yarn-error.log*
 **/public/workbox-*.js
 **/public/sw.js
 package-lock.json
+
+openssl/certs/
