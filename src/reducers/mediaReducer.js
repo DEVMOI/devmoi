@@ -4,7 +4,7 @@ const { GET_MEDIA_SUCCESS } = types;
 
 const INITIAL_STATE = { medias: [] };
 
-export default (state = INITIAL_STATE, action) => {
+export default function mediaReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_MEDIA_SUCCESS:
       return {
@@ -15,4 +15,4 @@ export default (state = INITIAL_STATE, action) => {
     default:
       return state;
   }
-};
+}

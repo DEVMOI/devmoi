@@ -115,6 +115,7 @@ const cacheOpions = [
 
 const nextConfig = {
   /* config options here */
+  target: 'serverless',
   devIndicators: {
     autoPrerender: true,
   },
@@ -123,6 +124,7 @@ const nextConfig = {
   // turn on the SW in dev mode so that we can actually test it
   generateInDevMode: true,
   workboxOpts: {
+    swDest: 'static/service-worker.js',
     maximumFileSizeToCacheInBytes: 500000000,
     runtimeCaching: cacheOpions,
   },
@@ -130,7 +132,7 @@ const nextConfig = {
     mongoURI: process.env.mongoURI,
     PORT: process.env.PORT,
     SECRETKEY: process.env.SECRETKEY,
-    NODE_ENV: process.env.NODE_ENV
+    NODE_ENV: process.env.NODE_ENV,
   },
   webpackDevMiddleware: (config) => {
     // Solve compiling problem via vagrant
@@ -147,8 +149,12 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/Dashboard',
-        destination: '/Dashboard',
+        source: '/dashboard/:path*',
+        destination: '/Dashboard/:path*',
+      },
+      {
+        source: '/:path*/Settings',
+        destination: '/:path*/settings',
       },
       {
         source: '/Live',
