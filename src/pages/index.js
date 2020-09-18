@@ -1,9 +1,6 @@
-import Layout from "../components/Layout";
+import Layout from '../components/Layout';
 
-const Landing= () => {
-
-const Landing= () => {
-
+const Landing = () => {
   return (
     <Layout isFluid={true} classes="container-fluid h-100 border border-dark">
       <div className="d-flex flex-column align-items-center justify-content-center mx-auto h-100">
