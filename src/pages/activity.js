@@ -5,7 +5,7 @@ import Parser from 'rss-parser';
 
 export async function getServerSideProps() {
   const res = await moifetch.GET(
-    'https://github.com/organizations/DEVMOI/Moikapy.private.atom?token=AELYH7GAXWBCUCRPWXFR3CN5DSMQE'
+    'https://github.com/organizations/DEVMOI/Moikapy.private.atom?token=AELYH7C27IZVXT3HCDMPJ5N5NYFGI'
   );
   const data = await res;
   return {
@@ -103,7 +103,6 @@ const Home = ({ res, isServer }) => {
             }
           `}
         </style>
-        <h3>Change Log:</h3>
         <div className="border border-dark my-3 overflow-auto">
           {rssActivityArr.map(({ link, content }, key) => {
             return (

@@ -6,12 +6,6 @@ const Landing= () => {
 
   return (
     <Layout isFluid={true} classes="container-fluid h-100 border border-dark">
-      <style jsx>{``}</style>
-      <style global jsx>{`
-        html {
-          height: 100% !important;
-        }
-      `}</style>
       <div className="d-flex flex-column align-items-center justify-content-center mx-auto h-100">
         <h1 className="display-3">DEVMOI</h1>
         <h5>A Community of Developers and Content Creators.</h5>
@@ -28,7 +22,7 @@ const Landing= () => {
         <a
           className="btn btn-outline-dark text-uppercase"
           onClick={() => {
-            window.location.pathname = '/home';
+            window.location.pathname = '/activity';
           }}>
           enter
         </a>

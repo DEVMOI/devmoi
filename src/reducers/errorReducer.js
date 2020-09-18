@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   errors: {},
 };
 
-export default (state = INITIAL_STATE, action) => {
+export default function errorReducer (state = INITIAL_STATE, action) {
   switch (action.type) {
     case SET_ERRORS:
       return { ...state, errors: action.payload };
