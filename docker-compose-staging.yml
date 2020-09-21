@@ -4,7 +4,7 @@ services:
     build: .
     depends_on:
       - mongoDevmoi
-    command: bash -c "npm i && cd src && npm start dev"
+    command: bash -c "npm i && npm start"
     volumes:
       - .:/usr/app
       - /usr/app/node_modules

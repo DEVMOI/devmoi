@@ -11,11 +11,9 @@ The Official Repo for the Devmoi Community.
 First, run the development server:
 
 ```bash
-npm run dev
+docker-compose -f docker-compose-dev.yml up
 # or
-yarn dev
+docker-compose -f docker-compose-dev.yml up --build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.

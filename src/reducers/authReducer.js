@@ -31,7 +31,7 @@ const INITIAL_STATE = {
   userById: null,
 };
 
-export default (state = INITIAL_STATE, action) => {
+export default function authReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case SET_NAME:
       return { ...state, name: action.payload };
@@ -97,4 +97,4 @@ export default (state = INITIAL_STATE, action) => {
     default:
       return state;
   }
-};
+}

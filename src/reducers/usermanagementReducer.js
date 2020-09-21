@@ -23,7 +23,7 @@ const INITIAL_STATE = {
   role: '',
   allUsers: [],
 };
-export default (state = INITIAL_STATE, action) => {
+export default function usermanagementReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case GET_ALL_USERS:
       return { ...state, allUsers: action.payload };
@@ -40,4 +40,4 @@ export default (state = INITIAL_STATE, action) => {
     default:
       return state;
   }
-};
+}

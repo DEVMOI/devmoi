@@ -16,10 +16,10 @@ export default function SideNav(props) {
         `}
       </style>
       <div className=" border-right-0 border-left-0 border-dark">
-        <a href="/dashboard">Home</a>
+        <a href="/Dashboard">Home</a>
       </div>
       <div className=" border-right-0 border-left-0 border-dark">
-        <a href="/settings">Settings</a>
+        <a href="/Dashboard/Settings">Settings</a>
       </div>
     </div>
   );
