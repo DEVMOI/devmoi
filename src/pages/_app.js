@@ -1,43 +1,27 @@
 import App from 'next/app';
 import React from 'react';
-import { Provider } from 'react-redux';
+import {  Provider } from 'react-redux';
 import { store } from '../store';
 
 import Head from 'next/head';
 
 import bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
 import _web3 from 'web3';
-var nonce = 0;
 
+var nonce = 0;
 
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
-    
+
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
-    
+
     return { pageProps };
   }
-  componentDidMount() {
-    var web3 = new _web3(_web3.givenProvider);
-    
-    let publicAddress;
-   web3.eth.getCoinbase().then(console.log);
-    console.log(web3.currentProvider, web3.eth);
-    // return new Promise((resolve, reject) =>
-    //   web3.eth.personal.sign(
-    //     `I am signing my one-time nonce: ${nonce}`,
-    //     publicAddress,
-    //     (err, signature) => {
-    //       if (err) return reject(err);
-    //       return resolve({ publicAddress, signature });
-    //     }
-    //   )
-    // );
-  }
+  
   render() {
     const { Component, pageProps } = this.props;
 
@@ -65,4 +49,4 @@ class MyApp extends App {
   }
 }
 
-export default MyApp;
+export default(MyApp);

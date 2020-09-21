@@ -1,5 +1,6 @@
 import types from './types';
-const axios = require('axios');
+// const axios = require('axios');
+// import axios from'axios'
 import Router from 'next/router';
 
 import { inviteCleanup } from '../actions';
@@ -28,163 +29,170 @@ const {
 import setAuthToken from '../util/setAuthToken';
 
 // Setters
-export const setName = (name) => {
-  return { type: SET_NAME, payload: name };
-};
-export const setEmail = (email) => {
-  return { type: SET_EMAIL, payload: email };
-};
-
-export const setUsername = (username) => {
-  return { type: SET_USERNAME, payload: username };
+export const setAddress = (addr) => (dispatch) => {
+  dispatch({
+    type: 'SET_ADDRESS',
+    payload: addr,
+  });
 };
 
-export const setPassword = (password) => {
-  return { type: SET_PASSWORD, payload: password };
-};
+// export const setName = (name) => {
+//   return { type: SET_NAME, payload: name };
+// };
+// export const setEmail = (email) => {
+//   return { type: SET_EMAIL, payload: email };
+// };
 
-export const setRole = (role) => {
-  return { type: SET_ROLE, payload: role };
-};
+// export const setUsername = (username) => {
+//   return { type: SET_USERNAME, payload: username };
+// };
 
-// Getters
-export const getUserByID = (userId) => async (dispatch) => {
-  try {
-    await axios
-      .get(`/api/auth/user_by_id/${userId}`)
-      .then((res) => {
-        dispatch({
-          type: GET_USER_BY_ID,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        console.log('error in get user by id axios: %s', err.message);
-      });
-  } catch (err) {
-    console.log(`Error in getting user by id action: ${err}`);
-  }
-};
+// export const setPassword = (password) => {
+//   return { type: SET_PASSWORD, payload: password };
+// };
 
-// Register Actions
-export const registerSuccess = () => {
-  return { type: REGISTER_SUCCESS };
-};
+// export const setRole = (role) => {
+//   return { type: SET_ROLE, payload: role };
+// };
 
-export const registerStarted = () => {
-  return { type: REGISTER_STARTED };
-};
+// // Getters
+// export const getUserByID = (userId) => async (dispatch) => {
+//   try {
+//     await axios
+//       .get(`/api/auth/user_by_id/${userId}`)
+//       .then((res) => {
+//         dispatch({
+//           type: GET_USER_BY_ID,
+//           payload: res.data,
+//         });
+//       })
+//       .catch((err) => {
+//         console.log('error in get user by id axios: %s', err.message);
+//       });
+//   } catch (err) {
+//     console.log(`Error in getting user by id action: ${err}`);
+//   }
+// };
 
-export const registerFailure = (error) => {
-  return { type: SET_ERRORS, payload: error };
-};
+// // Register Actions
+// export const registerSuccess = () => {
+//   return { type: REGISTER_SUCCESS };
+// };
 
-// Load User
-export const loadUser = (token) => async (dispatch) => {
-  if (token) {
-    setAuthToken(token);
-  }
-  
-  try {
-    await axios.get('/api/auth').then((res) => {
-      dispatch({
-        type: USER_LOADED,
-        payload: res.data,
-      });
-    })   
-  } catch (err) {
-    dispatch({
-      type: LOGIN_FAILED,
-    });
-  }
-};
+// export const registerStarted = () => {
+//   return { type: REGISTER_STARTED };
+// };
 
-// Register User Action Creator
-export const registerUser = () => async (dispatch, getState) => {
-  // Access Auth Reducer State and Post
-  try {
-    const { authReducer } = getState();
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    let User = {
-      name: authReducer.name,
-      email: authReducer.email,
-      password: authReducer.password,
-      role: authReducer.role,
-    };
+// export const registerFailure = (error) => {
+//   return { type: SET_ERRORS, payload: error };
+// };
 
-    dispatch(registerStarted());
+// // Load User
+// export const loadUser = (token) => async (dispatch) => {
+//   if (token) {
+//     setAuthToken(token);
+//   }
 
-    // Make axios server request to register user
-    const res = await axios
-      .post('/api/auth/register', User, config)
-      .then((res) => {
-        dispatch(loadUser(res.data.token));
-      })
-      //.then(dispatch(inviteCleanup))
-      .then(dispatch(registerSuccess))
-      .catch((err) => {
-        dispatch({ type: SET_ERRORS, payload: err.response });
-      });
-  } catch (err) {
-    dispatch({ type: SET_ERRORS, payload: err.response });
-  }
-};
+//   try {
+//     await axios.get('/api/auth').then((res) => {
+//       dispatch({
+//         type: USER_LOADED,
+//         payload: res.data,
+//       });
+//     })
+//   } catch (err) {
+//     dispatch({
+//       type: LOGIN_FAILED,
+//     });
+//   }
+// };
 
-// Login Actions
-export const loginStarted = () => {
-  return { type: LOGIN_STARTED };
-};
+// // Register User Action Creator
+// export const registerUser = () => async (dispatch, getState) => {
+//   // Access Auth Reducer State and Post
+//   try {
+//     const { authReducer } = getState();
+//     const config = {
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     };
+//     let User = {
+//       name: authReducer.name,
+//       email: authReducer.email,
+//       password: authReducer.password,
+//       role: authReducer.role,
+//     };
 
-export const loginFailure = (error) => {
-  return { type: SET_ERRORS, payload: error };
-};
+//     dispatch(registerStarted());
 
-export const loginUser = () => async (dispatch, getState) => {
-  try {
-    const { authReducer } = getState();
-    let User = {
-      email: authReducer.email,
-      password: authReducer.password,
-    };
-    dispatch(loginStarted());
-    await axios
-      .post('/api/auth/login', User)
-      .then((res) => {
-        dispatch(loadUser(res.data.token));
-      })
-      .then(() => {
-        dispatch({
-          type: LOGIN_SUCCESS,
-        });
-      })
-      .catch((err) => {
-        dispatch({ type: SET_ERRORS, payload: err.response });
-      });
-  } catch (err) {
-    dispatch({ type: SET_ERRORS, payload: err.response });
-  }
-};
+//     // Make axios server request to register user
+//     const res = await axios
+//       .post('/api/auth/register', User, config)
+//       .then((res) => {
+//         dispatch(loadUser(res.data.token));
+//       })
+//       //.then(dispatch(inviteCleanup))
+//       .then(dispatch(registerSuccess))
+//       .catch((err) => {
+//         dispatch({ type: SET_ERRORS, payload: err.response });
+//       });
+//   } catch (err) {
+//     dispatch({ type: SET_ERRORS, payload: err.response });
+//   }
+// };
 
-export const isAuth = () => async (dispatch, getState) => {
-  try {
-    const { authReducer } = getState();
-    let isAuth = authReducer.isAuthenticated;
+// // Login Actions
+// export const loginStarted = () => {
+//   return { type: LOGIN_STARTED };
+// };
 
-    if (!isAuth) {
-      Router.push('/');
-    }
+// export const loginFailure = (error) => {
+//   return { type: SET_ERRORS, payload: error };
+// };
 
-    return isAuth;
-  } catch (err) {
-    dispatch(loginFailure(err.response.data));
-  }
-};
+// export const loginUser = () => async (dispatch, getState) => {
+//   try {
+//     const { authReducer } = getState();
+//     let User = {
+//       email: authReducer.email,
+//       password: authReducer.password,
+//     };
+//     dispatch(loginStarted());
+//     await axios
+//       .post('/api/auth/login', User)
+//       .then((res) => {
+//         dispatch(loadUser(res.data.token));
+//       })
+//       .then(() => {
+//         dispatch({
+//           type: LOGIN_SUCCESS,
+//         });
+//       })
+//       .catch((err) => {
+//         dispatch({ type: SET_ERRORS, payload: err.response });
+//       });
+//   } catch (err) {
+//     dispatch({ type: SET_ERRORS, payload: err.response });
+//   }
+// };
 
-// Logout User
-export const logout = () => (dispatch) => {
-  dispatch({ type: LOGOUT });
-};
+// export const isAuth = () => async (dispatch, getState) => {
+//   try {
+//     const { authReducer } = getState();
+//     let isAuth = authReducer.isAuthenticated;
+
+//     if (!isAuth) {
+//       Router.push('/');
+//     }
+
+//     return isAuth;
+//   } catch (err) {
+//     dispatch(loginFailure(err.response.data));
+//   }
+// };
+
+// // Logout User
+// export const logout = () => (dispatch) => {
+//   dispatch({ type: LOGOUT });
+// };

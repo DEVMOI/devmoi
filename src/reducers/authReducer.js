@@ -22,6 +22,7 @@ const {
 const INITIAL_STATE = {
   isLoading: false,
   id: '',
+  address:'',
   name: '',
   email: '',
   password: '',
@@ -33,6 +34,8 @@ const INITIAL_STATE = {
 
 export default function authReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case 'SET_ADDRESS':
+      return { ...state, address: action.payload };
     case SET_NAME:
       return { ...state, name: action.payload };
     case SET_EMAIL:

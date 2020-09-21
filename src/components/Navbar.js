@@ -1,3 +1,7 @@
+import { connect } from 'react-redux';
+import { setAddress } from '../actions';
+import DMButton from './DM-Button';
+
 function Navbar(props) {
   function NavItem(props) {
     return (
@@ -31,10 +35,45 @@ function Navbar(props) {
             <NavItem Route={'/projects'} Text={'Projects'} />
             <NavItem Route={'/live'} Text={'Live'} />
           </ul>
+          {console.log(props.authReducer.address===null)}
+          {props.authReducer.address === null ? (
+            <DMButton
+              onPress={() => {
+                const isMetaMaskInstalled = () => {
+                  //Have to check the ethereum binding on the window object to see if it's installed
+                  const { ethereum } = window;
+                  return Boolean(ethereum && ethereum.isMetaMask);
+                };
+
+                if (!isMetaMaskInstalled()) {
+                  //If it isn't installed we ask the user to click to install it
+                  console.log('Click here to install MetaMask!');
+                } else {
+                  //If it is installed we change our button text
+                  ethereum
+                    .request({ method: 'eth_requestAccounts' })
+                    .then(() => {
+                      console.log(
+                        'Connected Adress:',
+                        ethereum.selectedAddress
+                      );
+                      ethereum.selectedAddress !== null
+                        ? props.setAddress(ethereum.selectedAddress)
+                        : null;
+                    });
+                }
+              }}>
+              Login
+            </DMButton>
+          ) : (
+            <span>{props.authReducer.address}</span>
+          )}
         </div>
       </div>
     </nav>
   );
 }
-
-export default Navbar;
+const mapStateToProps = (state) => ({
+  authReducer: state.authReducer,
+});
+export default connect(mapStateToProps,{setAddress})(Navbar);
