@@ -10,7 +10,7 @@ export async function getStaticProps() {
     },
   };
 }
-export default ({ maintainer }) => {
+const projects = ({ maintainer }) => {
   const [npmData, setData] = useState({});
   useEffect(() => {});
   return (
@@ -20,3 +20,4 @@ export default ({ maintainer }) => {
     </Layout>
   );
 };
+export default projects;

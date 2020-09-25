@@ -7,8 +7,7 @@ import Head from 'next/head';
 
 import bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
 import _web3 from 'web3';
-
-var nonce = 0;
+import Navbar from '../components/Navbar';
 
 
 class MyApp extends App {
@@ -41,6 +40,7 @@ class MyApp extends App {
 
         <div className="h-100">
           <Provider store={store}>
+            <Navbar/>
             <Component {...pageProps} />
           </Provider>
         </div>

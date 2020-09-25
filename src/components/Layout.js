@@ -1,27 +1,22 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setAddress } from '../actions';
+import { isAuth, moiEthStatus, setAddress } from '../actions';
 import Navbar from './Navbar';
 
 const Layout = (props) => {
-  let { isFluid = false, classes, children } = props;
+  let {
+    isFluid = false,
+    classes,
+    children,
+    authReducer,
+    isAuth,
+    setAddress,
+    moiEthStatus,
+  } = props;
+  let { eth_status } = authReducer;
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
-    const isMetaMaskInstalled = () => {
-      //Have to check the ethereum binding on the window object to see if it's installed
-      const { ethereum } = window;
-      return Boolean(ethereum && ethereum.isMetaMask);
-    };
-
-    if (!isMetaMaskInstalled()) {
-      //If it isn't installed we ask the user to click to install it
-      console.log('Click here to install MetaMask!');
-    } else {
-      //If it is installed we change our button text
-      ethereum.selectedAddress !== null
-        ? props.setAddress(ethereum.selectedAddress)
-        : null;
-    }
+    isAuth();
   }, []);
 
   return (
@@ -49,7 +44,7 @@ const Layout = (props) => {
           text-decoration: none !important;
         }
       `}</style>
-      <Navbar />
+      
       <main
         className={`${isFluid ? 'container-fluid' : 'container'} ${
           classes !== undefined ? classes : null
@@ -59,4 +54,9 @@ const Layout = (props) => {
     </div>
   );
 };
-export default connect(null, { setAddress })(Layout);
+const mapStateToProps = (state) => ({
+  authReducer: state.authReducer,
+});
+export default connect(mapStateToProps, { isAuth, moiEthStatus, setAddress })(
+  Layout
+);
