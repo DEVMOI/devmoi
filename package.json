@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "node start"
+    "start": "next start"
   },
   "dependencies": {
     "@editorjs/editorjs": "^2.18.0",
