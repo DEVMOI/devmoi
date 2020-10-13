@@ -10,7 +10,7 @@ export async function getStaticProps() {
   let guides = [];
   fs.readdir(path.join('_posts'), (err, files) => {
     files
-      ? files.forEach(file => {
+      ? files.forEach((file) => {
           guides.push(file);
         })
       : console.log('Component Not Found...');
@@ -86,12 +86,7 @@ export default ({ data, guides, branch }) => {
             isClosed
               ? 'guide h-100 w-100 ml-5 border-right border-dark'
               : 'guide w-100 border-right border-dark'
-          }>
-          {/* <ReactMarkdown */}
-            className="h-100 overflow-auto ml-2 mr-auto"
-            source={data.body}
-          />
-        </div>
+          }></div>
       </div>
     </div>
   );
