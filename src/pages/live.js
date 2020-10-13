@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import Layout from '../components/Layout';
-import TwitchVideo from '../components/TwitchVideo';
+import Layout from '@/components/Layout';
+import TwitchVideo from '@/components/TwitchVideo';
 function Live(props) {
 const isDev = process.env.NODE_ENV === 'development';
 useEffect(()=>{})  

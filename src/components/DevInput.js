@@ -2,6 +2,7 @@ export default function DevInput({
   id,
   type,
   label,
+  value,
   placeholder,
   onChange,
   labelStyle,
@@ -20,6 +21,7 @@ export default function DevInput({
       <input
         id={id}
         type={type}
+        value={value}
         placeholder={placeholder}
         onChange={onChange}
       />

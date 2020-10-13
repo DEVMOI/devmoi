@@ -114,6 +114,9 @@ const cacheOpions = [
 ];
 
 const nextConfig = {
+  experimental: {
+    jsconfigPaths: true,
+  },
   /* config options here */
   target: 'serverless',
   devIndicators: {
@@ -124,7 +127,7 @@ const nextConfig = {
   // turn on the SW in dev mode so that we can actually test it
   generateInDevMode: true,
   workboxOpts: {
-    swDest: 'static/service-worker.js',
+    swDest: 'public/service-worker.js',
     maximumFileSizeToCacheInBytes: 500000000,
     runtimeCaching: cacheOpions,
   },
@@ -137,7 +140,7 @@ const nextConfig = {
   webpackDevMiddleware: (config) => {
     // Solve compiling problem via vagrant
     config.watchOptions = {
-      poll: 800, // Check for changes every second
+      poll: 1000, // Check for changes every second
       aggregateTimeout: 300, // delay before rebuilding
     };
     return config;

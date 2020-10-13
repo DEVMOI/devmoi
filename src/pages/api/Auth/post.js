@@ -1,7 +1,9 @@
 import nextConnect from 'next-connect';
-import middleware from '../../../middleware';
 import { ObjectID } from 'mongodb';
-import postSurvey from '../../../helpers/postSurvey';
+
+import middleware from '../../../middleware';
+
+import createUserProfile from '../../../helpers/createUserProfile';
 
 const handler = nextConnect();
 
@@ -9,7 +11,7 @@ handler.use(middleware);
 
 handler.post(async (req, res) => {
   try {
-    await postSurvey(req, res).then(() => {
+    await createUserProfile(req, res).then(() => {
       res.json({ message: 'posted' });
     });
   } catch (error) {

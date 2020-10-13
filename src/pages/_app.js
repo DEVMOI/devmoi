@@ -1,14 +1,14 @@
 import App from 'next/app';
 import React from 'react';
-import {  Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import { store } from '../store';
 
 import Head from 'next/head';
 
-import bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import _web3 from 'web3';
 import Navbar from '../components/Navbar';
-
+import Footer from '../components/Footer';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -20,7 +20,7 @@ class MyApp extends App {
 
     return { pageProps };
   }
-  
+
   render() {
     const { Component, pageProps } = this.props;
 
@@ -32,16 +32,18 @@ class MyApp extends App {
             content="initial-scale=1.0, width=device-width"
             key="viewport"
           />
-          <link rel="stylesheet" href={bootstrap} />
+
+          <link rel="stylesheet" href="/UserInfo.module.css" />
           <link rel="manifest" href="/manifest.json" />
           <link rel="shortcut icon" href="/favicon.ico" />
           <title>DevMoi</title>
         </Head>
 
         <div className="h-100">
-          <Provider store={store}>
-            <Navbar/>
+          <Provider session={pageProps.session} store={store}>
+            <Navbar />
             <Component {...pageProps} />
+            <Footer />
           </Provider>
         </div>
       </div>
@@ -49,4 +51,4 @@ class MyApp extends App {
   }
 }
 
-export default(MyApp);
+export default MyApp;

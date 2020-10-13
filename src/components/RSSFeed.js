@@ -1,4 +1,4 @@
-import { Layout } from '../components';
+
 import { useState, useEffect } from 'react';
 import moifetch from 'moifetch';
 import Parser from 'rss-parser';
@@ -26,8 +26,8 @@ const RSSFeed = (props) => {
         proxyUrl +
           'https://github.com/organizations/DEVMOI/Moikapy.private.atom?token=AELYH7C27IZVXT3HCDMPJ5N5NYFGI'
       )
-      .then((res) => {
-        setRes(res);
+      .then(async(res) => {
+        await setRes(res);
       });
   }
   useEffect(() => {
@@ -84,9 +84,12 @@ const RSSFeed = (props) => {
             color: black;
           }
           .width-full div .d-flex div {
-            max-width: 25rem;
+            max-width: 30rem;
           }
-          @media (max-width: 575.98px) {
+          // .Box div {
+          //   max-width: 27rem;
+          // }
+          @me @media (max-width: 575.98px) {
             .body > div {
               flex-direction: column;
             }

@@ -30,6 +30,7 @@ function Navbar(props) {
           <NavItem Route={'/activity'} Text={'Activity'} />
           <NavItem Route={'/projects'} Text={'Projects'} />
           <NavItem Route={'/live'} Text={'Live'} />
+          <NavItem Route={'/about'} Text={'About'} />
         </ul>
         <LoginButton />
       </div>

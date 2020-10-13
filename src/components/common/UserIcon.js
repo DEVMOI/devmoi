@@ -19,9 +19,18 @@ function UserIcon(props) {
     }
   }, []);
 
-  return <div id={props.id} className="mt-1" />;
+  return (
+    <div
+      id={props.id}
+      className={
+        props.userIconStyle !== undefined
+          ? `mt-1 ${props.userIconStyle}`
+          : 'mt-1'
+      }
+    />
+  );
 }
 const mapStateToProps = (state) => ({
-  userAddress: state.authReducer.address,
+  userAddress: state.session.address,
 });
 export default connect(mapStateToProps, {})(UserIcon);

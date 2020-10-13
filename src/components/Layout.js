@@ -1,23 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { isAuth, moiEthStatus, setAddress } from '../actions';
-import Navbar from './Navbar';
+import { isAuth, moiEthStatus, setAddress } from '@/actions';
 
 const Layout = (props) => {
-  let {
-    isFluid = false,
-    classes,
-    children,
-    authReducer,
-    isAuth,
-    setAddress,
-    moiEthStatus,
-  } = props;
-  let { eth_status } = authReducer;
-  // Similar to componentDidMount and componentDidUpdate:
-  useEffect(() => {
-    isAuth();
-  }, []);
+  let { isFluid = false, classes, children, session, isAuth } = props;
 
   return (
     <div className="layout">
@@ -26,10 +12,11 @@ const Layout = (props) => {
         body,
         #__next {
           height: 100%;
+          font-family: monospace;
         }
         .layout,
         main {
-          height: calc(100% - 3.5625rem);
+          height: calc(100% - 81px);
         }
         .fnt-size-12 {
           font-size: 12px;
@@ -44,7 +31,7 @@ const Layout = (props) => {
           text-decoration: none !important;
         }
       `}</style>
-      
+
       <main
         className={`${isFluid ? 'container-fluid' : 'container'} ${
           classes !== undefined ? classes : null
@@ -55,7 +42,7 @@ const Layout = (props) => {
   );
 };
 const mapStateToProps = (state) => ({
-  authReducer: state.authReducer,
+  session: state.session,
 });
 export default connect(mapStateToProps, { isAuth, moiEthStatus, setAddress })(
   Layout
