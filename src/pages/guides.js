@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
 import moifetch from 'moifetch';
-const ReactMarkdown = require('react-markdown');
+// const ReactMarkdown = require('react-markdown');
 import React, { useState, useEffect } from 'react';
 
 export async function getStaticProps() {
@@ -87,7 +87,7 @@ export default ({ data, guides, branch }) => {
               ? 'guide h-100 w-100 ml-5 border-right border-dark'
               : 'guide w-100 border-right border-dark'
           }>
-          <ReactMarkdown
+          {/* <ReactMarkdown */}
             className="h-100 overflow-auto ml-2 mr-auto"
             source={data.body}
           />
