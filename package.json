@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@drizzle/store": "^1.5.3",
     "@editorjs/editorjs": "^2.18.0",
     "@editorjs/header": "^2.5.0",
     "@editorjs/list": "^1.5.0",
