@@ -1,18 +1,14 @@
-import types from '../actions/types';
-
-const { SET_ERRORS, CLEAR_ERRORS } = types;
-
 const INITIAL_STATE = {
   errors: {},
 };
 
-export default function errorReducer (state = INITIAL_STATE, action) {
+export default function errorReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SET_ERRORS:
+    case 'SET_ERRORS':
       return { ...state, errors: action.payload };
-    case CLEAR_ERRORS:
+    case 'CLEAR_ERRORS':
       return { ...state, errors: {} };
     default:
       return state;
   }
-};
+}
