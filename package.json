@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "jest": "^26.5.3",
+    "truffle": "^5.1.48",
     "yarn": "^1.22.0"
   }
 }
