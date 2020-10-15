@@ -37,9 +37,6 @@ const authSchema = {
       dateCreated: {
         bsonType: 'date',
       },
-      profileID: {
-        bsonType: ['objectId', 'null'],
-      },
     },
   }
 };

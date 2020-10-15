@@ -1,15 +1,12 @@
-import { REHYDRATE } from 'redux-persist';
-import types from '../actions/types';
-
 const INITIAL_STATE = {
   eth_status: false,
   isAuth: false,
   isLoading: false,
-  token: '',
+  token: null,
   socket: null,
   chainId: null,
   address: [],
-  balance:null,
+  balance: null,
 };
 
 export default function session(state = INITIAL_STATE, action) {
