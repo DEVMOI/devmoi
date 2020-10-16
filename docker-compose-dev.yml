@@ -11,8 +11,13 @@ services:
     working_dir: /usr/app
     ports:
       - '3001:3000'
+      - '9545:9545'
   mongoDevmoi:
     container_name: mongoDevmoi
     image: mongo
     ports:
       - '27018:27017'
+  # truffle_devmoi:
+  #   build: ./docker-truffle
+  #   ports:
+  #     - '9545:8545'
