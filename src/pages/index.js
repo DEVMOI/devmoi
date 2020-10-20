@@ -15,11 +15,7 @@ const Home = (props) => {
     );
   }
 
-  return (
-    <Layout isFluid={true} classes="h-100 border border-top-0 border-dark">
-      <div className="container-xl px-0 pt-3">{HandleHomeContent()}</div>
-    </Layout>
-  );
+  return <div className="container-xl px-0 pt-3">{HandleHomeContent()}</div>;
 };
 
 const mapStateToProps = (state) => ({

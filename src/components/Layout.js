@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { isAuth, moiEthStatus, setAddress } from '@/actions';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 const Layout = (props) => {
   let { isFluid = false, classes, children, session, isAuth } = props;
@@ -31,13 +33,14 @@ const Layout = (props) => {
           text-decoration: none !important;
         }
       `}</style>
-
+      <Navbar/>
       <main
         className={`${isFluid ? 'container-fluid' : 'container'} ${
           classes !== undefined ? classes : null
         }`}>
         {children}
       </main>
+      <Footer/>
     </div>
   );
 };

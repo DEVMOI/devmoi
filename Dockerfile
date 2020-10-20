@@ -4,8 +4,7 @@ FROM node:lts
 WORKDIR /usr/app
 #copy's package.json file and installs deps
 COPY package.json ./
-RUN npm i --quiet 
-RUN npm i -g jest concurrently --quiet
+RUN npm i -g yarn --quiet --unsafe-perm=true --allow-root --force
 #bundles source
 COPY . .
 # Port App is Running on

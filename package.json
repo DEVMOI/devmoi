@@ -15,22 +15,18 @@
     "@editorjs/paragraph": "^2.7.0",
     "@metamask/detect-provider": "^1.1.0",
     "@metamask/onboarding": "^1.0.0",
-    "axios": "^0.20.0",
     "bcryptjs": "^2.4.3",
     "blockies": "0.0.2",
     "bootstrap": "latest",
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
     "moifetch": "latest",
-    "moihelp": "^0.0.9",
+    "moihelp": "latest",
     "moment": "^2.27.0",
     "mongodb": "^3.5.9",
-    "multer": "^1.4.2",
-    "multer-gridfs-storage": "^4.2.0",
     "next": "latest",
-    "next-connect": "^0.9.0",
+    "next-connect": "latest",
     "next-offline": "latest",
-    "nodemailer": "^6.4.10",
     "react": "latest",
     "react-dom": "latest",
     "react-editor-js": "^1.6.2",
@@ -40,12 +36,10 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "rss-parser": "^3.9.0",
-    "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.1",
     "web3": "^1.3.0"
   },
   "devDependencies": {
-    "jest": "^26.5.3",
-    "yarn": "^1.22.0"
+    "jest": "latest",
+    "yarn": "latest"
   }
 }

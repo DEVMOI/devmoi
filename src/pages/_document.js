@@ -17,7 +17,7 @@ class MyDocument extends Document {
             content="default"
           />
           <meta name="apple-mobile-web-app-title" content="Devmoi Site" />
-          <meta name="description" content="Best PWA App in the world" />
+          <meta name="description" content="A Web3 Community" />
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta
@@ -62,17 +62,17 @@ class MyDocument extends Document {
           <meta name="twitter:title" content="Devmoi" />
           <meta
             name="twitter:description"
-            content="Best PWA App in the world"
+            content="A Web3 Community"
           />
           <meta
             name="twitter:image"
             content="https://devmoi.com/static/icons/android-chrome-192x192.png"
           />
-          <meta name="twitter:creator" content="@DavidWShadow" />
+          <meta name="twitter:creator" content="@moikapy_" />
           <meta property="og:type" content="website" />
           <meta property="og:title" content="Devmoi" />
-          <meta property="og:description" content="Best PWA App in the world" />
-          <meta property="og:site_name" content="PWA App" />
+          <meta property="og:description" content="A Web3 Community" />
+          <meta property="og:site_name" content="Devmoi" />
           <meta property="og:url" content="https://devmoi.com" />
           <meta
             property="og:image"
