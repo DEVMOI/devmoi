@@ -4,5 +4,7 @@ import socketio from './socketio';
 
 const middleware = nextConnect();
 
-middleware.use(database).use(socketio);
+middleware.use(database)
+
+// .use(socketio);
 export default middleware;
