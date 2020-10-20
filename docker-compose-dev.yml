@@ -17,7 +17,3 @@ services:
     image: mongo
     ports:
       - '27018:27017'
-  # truffle_devmoi:
-  #   build: ./docker-truffle
-  #   ports:
-  #     - '9545:8545'

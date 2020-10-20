@@ -5,7 +5,7 @@ WORKDIR /usr/app
 #copy's package.json file and installs deps
 COPY package.json ./
 RUN npm i --quiet 
-RUN npm i -g jest truffle concurrently --quiet
+RUN npm i -g jest concurrently --quiet
 #bundles source
 COPY . .
 # Port App is Running on
