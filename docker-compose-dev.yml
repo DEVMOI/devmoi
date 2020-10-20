@@ -4,13 +4,14 @@ services:
     build: .
     depends_on:
       - mongoDevmoi
-    command: bash -c "yarn && yarn dev"
+    command: bash -c "yarn --silent && yarn dev"
     volumes:
       - .:/usr/app
       - /usr/app/node_modules
     working_dir: /usr/app
     ports:
       - '3001:3000'
+      - '9545:9545'
   mongoDevmoi:
     container_name: mongoDevmoi
     image: mongo

@@ -6,9 +6,8 @@ import { store } from '../store';
 import Head from 'next/head';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import _web3 from 'web3';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+
+import { Layout } from '../components';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -33,7 +32,6 @@ class MyApp extends App {
             key="viewport"
           />
 
-          <link rel="stylesheet" href="/UserInfo.module.css" />
           <link rel="manifest" href="/manifest.json" />
           <link rel="shortcut icon" href="/favicon.ico" />
           <title>DevMoi</title>
@@ -41,9 +39,11 @@ class MyApp extends App {
 
         <div className="h-100">
           <Provider session={pageProps.session} store={store}>
-            <Navbar />
-            <Component {...pageProps} />
-            <Footer />
+            <Layout
+              isFluid={true}
+              classes="h-100 border border-top-0 border-dark">
+              <Component {...pageProps} />
+            </Layout>
           </Provider>
         </div>
       </div>

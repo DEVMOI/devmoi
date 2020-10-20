@@ -5,8 +5,6 @@ import DMButton from '@/components/common/DMButton';
 import UserIcon from '@/components/common/UserIcon';
 import MoiText from './common/MoiText';
 
-// import '../styles/UserInfo.module.css';
-
 function UserInfo(props) {
   const [copy, setCopy] = useState('');
   const [text, setText] = useState('');
@@ -38,7 +36,7 @@ function UserInfo(props) {
   ////
   return (
     <div className="user-info d-flex flex-column">
-      {/* <style global jsx>
+      <style global jsx>
         {`
           .user-info,
           .user-info > div {
@@ -58,7 +56,7 @@ function UserInfo(props) {
           }
         `}
       </style>
-       */}
+
       <div className="d-flex flex-column p-3 border border-dark">
         <div
           onClick={(e) => copyclip(props.address)}
@@ -91,7 +89,8 @@ function UserInfo(props) {
         </div>
         <span className="copy-text">{copy['copy']}</span>
       </div>
-      <MoiText
+      
+      {/* <MoiText
         value={text}
         maxLength={150}
         placeholder={'Hows the Code?'}
@@ -101,7 +100,7 @@ function UserInfo(props) {
           setText(e.target.value);
         }}
         onKeyPress={handleKeyPress}
-      />
+      /> */}
     </div>
   );
 }

@@ -1,15 +1,12 @@
-import { REHYDRATE } from 'redux-persist';
-import types from '../actions/types';
-
 const INITIAL_STATE = {
   eth_status: false,
   isAuth: false,
   isLoading: false,
-  token: '',
-  socket: null,
+  token: null,
+
   chainId: null,
   address: [],
-  balance:null,
+  balance: null,
 };
 
 export default function session(state = INITIAL_STATE, action) {
@@ -22,8 +19,7 @@ export default function session(state = INITIAL_STATE, action) {
       return { ...state, address: action.payload };
     case 'SET_TOKEN':
       return { ...state, token: action.payload };
-    case 'SET_SOCKET':
-      return { ...state, socket: action.payload };
+
     case 'SET_CHAINID':
       return { ...state, chainId: action.payload };
     case 'SET_BALANCE':

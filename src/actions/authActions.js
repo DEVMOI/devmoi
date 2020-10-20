@@ -1,15 +1,15 @@
 import MetaMaskOnboarding from '@metamask/onboarding';
-import io from 'socket.io-client';
+
 // this function detects most providers injected at window.ethereum
 import detectEthereumProvider from '@metamask/detect-provider';
 
-const socket = io();
 // import { checkCookie, delCookie, getCookie } from 'helpers/tokenHelp';
 
 // import axios from'axios'
 
 export const moiEthStatus = (props) => async (dispatch) => {
   //Have to check the ethereum binding on the window object to see if it's installed
+
   const provider = await detectEthereumProvider();
   if (provider !== window.ethereum) {
     console.error('Do you have multiple wallets installed?');
@@ -31,7 +31,50 @@ export const login = (props) => async (dispatch) => {
       {
         method: 'eth_requestAccounts',
       },
-      (newAccounts) => dispatch(setAddress(newAccounts))
+      (newAccounts) => {
+        let handleSignup = (publicAddress) =>
+          fetch(`/auths/post`, {
+            body: JSON.stringify({ publicAddress }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+          }).then((response) => response.json());
+
+        let handleSignMessage = ({ publicAddress, nonce }) => {
+          return new Promise((resolve, reject) =>
+            web3.personal.sign(
+              web3.fromUtf8(`I am signing my one-time nonce: ${nonce}`),
+              publicAddress,
+              (err, signature) => {
+                if (err) return reject(err);
+                return resolve({ publicAddress, signature });
+              }
+            )
+          );
+        };
+
+        let handleAuthenticate = ({ publicAddress, signature }) =>
+          fetch(`/auth`, {
+            body: JSON.stringify({ publicAddress, signature }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+          }).then((response) => response.json());
+
+        dispatch(setAddress(newAccounts));
+        fetch(`/auth/post`, { newAccounts })
+          .then((response) => response.json())
+          // If yes, retrieve it. If no, create it.
+          .then((users) =>
+            users.length ? users[0] : this.handleSignup(publicAddress)
+          )
+          // Popup MetaMask confirmation modal to sign message
+          .then(this.handleSignMessage)
+          // Send signature to back end on the /auth route
+          .then(this.handleAuthenticate);
+      }
     );
 
     dispatch({ type: 'SET_AUTH_STATUS', payload: true });
@@ -106,11 +149,6 @@ export const setChainId = (payload) => (dispatch) => {
     payload,
   });
 };
-export const setSocket = (payload) => (dispatch) =>
-  dispatch({
-    type: 'SET_SOCKET',
-    payload,
-  });
 
 export const setBalance = (payload) => (dispatch) =>
   dispatch({ type: 'SET_BALANCE', payload });
