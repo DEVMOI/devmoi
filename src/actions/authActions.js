@@ -14,7 +14,7 @@ const provider = async () => await detectEthereumProvider();
 
 const initWeb3 = async () => {
   try {
-    if (provider()) {
+    if (await provider()) {
       window.web3 = new Web3(window.ethereum);
       return true;
     } else {
@@ -33,17 +33,20 @@ const initWeb3 = async () => {
  * @param {*} params
  */
 const onboardUser = async (params) => {
-  const onboarding = new MetaMaskOnboarding();
-  provider()
-    ? (ethereum.enable(), onboarding.stopOnboarding())
-    : onboarding.startOnboarding();
+  try {
+    const onboarding = new MetaMaskOnboarding();
+    (await provider())
+      ? onboarding.stopOnboarding()
+      : onboarding.startOnboarding();
+  } catch (error) {
+    console.log('onboardUser: ', error);
+  }
 };
 
 //
 export const login = (props) => async (dispatch) => {
   try {
-    console.log('Get ETH Connection');
-    onboardUser();
+    web3.currentProvider.enable().then(() => console.log('Get ETH Connection'));
     dispatch({ type: 'SET_AUTH_STATUS', payload: true });
   } catch (error) {
     await console.log('Login: ', error);
@@ -53,8 +56,13 @@ export const login = (props) => async (dispatch) => {
 export const isAuth = (props) => async (dispatch, getState) => {
   try {
     const { session } = getState();
+    initWeb3();
+    if ((await provider()) !== null) {
+      
+      let address = await web3.eth.getAccounts()
+      web3.eth.defaultAccount = address[0];
+      
 
-    if (provider()) {
       ethereum
         .request({ method: 'eth_accounts' })
         .then((address) => dispatch(setAddress(address)));

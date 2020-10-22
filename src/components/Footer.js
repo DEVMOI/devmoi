@@ -4,6 +4,7 @@ function Footer(props) {
   const { footerContainerStyle } = props;
 
   function Network({chainID}) {
+    console.log(chainID)
     switch (chainID) {
       case '0x1':
         return <span>Ethereum Main Network</span>;

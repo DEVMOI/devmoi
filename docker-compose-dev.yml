@@ -2,6 +2,7 @@ version: '3'
 services:
   web_devmoi:
     build: .
+    restart: always
     depends_on:
       - mongoDevmoi
     command: bash -c "yarn --silent && yarn dev"
@@ -14,6 +15,18 @@ services:
       - '9545:9545'
   mongoDevmoi:
     container_name: mongoDevmoi
+    restart: always
     image: mongo
     ports:
       - '27018:27017'
+  ganache:
+    build: ./ganache
+    command: bash -c "ganache-cli -h 0.0.0.0 -s devmoi --acctKeys ./ganache/wallets.json -e 9001 --chainId 0x4206913378008135 -q -n"
+    container_name: dev_ganache
+    restart: always
+    volumes:
+      - .:/usr/app
+    environment:
+      MMS: $MMS
+    ports:
+      - '8545:8545'
