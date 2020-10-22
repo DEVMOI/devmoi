@@ -1,82 +1,49 @@
 import MetaMaskOnboarding from '@metamask/onboarding';
-
-// this function detects most providers injected at window.ethereum
+import Web3 from 'web3';
 import detectEthereumProvider from '@metamask/detect-provider';
 
-// import { checkCookie, delCookie, getCookie } from 'helpers/tokenHelp';
+/**
+ * Detects the window.ethereum var
+ */
+const provider = async () => await detectEthereumProvider();
+/**
+ *  Handles the Web3.js Provider.
+ *  If it detects MetaMask then it will use window.ethereum as the Provider.
+ *  If MetaMask isn't detected then the INFURA_API will be used to as a provider.
+ */
 
-// import axios from'axios'
-
-export const moiEthStatus = (props) => async (dispatch) => {
-  //Have to check the ethereum binding on the window object to see if it's installed
-
-  const provider = await detectEthereumProvider();
-  if (provider !== window.ethereum) {
-    console.error('Do you have multiple wallets installed?');
-    dispatch({
-      type: 'SET_ETH_STATUS',
-      payload: false,
-    });
-  } else {
-    dispatch({
-      type: 'SET_ETH_STATUS',
-      payload: provider,
-    });
+const initWeb3 = async () => {
+  try {
+    if (provider()) {
+      window.web3 = new Web3(window.ethereum);
+      return true;
+    } else {
+      window.web3 = new Web3(
+        new Web3.providers.HttpProvider(process.env.INFURA_API)
+      );
+      return true;
+    }
+  } catch (error) {
+    console.error('initWeb3()', error);
+    return false;
   }
 };
+/**
+ * Handles Onboarding User When connecting to metamask
+ * @param {*} params
+ */
+const onboardUser = async (params) => {
+  const onboarding = new MetaMaskOnboarding();
+  provider()
+    ? (ethereum.enable(), onboarding.stopOnboarding())
+    : onboarding.startOnboarding();
+};
+
 //
 export const login = (props) => async (dispatch) => {
   try {
-    await ethereum.request(
-      {
-        method: 'eth_requestAccounts',
-      },
-      (newAccounts) => {
-        let handleSignup = (publicAddress) =>
-          fetch(`/auths/post`, {
-            body: JSON.stringify({ publicAddress }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            method: 'POST',
-          }).then((response) => response.json());
-
-        let handleSignMessage = ({ publicAddress, nonce }) => {
-          return new Promise((resolve, reject) =>
-            web3.personal.sign(
-              web3.fromUtf8(`I am signing my one-time nonce: ${nonce}`),
-              publicAddress,
-              (err, signature) => {
-                if (err) return reject(err);
-                return resolve({ publicAddress, signature });
-              }
-            )
-          );
-        };
-
-        let handleAuthenticate = ({ publicAddress, signature }) =>
-          fetch(`/auth`, {
-            body: JSON.stringify({ publicAddress, signature }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            method: 'POST',
-          }).then((response) => response.json());
-
-        dispatch(setAddress(newAccounts));
-        fetch(`/auth/post`, { newAccounts })
-          .then((response) => response.json())
-          // If yes, retrieve it. If no, create it.
-          .then((users) =>
-            users.length ? users[0] : this.handleSignup(publicAddress)
-          )
-          // Popup MetaMask confirmation modal to sign message
-          .then(this.handleSignMessage)
-          // Send signature to back end on the /auth route
-          .then(this.handleAuthenticate);
-      }
-    );
-
+    console.log('Get ETH Connection');
+    onboardUser();
     dispatch({ type: 'SET_AUTH_STATUS', payload: true });
   } catch (error) {
     await console.log('Login: ', error);
@@ -86,9 +53,8 @@ export const login = (props) => async (dispatch) => {
 export const isAuth = (props) => async (dispatch, getState) => {
   try {
     const { session } = getState();
-    await dispatch(moiEthStatus());
 
-    if (session.eth_status) {
+    if (provider()) {
       ethereum
         .request({ method: 'eth_accounts' })
         .then((address) => dispatch(setAddress(address)));
@@ -99,12 +65,7 @@ export const isAuth = (props) => async (dispatch, getState) => {
           method: 'eth_getBalance',
           params: [session.address[0], 'latest'],
         })
-        .then((res) => {
-          let bal;
-          bal = parseInt(res, 16);
-          bal = bal * Math.pow(10, -18);
-          dispatch(setBalance(bal));
-        })
+        .then((res) => dispatch(setBalance(web3.utils.fromWei(res, 'ether'))))
         .catch((error) => {
           if (error.code === 4001) {
             // EIP-1193 userRejectedRequest error
@@ -136,12 +97,17 @@ export const createMToken = (props, MODE) => (dispatch) => {
   dispatch({ type: 'SET_TOKEN', payload: 'SUCCESS' });
 };
 // Setters
-export const setAddress = (addr) => (dispatch) => {
-  if (addr == null) addr = [];
-  dispatch({
-    type: 'SET_ADDRESS',
-    payload: addr,
-  });
+export const setAddress = (addr) => async (dispatch) => {
+  try {
+    if (addr == null) addr = [];
+
+    dispatch({
+      type: 'SET_ADDRESS',
+      payload: addr,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 export const setChainId = (payload) => (dispatch) => {
   dispatch({

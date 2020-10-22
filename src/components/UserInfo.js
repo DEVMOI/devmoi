@@ -71,8 +71,73 @@ function UserInfo(props) {
           <span className="mt-2 mr-3">Do you want a Display Name?</span>
           <DMButton
             buttonStyle="btn-success px-3 mr-1"
-            onPress={() => {
-              alert('Adding Name');
+            onPress={async (e) => {
+              e.preventDefault();
+              // alert('Adding Name');
+              var ethUtil = require('ethereumjs-util');
+              var sigUtil = require('eth-sig-util');
+              var from = ethereum.selectedAddress;
+              if (!from) return connect();
+              let data;
+              data = JSON.stringify({
+                types: {
+                  EIP712Domain: [
+                    { name: 'name', type: 'string' },
+                    { name: 'version', type: 'string' },
+                    { name: 'chainId', type: 'uint256' },
+                    {
+                      name: 'verifyingContract',
+                      type: 'address',
+                    },
+                  ],
+                  // Person: [
+                  //   { name: 'name', type: 'string' },
+                  //   { name: 'wallet', type: 'address' },
+                  // ],
+                  Message: [{ name: 'text', type: 'string' }],
+                },
+                primaryType: 'Message',
+                domain: {
+                  name: 'DEVMOI',
+                  version: '1',
+                  chainId: ethereum.chainId,
+                  verifyingContract:
+                    '0xa8d145dd3003817da1dc83f838ee5088b65acf2e',
+                },
+                message: { text: 'You are Signing off Data' },
+              });
+              web3.eth.personal.sign(
+                '\x19Ethereum Signed Message:\n' + data.length + data,
+                from,
+                '',
+                function (err, result) {
+                  if (err) return console.dir(err);
+                  if (result.error) {
+                    alert(result.error.message);
+                  }
+                  if (result.error) return console.error('ERROR', result);
+                  console.log('TYPED SIGNED:' + JSON.stringify(result));
+                  console.log(result);
+                  const recovered = sigUtil.recoverTypedSignature({
+                    data: JSON.parse(data),
+                    sig: result,
+                  });
+
+                  if (
+                    ethUtil.toChecksumAddress(recovered) ===
+                    ethUtil.toChecksumAddress(from)
+                  ) {
+                    alert('Successfully ecRecovered signer as ' + from);
+                  } else {
+                    alert(
+                      'Failed to verify signer when comparing ' +
+                        result +
+                        ' to ' +
+                        from
+                    );
+                  }
+                }
+              );
             }}>
             YES
           </DMButton>
@@ -89,7 +154,7 @@ function UserInfo(props) {
         </div>
         <span className="copy-text">{copy['copy']}</span>
       </div>
-      
+
       {/* <MoiText
         value={text}
         maxLength={150}

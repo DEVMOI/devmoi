@@ -8,7 +8,6 @@ import UserIcon from './common/UserIcon';
 
 function LoginButton(props) {
   const [addr, setaddrBool] = useState(null);
-  const onboarding = useRef();
   const { address, eth_status } = props.session;
 
   useEffect(() => {
@@ -20,14 +19,9 @@ function LoginButton(props) {
   }, []);
 
   useEffect(() => {
-    if (!onboarding.current) onboarding.current = new MetaMaskOnboarding();
-  }, []);
-
-  useEffect(() => {
     if (eth_status) {
       if (address.length > 0) {
         setaddrBool(true);
-        onboarding.current.stopOnboarding();
       } else {
         setaddrBool(false);
       }
@@ -38,13 +32,9 @@ function LoginButton(props) {
     <DMButton
       buttonStyle="btn-dark"
       onPress={() => {
-        if (eth_status) {
-          props.login();
-        } else {
-          onboarding.current.startOnboarding();
-        }
+        props.login();
       }}>
-      Connect ETH Wallet
+      Connect To MetaMask
     </DMButton>
   ) : (
     <UserIcon id="nav-avatar" />

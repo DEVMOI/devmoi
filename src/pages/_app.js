@@ -2,7 +2,8 @@ import App from 'next/app';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from '../store';
-
+import { theme } from 'rimble-ui';
+import { ThemeProvider } from 'styled-components';
 import Head from 'next/head';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -39,11 +40,13 @@ class MyApp extends App {
 
         <div className="h-100">
           <Provider session={pageProps.session} store={store}>
-            <Layout
-              isFluid={true}
-              classes="h-100 border border-top-0 border-dark">
-              <Component {...pageProps} />
-            </Layout>
+            <ThemeProvider theme={theme}>
+              <Layout
+                isFluid={true}
+                classes="h-100 border border-top-0 border-dark">
+                <Component {...pageProps} />
+              </Layout>
+            </ThemeProvider>
           </Provider>
         </div>
       </div>
