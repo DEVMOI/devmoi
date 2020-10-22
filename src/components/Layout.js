@@ -1,15 +1,11 @@
-import { useEffect } from 'react';
-
+import { useEffect, useState, useRef } from 'react';
+import { connect } from 'react-redux';
+import { isAuth, moiEthStatus, setAddress } from '@/actions';
 import Navbar from './Navbar';
-const Layout = ({ isFluid = false, classes, children }) => {
-  // Similar to componentDidMount and componentDidUpdate:
-  useEffect(() => {
-    // window !== undefined
-    //   ? window.location.pathname == '/'
-    //     ? document.querySelector('.navbar').classList.add('d-none')
-    //     : null
-    //   : null;
-  });
+import Footer from './Footer';
+
+const Layout = (props) => {
+  let { isFluid = false, classes, children, session, isAuth } = props;
 
   return (
     <div className="layout">
@@ -18,10 +14,11 @@ const Layout = ({ isFluid = false, classes, children }) => {
         body,
         #__next {
           height: 100%;
+          font-family: monospace;
         }
         .layout,
         main {
-          height: calc(100% - 3.5625rem);
+          height: calc(100% - 81px);
         }
         .fnt-size-12 {
           font-size: 12px;
@@ -36,14 +33,20 @@ const Layout = ({ isFluid = false, classes, children }) => {
           text-decoration: none !important;
         }
       `}</style>
-      <Navbar />
+      <Navbar/>
       <main
         className={`${isFluid ? 'container-fluid' : 'container'} ${
           classes !== undefined ? classes : null
         }`}>
         {children}
       </main>
+      <Footer/>
     </div>
   );
 };
-export default Layout;
+const mapStateToProps = (state) => ({
+  session: state.session,
+});
+export default connect(mapStateToProps, { isAuth, moiEthStatus, setAddress })(
+  Layout
+);

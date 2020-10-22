@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
+import { isAuth } from '../actions';
 import SideNav from './SideNav';
+const DashboardLayout = ({ isFluid = false, classes, children }) => {
+    useEffect(() => {
+      isAuth();
+    }, []);
 
-export default ({ isFluid = false, classes, children }) => {
   return (
     <main>
       <style global jsx>{`
@@ -33,3 +38,4 @@ export default ({ isFluid = false, classes, children }) => {
     </main>
   );
 };
+export default DashboardLayout;

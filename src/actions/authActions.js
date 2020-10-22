@@ -1,190 +1,154 @@
-import types from './types';
-const axios = require('axios');
-import Router from 'next/router';
+import MetaMaskOnboarding from '@metamask/onboarding';
 
-import { inviteCleanup } from '../actions';
+// this function detects most providers injected at window.ethereum
+import detectEthereumProvider from '@metamask/detect-provider';
 
-const {
-  SET_NAME,
-  SET_EMAIL,
-  SET_USERNAME,
-  SET_PASSWORD,
-  SET_ROLE,
-  LOGIN_USER,
-  LOGIN_STARTED,
-  LOGIN_FAILED,
-  LOGIN_SUCCESS,
-  LOGOUT,
-  REGISTER_USER,
-  REGISTER_STARTED,
-  REGISTER_FAILED,
-  REGISTER_SUCCESS,
-  USER_LOADED,
-  SET_ERRORS,
-  CLEAR_ERRORS,
-  GET_USER_BY_ID,
-} = types;
+// import { checkCookie, delCookie, getCookie } from 'helpers/tokenHelp';
 
-import setAuthToken from '../util/setAuthToken';
+// import axios from'axios'
 
-// Setters
-export const setName = (name) => {
-  return { type: SET_NAME, payload: name };
-};
-export const setEmail = (email) => {
-  return { type: SET_EMAIL, payload: email };
-};
+export const moiEthStatus = (props) => async (dispatch) => {
+  //Have to check the ethereum binding on the window object to see if it's installed
 
-export const setUsername = (username) => {
-  return { type: SET_USERNAME, payload: username };
-};
-
-export const setPassword = (password) => {
-  return { type: SET_PASSWORD, payload: password };
-};
-
-export const setRole = (role) => {
-  return { type: SET_ROLE, payload: role };
-};
-
-// Getters
-export const getUserByID = (userId) => async (dispatch) => {
-  try {
-    await axios
-      .get(`/api/auth/user_by_id/${userId}`)
-      .then((res) => {
-        dispatch({
-          type: GET_USER_BY_ID,
-          payload: res.data,
-        });
-      })
-      .catch((err) => {
-        console.log('error in get user by id axios: %s', err.message);
-      });
-  } catch (err) {
-    console.log(`Error in getting user by id action: ${err}`);
-  }
-};
-
-// Register Actions
-export const registerSuccess = () => {
-  return { type: REGISTER_SUCCESS };
-};
-
-export const registerStarted = () => {
-  return { type: REGISTER_STARTED };
-};
-
-export const registerFailure = (error) => {
-  return { type: SET_ERRORS, payload: error };
-};
-
-// Load User
-export const loadUser = (token) => async (dispatch) => {
-  if (token) {
-    setAuthToken(token);
-  }
-  
-  try {
-    await axios.get('/api/auth').then((res) => {
-      dispatch({
-        type: USER_LOADED,
-        payload: res.data,
-      });
-    })   
-  } catch (err) {
+  const provider = await detectEthereumProvider();
+  if (provider !== window.ethereum) {
+    console.error('Do you have multiple wallets installed?');
     dispatch({
-      type: LOGIN_FAILED,
+      type: 'SET_ETH_STATUS',
+      payload: false,
+    });
+  } else {
+    dispatch({
+      type: 'SET_ETH_STATUS',
+      payload: provider,
     });
   }
 };
-
-// Register User Action Creator
-export const registerUser = () => async (dispatch, getState) => {
-  // Access Auth Reducer State and Post
+//
+export const login = (props) => async (dispatch) => {
   try {
-    const { authReducer } = getState();
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
+    await ethereum.request(
+      {
+        method: 'eth_requestAccounts',
       },
-    };
-    let User = {
-      name: authReducer.name,
-      email: authReducer.email,
-      password: authReducer.password,
-      role: authReducer.role,
-    };
+      (newAccounts) => {
+        let handleSignup = (publicAddress) =>
+          fetch(`/auths/post`, {
+            body: JSON.stringify({ publicAddress }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+          }).then((response) => response.json());
 
-    dispatch(registerStarted());
+        let handleSignMessage = ({ publicAddress, nonce }) => {
+          return new Promise((resolve, reject) =>
+            web3.personal.sign(
+              web3.fromUtf8(`I am signing my one-time nonce: ${nonce}`),
+              publicAddress,
+              (err, signature) => {
+                if (err) return reject(err);
+                return resolve({ publicAddress, signature });
+              }
+            )
+          );
+        };
 
-    // Make axios server request to register user
-    const res = await axios
-      .post('/api/auth/register', User, config)
-      .then((res) => {
-        dispatch(loadUser(res.data.token));
-      })
-      //.then(dispatch(inviteCleanup))
-      .then(dispatch(registerSuccess))
-      .catch((err) => {
-        dispatch({ type: SET_ERRORS, payload: err.response });
-      });
-  } catch (err) {
-    dispatch({ type: SET_ERRORS, payload: err.response });
+        let handleAuthenticate = ({ publicAddress, signature }) =>
+          fetch(`/auth`, {
+            body: JSON.stringify({ publicAddress, signature }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+          }).then((response) => response.json());
+
+        dispatch(setAddress(newAccounts));
+        fetch(`/auth/post`, { newAccounts })
+          .then((response) => response.json())
+          // If yes, retrieve it. If no, create it.
+          .then((users) =>
+            users.length ? users[0] : this.handleSignup(publicAddress)
+          )
+          // Popup MetaMask confirmation modal to sign message
+          .then(this.handleSignMessage)
+          // Send signature to back end on the /auth route
+          .then(this.handleAuthenticate);
+      }
+    );
+
+    dispatch({ type: 'SET_AUTH_STATUS', payload: true });
+  } catch (error) {
+    await console.log('Login: ', error);
   }
 };
-
-// Login Actions
-export const loginStarted = () => {
-  return { type: LOGIN_STARTED };
-};
-
-export const loginFailure = (error) => {
-  return { type: SET_ERRORS, payload: error };
-};
-
-export const loginUser = () => async (dispatch, getState) => {
+//
+export const isAuth = (props) => async (dispatch, getState) => {
   try {
-    const { authReducer } = getState();
-    let User = {
-      email: authReducer.email,
-      password: authReducer.password,
-    };
-    dispatch(loginStarted());
-    await axios
-      .post('/api/auth/login', User)
-      .then((res) => {
-        dispatch(loadUser(res.data.token));
-      })
-      .then(() => {
-        dispatch({
-          type: LOGIN_SUCCESS,
+    const { session } = getState();
+    await dispatch(moiEthStatus());
+
+    if (session.eth_status) {
+      ethereum
+        .request({ method: 'eth_accounts' })
+        .then((address) => dispatch(setAddress(address)));
+      ethereum
+        .request({
+          id: 1,
+          jsonrpc: '2.0',
+          method: 'eth_getBalance',
+          params: [session.address[0], 'latest'],
+        })
+        .then((res) => {
+          let bal;
+          bal = parseInt(res, 16);
+          bal = bal * Math.pow(10, -18);
+          dispatch(setBalance(bal));
+        })
+        .catch((error) => {
+          if (error.code === 4001) {
+            // EIP-1193 userRejectedRequest error
+            console.log('Please connect to MetaMask.');
+          } else {
+            console.error(error);
+          }
         });
-      })
-      .catch((err) => {
-        dispatch({ type: SET_ERRORS, payload: err.response });
+      await dispatch(setChainId(ethereum.chainId));
+      await ethereum.on('chainChanged', (chainId) => {
+        window.location.reload();
       });
-  } catch (err) {
-    dispatch({ type: SET_ERRORS, payload: err.response });
-  }
-};
-
-export const isAuth = () => async (dispatch, getState) => {
-  try {
-    const { authReducer } = getState();
-    let isAuth = authReducer.isAuthenticated;
-
-    if (!isAuth) {
-      Router.push('/');
+      await ethereum.on('accountsChanged', (newAccounts) =>
+        dispatch(setAddress(newAccounts))
+      );
+      return async () => {
+        await ethereum.off('accountsChanged', (newAccounts) => {
+          dispatch(setAddress(newAccounts));
+        });
+      };
     }
-
-    return isAuth;
-  } catch (err) {
-    dispatch(loginFailure(err.response.data));
+  } catch (error) {
+    console.log('isAuth Error:', error);
   }
 };
+//
 
-// Logout User
-export const logout = () => (dispatch) => {
-  dispatch({ type: LOGOUT });
+export const createMToken = (props, MODE) => (dispatch) => {
+  dispatch({ type: 'SET_TOKEN', payload: 'SUCCESS' });
 };
+// Setters
+export const setAddress = (addr) => (dispatch) => {
+  if (addr == null) addr = [];
+  dispatch({
+    type: 'SET_ADDRESS',
+    payload: addr,
+  });
+};
+export const setChainId = (payload) => (dispatch) => {
+  dispatch({
+    type: 'SET_CHAINID',
+    payload,
+  });
+};
+
+export const setBalance = (payload) => (dispatch) =>
+  dispatch({ type: 'SET_BALANCE', payload });

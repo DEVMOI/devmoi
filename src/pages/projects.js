@@ -10,13 +10,14 @@ export async function getStaticProps() {
     },
   };
 }
-export default ({ maintainer }) => {
+const projects = ({ maintainer }) => {
   const [npmData, setData] = useState({});
   useEffect(() => {});
   return (
-    <Layout classes="mt">
+    <Layout classes=" container-xl mt-5 px-0">
       <h3>Projects</h3>
       Links Coming Soon...
     </Layout>
   );
 };
+export default projects;

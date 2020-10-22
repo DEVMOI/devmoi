@@ -18,7 +18,8 @@ const persistConfig = {
   //This will ensure any "new" keys added to the redux initial state
   //will not be overwritten by the persisted stuff found in storage
   stateReconciler: autoMergeLevel2,
-  whitelist: ['authReducer'],
+  whitelist: ['session'],
+  blacklist:['address']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -28,6 +29,7 @@ const composeEnhancers = composeWithDevTools({ trace: false, traceLimit: 25 });
 
 export const store = createStore(
   persistedReducer,
+  // rootReducer,
   composeEnhancers(applyMiddleware(...middleware))
 );
 

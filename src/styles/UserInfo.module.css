@@ -1,0 +1,16 @@
+.userInfo,
+.userInfo > div {
+  position: relative;
+  width: 27.75rem;
+  cursor: pointer;
+}
+.userIcon {
+  width: 1.5625rem;
+}
+.copyText {
+  color: green;
+  position: absolute;
+  right: 0.375rem;
+  top: 0.1875rem;
+  bottom: auto;
+}

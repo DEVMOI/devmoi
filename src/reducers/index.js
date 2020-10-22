@@ -1,16 +1,11 @@
 import { combineReducers } from 'redux';
 
-import authReducer from './authReducer';
-import errorReducer from './errorReducer';
+import session from './session';
+import errors from './errors';
 
 const rootReducer = combineReducers({
-  authReducer,
-
-  usermanagementReducer,
-
-  errorReducer,
-
-  pageReducer,
+  errors,
+  session,
 });
 
 export default rootReducer;

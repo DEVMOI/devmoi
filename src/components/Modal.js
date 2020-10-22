@@ -1,4 +1,4 @@
-export default ({ children }) => {
+export default function Modal ({ children }) {
   return (
     <div className="modal d-block" tabIndex="-1" role="dialog">
       <div className="modal-dialog" role="document">

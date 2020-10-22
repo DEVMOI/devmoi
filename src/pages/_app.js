@@ -5,39 +5,21 @@ import { store } from '../store';
 
 import Head from 'next/head';
 
-import bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
-import _web3 from 'web3';
-var nonce = 0;
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+import { Layout } from '../components';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
-    
+
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
-    
+
     return { pageProps };
   }
-  componentDidMount() {
-    var web3 = new _web3(_web3.givenProvider);
-    
-    let publicAddress;
-   web3.eth.getCoinbase().then(console.log);
-    console.log(web3.currentProvider, web3.eth);
-    // return new Promise((resolve, reject) =>
-    //   web3.eth.personal.sign(
-    //     `I am signing my one-time nonce: ${nonce}`,
-    //     publicAddress,
-    //     (err, signature) => {
-    //       if (err) return reject(err);
-    //       return resolve({ publicAddress, signature });
-    //     }
-    //   )
-    // );
-  }
+
   render() {
     const { Component, pageProps } = this.props;
 
@@ -49,15 +31,19 @@ class MyApp extends App {
             content="initial-scale=1.0, width=device-width"
             key="viewport"
           />
-          <link rel="stylesheet" href={bootstrap} />
+
           <link rel="manifest" href="/manifest.json" />
           <link rel="shortcut icon" href="/favicon.ico" />
           <title>DevMoi</title>
         </Head>
 
         <div className="h-100">
-          <Provider store={store}>
-            <Component {...pageProps} />
+          <Provider session={pageProps.session} store={store}>
+            <Layout
+              isFluid={true}
+              classes="h-100 border border-top-0 border-dark">
+              <Component {...pageProps} />
+            </Layout>
           </Provider>
         </div>
       </div>
