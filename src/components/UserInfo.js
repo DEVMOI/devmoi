@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-// import TextEditor from '@/components/common/TextEditor';
+import { EthAddress } from 'rimble-ui';
+
 import DMButton from '@/components/common/DMButton';
 import UserIcon from '@/components/common/UserIcon';
 import MoiText from './common/MoiText';
@@ -21,19 +22,7 @@ function UserInfo(props) {
   const handleKeyPress = (event) =>
     event.key == 'Enter' ? setSubmit(true) : null;
   ///
-  const copyclip = (item) => {
-    var textField = document.createElement('textarea');
-    textField.innerText = item;
-    document.body.appendChild(textField);
-    textField.select();
-    document.execCommand('copy');
-    setCopy({ copy: 'Copied' });
-    textField.remove();
-    setTimeout(() => {
-      setCopy({ copy: '' });
-    }, 1000);
-  };
-  ////
+
   return (
     <div className="user-info d-flex flex-column">
       <style global jsx>
@@ -47,22 +36,16 @@ function UserInfo(props) {
           .user-icon {
             width: 1.5625rem;
           }
-          .copy-text {
-            color: green;
-            position: absolute;
-            right: 0.375rem;
-            top: 0.1875rem;
-            bottom: auto;
-          }
         `}
       </style>
 
       <div className="d-flex flex-column p-3 border border-dark">
         <div
-          onClick={(e) => copyclip(props.address)}
-          className="d-flex flex-row">
-          <UserIcon id="home-avatar" userIconStyle={'user-icon'} />
-          <span className="mt-2 ml-3">{props.address}</span>
+          className="d-flex flex-column">
+          <div className='mx-auto'>
+            <UserIcon id="home-avatar" userIconStyle={'user-icon'} scale={15} />
+          </div>
+          <EthAddress address={props.address[0]} textLabels />
         </div>
         <div>
           <span className="font-weight-bold">ETH Balance:</span> {props.balance}

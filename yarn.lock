@@ -1139,7 +1139,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.4.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
   version "7.12.1"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.1.tgz#b4116a6b6711d010b2dad3b7b6e43bf1b9954740"
   integrity sha512-J5AIf3vPj3UwXaAzb5j1xM4WAQDX3EMgemF8rjCP3SoW09LfRKAXQKt6CoVYl230P6iWdRcBbnLDDdnqWxZSCA==
@@ -1218,29 +1218,6 @@
     popper.js "^1.14.3"
     prop-types "^15.6.2"
     recompose "^0.27.1"
-
-"@editorjs/editorjs@^2.18.0":
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.19.0.tgz#ac98f7b1e627c89b51c4430f6aa325e873ade7fc"
-  integrity sha512-8PUVaBZx69IrG8dNrE+FZbHSiRTR8ql8L/cmEi1mOdEdTqnOLq5Wv9dgemK00mBWEgNoavMAjtGQpItGknAa8A==
-  dependencies:
-    codex-notifier "^1.1.2"
-    codex-tooltip "^1.0.1"
-
-"@editorjs/header@^2.5.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/header/-/header-2.6.0.tgz#64d1c6af7eefd7ad272d12dbf7ccef8b56771240"
-  integrity sha512-1psNX/irDjJ8Bp1l7DjkYWz7IBtjVIRANk7kPkNoY2CfAeeCFYbJmMlXdqTF2WeAjYv2WMy5ey/aR5fTccgFaw==
-
-"@editorjs/list@^1.5.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/list/-/list-1.6.0.tgz#6e59030ec577b3a0e88b37db118992a8f405eb9a"
-  integrity sha512-2oJ3Nj3lDcIKS6GcrHYHzUUabIjg7zlXTYXQWdEWXevbnM0/fq+4psyI/AYtqbaa3jN+bycPBIW4OG3zD+3d5A==
-
-"@editorjs/paragraph@^2.7.0":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/paragraph/-/paragraph-2.8.0.tgz#11cc381fcafaf8b9160517ce65d59eee93fc4af9"
-  integrity sha512-z6w5ZR0ru3p/IjxJW/tb7OcSnVttkZukQMIsnBMX1FIKc1BNdr7NwM1YoCyTl4OnC90YfL0xgES6/20/W267pw==
 
 "@emotion/is-prop-valid@^0.8.8":
   version "0.8.8"
@@ -1729,10 +1706,26 @@
   dependencies:
     mkdirp "^1.0.4"
 
+"@rimble/connection-banner@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@rimble/connection-banner/-/connection-banner-1.2.3.tgz#2b6144e9e5b1df9ff6b30e31a51f1e28d4ecb8b0"
+  integrity sha512-IRvOckxfZOyi4LVmDA4N8xJ1ZtZbPyAlp5JXHfGeTOuKPb2BTW2R/yT8niyl7+CddbnkVCJouu2w0TbpX3Mk9w==
+  dependencies:
+    "@rimble/utils" "^1.2.3"
+    rimble-ui "^0.9.1"
+
 "@rimble/icons@^1.0.2":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@rimble/icons/-/icons-1.1.0.tgz#e69bdff01190c304af95fae578a5d1b90f34e14d"
   integrity sha512-lR6cVMe/wum6bi6H5qmUH0wEPvCg269XdYMaRwgxpvqbhu0gytH9vTSMkWhbaBLWjmALONt/qjDCQGCESQ+qbg==
+
+"@rimble/utils@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@rimble/utils/-/utils-1.2.3.tgz#df4b24a7841264d40de984edbac0391d16e192ad"
+  integrity sha512-2KEN5+t9P8LsFijslluz1axoYoJQGMAlVdaW7WFFplvArCzjvTIoAeCdtNoZt8JyJi7ccxbzamavY5vP8rQQDw==
+  dependencies:
+    bowser "^2.2.0"
+    rimble-ui "^0.9.1"
 
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"
@@ -2838,11 +2831,6 @@ blakejs@^1.1.0:
   resolved "https://registry.yarnpkg.com/blakejs/-/blakejs-1.1.0.tgz#69df92ef953aa88ca51a32df6ab1c54a155fc7a5"
   integrity sha1-ad+S75U6qIylGjLfarHFShVfx6U=
 
-blockies@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/blockies/-/blockies-0.0.2.tgz#22ad58da4f6b382bc79bf4386c5820c70047e4ed"
-  integrity sha1-Iq1Y2k9rOCvHm/Q4bFggxwBH5O0=
-
 bluebird@^3.5.0, bluebird@^3.5.5:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
@@ -2894,7 +2882,7 @@ bootstrap@latest:
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.3.tgz#c6a72b355aaf323920be800246a6e4ef30997fe6"
   integrity sha512-o9ppKQioXGqhw8Z7mah6KdTYpNQY//tipnkxppWhPbiSWdD+1raYsnhwEZjkTHYbGee4cVQ0Rx65EhOY/HNLcQ==
 
-bowser@^2.9.0:
+bowser@^2.2.0, bowser@^2.9.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/bowser/-/bowser-2.11.0.tgz#5ca3c35757a7aa5771500c70a73a9f91ef420a8f"
   integrity sha512-AlcaJBi/pqqJBIQ8U9Mcpc9i8Aqxn88Skv5d+xBX006BY5u8N3mGLHa5Lgppa7L/HfwgwLgZ6NYs+Ag6uUmJRA==
@@ -3452,16 +3440,6 @@ coa@^2.0.2:
     "@types/q" "^1.5.1"
     chalk "^2.4.1"
     q "^1.1.2"
-
-codex-notifier@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/codex-notifier/-/codex-notifier-1.1.2.tgz#a733079185f4c927fa296f1d71eb8753fe080895"
-  integrity sha512-DCp6xe/LGueJ1N5sXEwcBc3r3PyVkEEDNWCVigfvywAkeXcZMk9K41a31tkEFBW0Ptlwji6/JlAb49E3Yrxbtg==
-
-codex-tooltip@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/codex-tooltip/-/codex-tooltip-1.0.1.tgz#f6e4f39d81507f9c455b667f1287746d14ee8056"
-  integrity sha512-1xLb1NZbxguNtf02xBRhDphq/EXvMMeEbY0ievjQTHqf8UjXsD41evGk9rqcbjpl+JOjNgtwnp1OaU/X/h6fhQ==
 
 collect-v8-coverage@^1.0.0:
   version "1.0.1"
@@ -8510,6 +8488,22 @@ rimble-ui@^0.14.0:
     set-value "^3.0.1"
     styled-system "^5.1.5"
 
+rimble-ui@^0.9.1:
+  version "0.9.8"
+  resolved "https://registry.yarnpkg.com/rimble-ui/-/rimble-ui-0.9.8.tgz#9d4fd612e2ca24b413ffa3b7daa36c418922e8e8"
+  integrity sha512-brhTTh4UwpRZusqclcqrbj2N9zgejIxMty+/gIdCLT0Gsgfz1OZes0OeFDFjqVYCHK5DrRiaCjybpCG+rtfNfw==
+  dependencies:
+    "@d8660091/react-popper" "^1.0.4"
+    "@svgr/rollup" "^4.2.0"
+    clipboard "^2.0.4"
+    ethereum-blockies "^0.1.1"
+    mixin-deep "^2.0.1"
+    polished "^3.2.0"
+    qrcode.react "^0.9.3"
+    rmdi "^1.0.1"
+    set-value "^3.0.1"
+    styled-system "^4.1.0"
+
 rimraf@^2.5.4, rimraf@^2.6.3:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.7.1.tgz#35797f13a7fdadc566142c29d4f07ccad483e3ec"
@@ -8538,6 +8532,13 @@ rlp@^2.0.0, rlp@^2.2.3, rlp@^2.2.4:
   integrity sha512-HAfAmL6SDYNWPUOJNrM500x4Thn4PZsEy5pijPh40U9WfNk0z15hUYzO9xVIMAdIHdFtD8CBDHd75Td1g36Mjg==
   dependencies:
     bn.js "^4.11.1"
+
+rmdi@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/rmdi/-/rmdi-1.0.1.tgz#0284dacf86105181bc9b14df61df8ba8728631d6"
+  integrity sha512-1oxFIH6/mZrw6HN6M0PCogMf783FUKOD2tZW5HyX+Ok6nUodd4kob2UvzzFtaEx7GuD8KzaQPid/pbFjO5D7uw==
+  dependencies:
+    styled-system "^2.0.0"
 
 rollup-plugin-babel@^4.3.3:
   version "4.4.0"
@@ -9314,6 +9315,21 @@ styled-jsx@3.3.0:
     string-hash "1.1.3"
     stylis "3.5.4"
     stylis-rule-sheet "0.0.10"
+
+styled-system@^2.0.0:
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/styled-system/-/styled-system-2.3.6.tgz#a38c1ffa04a5c35adec46473984e463c48b16f7c"
+  integrity sha512-lGAh/8tC70f5hBUD7w0UOWCKyOBK2AzzWKu9BGzqla/Yjx8PzrvaciA7uATbm493hXTfRrecSdLdrIUET5IYnA==
+  dependencies:
+    prop-types "^15.6.0"
+
+styled-system@^4.1.0:
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/styled-system/-/styled-system-4.2.4.tgz#8909f91396c30b92295b4eddec5f7b89f8c8d767"
+  integrity sha512-44X7n09gDvwx7yjquEXsjiNALK0dxGgAJdpO5cb/PdL+D4mhSLKWig4/EhH4vHJLbwu/kumURHyvKxygaBfg0A==
+  dependencies:
+    "@babel/runtime" "^7.4.2"
+    prop-types "^15.7.2"
 
 styled-system@^5.1.5:
   version "5.1.5"

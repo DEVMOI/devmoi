@@ -9,12 +9,9 @@
     "start": "next start"
   },
   "dependencies": {
-    "@editorjs/editorjs": "^2.18.0",
-    "@editorjs/header": "^2.5.0",
-    "@editorjs/list": "^1.5.0",
-    "@editorjs/paragraph": "^2.7.0",
     "@metamask/detect-provider": "^1.1.0",
     "@metamask/onboarding": "^1.0.0",
+    "@rimble/connection-banner": "^1.2.3",
     "@walletconnect/qrcode-modal": "^1.3.1",
     "bcryptjs": "^2.4.3",
     "blockies": "0.0.2",

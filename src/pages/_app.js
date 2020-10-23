@@ -40,13 +40,13 @@ class MyApp extends App {
 
         <div className="h-100">
           <Provider session={pageProps.session} store={store}>
-            <ThemeProvider theme={theme}>
+            {/* <ThemeProvider theme={theme}> */}
               <Layout
                 isFluid={true}
                 classes="h-100 border border-top-0 border-dark">
                 <Component {...pageProps} />
               </Layout>
-            </ThemeProvider>
+            {/* </ThemeProvider> */}
           </Provider>
         </div>
       </div>

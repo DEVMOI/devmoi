@@ -12,6 +12,7 @@ The Official Repo for the Devmoi Web3 CMS and Community.
 - MongoDB
 - Ganache-cli
 - Nginx
+-Rimble UX/UI
 
 ## Getting Started
 
@@ -36,5 +37,6 @@ Open [http://localhost:3001](http://localhost:3001) with your browser to see the
 #### Frontend
 - [Next.js](https://nextjs.org)
 - [React.js](https://reactjs.org)
+- [Rimble](https://rimble.consensys.design/)
 #### Database
 - [Mongo DB](https://docs.mongodb.com/)
