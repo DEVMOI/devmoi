@@ -3,7 +3,6 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
-
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 
@@ -19,7 +18,7 @@ const persistConfig = {
   //will not be overwritten by the persisted stuff found in storage
   stateReconciler: autoMergeLevel2,
   whitelist: ['session'],
-  blacklist:['address']
+  blacklist: ['address'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -29,8 +28,9 @@ const composeEnhancers = composeWithDevTools({ trace: false, traceLimit: 25 });
 
 export const store = createStore(
   persistedReducer,
-  // rootReducer,
-  composeEnhancers(applyMiddleware(...middleware))
+  process.env.NODE_ENV === 'development'
+    ? composeEnhancers(applyMiddleware(...middleware))
+    : applyMiddleware(...middleware)
 );
 
 export const persistor = persistStore(store);
