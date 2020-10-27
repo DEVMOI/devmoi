@@ -32,7 +32,9 @@ function Navbar(props) {
           <NavItem Route={'/live'} Text={'Live'} />
           <NavItem Route={'/about'} Text={'About'} />
         </ul>
-        <LoginButton />
+        <div className="ml-auto">
+          <LoginButton />
+        </div>
       </div>
     </nav>
   );

@@ -3,7 +3,6 @@ const INITIAL_STATE = {
   isAuth: false,
   isLoading: false,
   token: null,
-
   chainId: null,
   address: [],
   balance: null,
@@ -19,7 +18,6 @@ export default function session(state = INITIAL_STATE, action) {
       return { ...state, address: action.payload };
     case 'SET_TOKEN':
       return { ...state, token: action.payload };
-
     case 'SET_CHAINID':
       return { ...state, chainId: action.payload };
     case 'SET_BALANCE':

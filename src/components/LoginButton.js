@@ -9,17 +9,12 @@ import UserIcon from './common/UserIcon';
 function LoginButton(props) {
   const [addr, setaddrBool] = useState(null);
   const { address, eth_status } = props.session;
-
-  useEffect(() => {
-    props.isAuth();
-  }, []);
-
   useEffect(() => {
     setaddrBool(address.length > 0);
   }, []);
 
   useEffect(() => {
-    if (eth_status) {
+    if (address) {
       if (address.length > 0) {
         setaddrBool(true);
       } else {

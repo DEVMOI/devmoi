@@ -31,4 +31,4 @@ package-lock.json
 **/certs/
 .secret
 
-ganache/wallets.json
+wallets.json

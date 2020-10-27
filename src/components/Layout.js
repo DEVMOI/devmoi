@@ -1,12 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { isAuth, setAddress } from '@/actions';
+import { initWeb3, isAuth, getAddress } from '@/actions';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
 const Layout = (props) => {
   let { isFluid = false, classes, children, session, isAuth } = props;
-
+  useEffect(() => {
+    props.initWeb3().then(() => {
+      props.getAddress();
+    });
+  }, []);
   return (
     <div className="layout">
       <style global jsx>{`
@@ -47,4 +51,4 @@ const Layout = (props) => {
 const mapStateToProps = (state) => ({
   session: state.session,
 });
-export default connect(mapStateToProps, { isAuth, setAddress })(Layout);
+export default connect(mapStateToProps, { initWeb3, getAddress })(Layout);
