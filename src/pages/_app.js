@@ -5,23 +5,16 @@ import { store } from '../store';
 import { theme } from 'rimble-ui';
 import { ThemeProvider } from 'styled-components';
 import Head from 'next/head';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+import metrics from '../metrics';
 
 import { Layout } from '../components';
-// pages/_app.js
-export function reportWebVitals(metric) {
-  console.log(metric);
-}
-// export async function getInitialProps({ Component, ctx }) {
-//   let pageProps = {};
+/**
+ * Handles the Vitals and Metrics of the Webapp
+ * @param {Object} metric 
+ */
+export const reportWebVitals=(metric)=>metrics(metric);
 
-//   if (Component.getInitialProps) {
-//     pageProps = await Component.getInitialProps(ctx);
-//   }
-
-//   return { pageProps };
-// }
 function MyApp({ Component, pageProps }) {
   return (
     <div className="h-100">
