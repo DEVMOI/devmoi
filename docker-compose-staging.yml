@@ -2,6 +2,7 @@ version: '3'
 services:
   web_devmoi:
     build: .
+    restart: always
     depends_on:
       - mongoDevmoi
     command: bash -c "yarn --silent && yarn build && yarn start"
@@ -12,11 +13,13 @@ services:
     ports:
       - '3000:3000'
   mongoDevmoi:
+    restart: always
     container_name: mongoDevmoi
     image: mongo
     ports:
       - '27017:27017'
   nginx:
+    restart: always
     build: ./nginx
     depends_on:
       - web_devmoi
