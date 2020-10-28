@@ -17,7 +17,6 @@
     "bootstrap": "latest",
     "dotenv": "^8.2.0",
     "eth-sig-util": "^2.5.3",
-    "ethereum-blockies": "^0.1.1",
     "ethereumjs-util": "^7.0.7",
     "jsonwebtoken": "^8.5.1",
     "moifetch": "latest",

@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // The random number is a js implementation of the Xorshift PRNG
 const randseed = new Array(4); // Xorshift: [x, y, z, w] 32 bit values
@@ -7,14 +7,12 @@ function seedrand(seed) {
   randseed.fill(0);
 
   for (let i = 0; i < seed.length; i++) {
-    (randseed[i % 4] =
-      (randseed[i % 4] << 5) - randseed[i % 4] + seed.charCodeAt(i));
+    randseed[i % 4] =
+      (randseed[i % 4] << 5) - randseed[i % 4] + seed.charCodeAt(i);
   }
-  console.log(randseed);
 }
 
 function rand() {
-  console.log(randseed)
   // based on Java's String.hashCode(), expanded to 4 32bit values
   const t = randseed[0] ^ (randseed[0] << 11);
 
@@ -68,8 +66,8 @@ function buildOpts(opts) {
   const newOpts = {};
 
   newOpts.seed =
-    opts.seed || Math.floor(Math.random() * Math.pow(10, 16)).toString(16);
-
+    opts.seed.toLowerCase() ||
+    Math.floor(Math.random() * Math.pow(10, 16)).toString(16);
   seedrand(newOpts.seed);
 
   newOpts.size = opts.size || 8;
@@ -80,51 +78,42 @@ function buildOpts(opts) {
 
   return newOpts;
 }
+function draw(canvas, opts) {
+  opts = buildOpts(opts || {});
+  const imageData = createImageData(opts.size);
+  const width = Math.sqrt(imageData.length);
+  canvas.width = canvas.height = opts.size * opts.scale;
 
-export function RenderIcon({ opts }) {
-  let blockieIcon = useRef(null);
-  const [blockie, setBlockie] = useState(null);
-  useEffect(() => {
-    opts = buildOpts(opts || {});
-    const imageData = createImageData(opts.size);
-    const width = Math.sqrt(imageData.length);
-    blockieIcon.current.width = blockieIcon.current.height =
-      opts.size * opts.scale;
+  const cc = canvas.getContext('2d');
+  cc.fillStyle = opts.bgcolor;
+  cc.fillRect(0, 0, canvas.width, canvas.height);
+  cc.fillStyle = opts.color;
 
-    const cc = blockieIcon.current.getContext('2d');
-    cc.fillStyle = opts.bgcolor;
-    cc.fillRect(0, 0, blockieIcon.current.width, blockieIcon.current.height);
-    cc.fillStyle = opts.color;
+  for (let i = 0; i < imageData.length; i++) {
+    // if data is 0, leave the background
+    if (imageData[i]) {
+      const row = Math.floor(i / width);
+      const col = i % width;
 
-    for (let i = 0; i < imageData.length; i++) {
-      // if data is 0, leave the background
-      if (imageData[i]) {
-        const row = Math.floor(i / width);
-        const col = i % width;
+      // if data is 2, choose spot color, if 1 choose foreground
+      cc.fillStyle = imageData[i] == 1 ? opts.color : opts.spotcolor;
 
-        // if data is 2, choose spot color, if 1 choose foreground
-        cc.fillStyle = imageData[i] == 1 ? opts.color : opts.spotcolor;
-
-        cc.fillRect(col * opts.scale, row * opts.scale, opts.scale, opts.scale);
-      }
+      cc.fillRect(col * opts.scale, row * opts.scale, opts.scale, opts.scale);
     }
-    console.log(blockieIcon);
-    setBlockie(blockieIcon);
-  }, []);
-  useEffect(() => {
-    console.log(blockie == blockieIcon);
-  }, [blockie]);
-  // console.log(blockie.current)
-  // let current = blockie !== null ? blockie.current : null;
-  // return current !== null || current !== undefined ? (
-  //   current
-  // ) :
-
-  return <canvas ref={blockieIcon} />;
+  }
 }
+function Blockies({ opts, canvasStyle }) {
+  let blockieIcon = useRef(null);
+  useEffect(() => {
+    draw(blockieIcon.current, opts);
+  }, []);
 
-function Blockies({ opts }) {
-  return <RenderIcon opts={opts} />;
+  return (
+    <canvas
+      className={canvasStyle !== undefined ? canvasStyle : ''}
+      ref={blockieIcon}
+    />
+  );
 }
 
 export default Blockies;
