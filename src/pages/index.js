@@ -2,15 +2,15 @@ import { useState } from 'react';
 import UserInfo from '@/components/UserInfo';
 import { connect } from 'react-redux';
 const Home = (props) => {
-  function HandleHomeContent() {
-    return props.address.length !== 0 ? (
-      <UserInfo address={props.address} />
-    ) : (
-      <div></div>
-    );
-  }
-
-  return <div className="container-xl px-0 pt-3">{HandleHomeContent()}</div>;
+  return (
+    <div className="container-xl px-0 pt-5">
+      {props.address.length !== 0 ? (
+        <UserInfo address={props.address} />
+      ) : (
+        <div />
+      )}
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => ({
