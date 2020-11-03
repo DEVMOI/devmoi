@@ -1,9 +1,12 @@
+import dynamic from 'next/dynamic';
 import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { initWeb3, isAuth, getAddress } from '@/actions';
 import Navbar from './Navbar';
-import Footer from './Footer';
 
+const Footer = dynamic(() => import('./Footer'), {
+  ssr: false,
+});
 const Layout = (props) => {
   let { isFluid = false, classes, children, session, isAuth } = props;
   useEffect(() => {

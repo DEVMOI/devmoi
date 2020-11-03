@@ -2,10 +2,10 @@ import { connect } from 'react-redux';
 import Blockies from './blockie';
 const UserIcon = (props) => (
   <Blockies
-    canvasStyle={'rounded-circle border border-dark'}
+    canvasStyle={props.userIconStyle !== undefined ? props.userIconStyle : ''}
     opts={{
       seed: props.seed || 'foo',
-      size: props.size || 8,
+      size: props.size || 6,
       scale: props.scale || 3,
     }}
   />

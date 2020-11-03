@@ -27,9 +27,9 @@ function Navbar(props) {
         </a>
 
         <ul className="navbar-nav mr-auto flex-row ">
-          <NavItem Route={'/activity'} Text={'Activity'} />
+          {/* <NavItem Route={'/activity'} Text={'Activity'} />
           <NavItem Route={'/projects'} Text={'Projects'} />
-          <NavItem Route={'/live'} Text={'Live'} />
+          <NavItem Route={'/live'} Text={'Live'} /> */}
           <NavItem Route={'/about'} Text={'About'} />
         </ul>
         <div className="ml-auto">

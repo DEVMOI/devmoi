@@ -47,7 +47,7 @@ function UserInfo(props) {
           <div className="mx-auto mb-4">
             <UserIcon
               id="home-avatar"
-              userIconStyle={'user-icon mb-2'}
+              userIconStyle={'rounded-circle border border-dark mb-2'}
               scale={15}
             />
           </div>
@@ -56,91 +56,91 @@ function UserInfo(props) {
             <span className="font-weight-bold">ETH Balance:</span>{' '}
             {props.balance}
           </p>
-        </div>
-        <div className="d-flex flex-row">
-          <span className="mt-2 mr-3">Do you want a Display Name?</span>
-          <DMButton
-            buttonStyle="btn-success px-3 mr-1"
-            onPress={async (e) => {
-              e.preventDefault();
-              // alert('Adding Name');
-              var ethUtil = require('ethereumjs-util');
-              var sigUtil = require('eth-sig-util');
-              var from = ethereum.selectedAddress;
-              if (!from) return connect();
-              let data;
-              data = JSON.stringify({
-                types: {
-                  EIP712Domain: [
-                    { name: 'name', type: 'string' },
-                    { name: 'version', type: 'string' },
-                    { name: 'chainId', type: 'uint256' },
-                    {
-                      name: 'verifyingContract',
-                      type: 'address',
-                    },
-                  ],
-                  // Person: [
-                  //   { name: 'name', type: 'string' },
-                  //   { name: 'wallet', type: 'address' },
-                  // ],
-                  Message: [{ name: 'text', type: 'string' }],
-                },
-                primaryType: 'Message',
-                domain: {
-                  name: 'DEVMOI',
-                  version: '1',
-                  chainId: ethereum.chainId,
-                  verifyingContract:
-                    '0xa8d145dd3003817da1dc83f838ee5088b65acf2e',
-                },
-                message: { text: 'You are Signing off Data' },
-              });
-              web3.eth.personal.sign(
-                '\x19Ethereum Signed Message:\n' + data.length + data,
-                from,
-                '',
-                function (err, result) {
-                  if (err) return console.dir(err);
-                  if (result.error) {
-                    alert(result.error.message);
-                  }
-                  if (result.error) return console.error('ERROR', result);
-                  console.log('TYPED SIGNED:' + JSON.stringify(result));
-                  console.log(result);
-                  const recovered = sigUtil.recoverTypedSignature({
-                    data: JSON.parse(data),
-                    sig: result,
-                  });
+          <div className="d-flex flex-row">
+            <span className="mt-2 mr-3">Do you want a Display Name?</span>
+            <DMButton
+              buttonStyle="btn-success px-3 mr-1"
+              onPress={async (e) => {
+                e.preventDefault();
+                // alert('Adding Name');
+                var ethUtil = require('ethereumjs-util');
+                var sigUtil = require('eth-sig-util');
+                var from = ethereum.selectedAddress;
+                if (!from) return connect();
+                let data;
+                data = JSON.stringify({
+                  types: {
+                    EIP712Domain: [
+                      { name: 'name', type: 'string' },
+                      { name: 'version', type: 'string' },
+                      { name: 'chainId', type: 'uint256' },
+                      {
+                        name: 'verifyingContract',
+                        type: 'address',
+                      },
+                    ],
+                    // Person: [
+                    //   { name: 'name', type: 'string' },
+                    //   { name: 'wallet', type: 'address' },
+                    // ],
+                    Message: [{ name: 'text', type: 'string' }],
+                  },
+                  primaryType: 'Message',
+                  domain: {
+                    name: 'DEVMOI',
+                    version: '1',
+                    chainId: ethereum.chainId,
+                    verifyingContract:
+                      '0xa8d145dd3003817da1dc83f838ee5088b65acf2e',
+                  },
+                  message: { text: 'You are Signing off Data' },
+                });
+                web3.eth.personal.sign(
+                  '\x19Ethereum Signed Message:\n' + data.length + data,
+                  from,
+                  '',
+                  function (err, result) {
+                    if (err) return console.dir(err);
+                    if (result.error) {
+                      alert(result.error.message);
+                    }
+                    if (result.error) return console.error('ERROR', result);
+                    console.log('TYPED SIGNED:' + JSON.stringify(result));
+                    console.log(result);
+                    const recovered = sigUtil.recoverTypedSignature({
+                      data: JSON.parse(data),
+                      sig: result,
+                    });
 
-                  if (
-                    ethUtil.toChecksumAddress(recovered) ===
-                    ethUtil.toChecksumAddress(from)
-                  ) {
-                    alert('Successfully ecRecovered signer as ' + from);
-                  } else {
-                    alert(
-                      'Failed to verify signer when comparing ' +
-                        result +
-                        ' to ' +
-                        from
-                    );
+                    if (
+                      ethUtil.toChecksumAddress(recovered) ===
+                      ethUtil.toChecksumAddress(from)
+                    ) {
+                      alert('Successfully ecRecovered signer as ' + from);
+                    } else {
+                      alert(
+                        'Failed to verify signer when comparing ' +
+                          result +
+                          ' to ' +
+                          from
+                      );
+                    }
                   }
-                }
-              );
-            }}>
-            YES
-          </DMButton>
+                );
+              }}>
+              YES
+            </DMButton>
 
-          <DMButton
-            buttonStyle="btn-danger px-3 ml-1"
-            onPress={() => {
-              alert(
-                'Option to add Display Name may be avaliable at a later date'
-              );
-            }}>
-            NO
-          </DMButton>
+            <DMButton
+              buttonStyle="btn-danger px-3 ml-1"
+              onPress={() => {
+                alert(
+                  'Option to add Display Name may be avaliable at a later date'
+                );
+              }}>
+              NO
+            </DMButton>
+          </div>
         </div>
       </Card>
     </div>

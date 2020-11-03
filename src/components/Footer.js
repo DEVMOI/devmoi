@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 function Footer(props) {
   const { footerContainerStyle } = props;
 
-  function Network({chainID}) {
-    console.log(chainID)
+  function Network({ chainID }) {
+    console.log(chainID);
     switch (chainID) {
       case '0x1':
         return <span>Ethereum Main Network</span>;
@@ -47,7 +47,9 @@ function Footer(props) {
           className={`chain ${
             props.chainId !== null ? props.chainId : '0x1'
           }`}></span>
-        {props.chainId !==null && props.chainId!==undefined ? <Network chainID={props.chainId} /> : null}
+        {props.chainId !== null && props.chainId !== undefined ? (
+          <Network chainID={props.chainId} />
+        ) : null}
       </div>
     </footer>
   );

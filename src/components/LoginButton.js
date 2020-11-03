@@ -1,14 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import MetaMaskOnboarding from '@metamask/onboarding';
 
 import DMButton from './common/DMButton';
 import { login, isAuth } from '../actions';
 import UserIcon from './common/UserIcon';
 
-function LoginButton(props) {
+function LoginButton({ session, login, isAuth }) {
+  let { address } = session;
   const [addr, setaddrBool] = useState(null);
-  const { address, eth_status } = props.session;
+
   useEffect(() => {
     setaddrBool(address.length > 0);
   }, []);
@@ -27,12 +27,15 @@ function LoginButton(props) {
     <DMButton
       buttonStyle="btn-dark"
       onPress={() => {
-        props.login();
+        login();
       }}>
       Connect To MetaMask
     </DMButton>
   ) : (
-    <UserIcon id="nav-avatar" />
+    <UserIcon
+      id="nav-avatar"
+      userIconStyle={'rounded-circle border border-dark mb-2'}
+    />
   );
 }
 const mapStateToProps = (state) => ({

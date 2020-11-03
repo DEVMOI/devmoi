@@ -1,17 +1,15 @@
-import { useState } from 'react';
-import UserInfo from '@/components/UserInfo';
+import dynamic from 'next/dynamic';
 import { connect } from 'react-redux';
-const Home = (props) => {
-  return (
-    <div className="container-xl px-0 pt-5">
-      {props.address.length !== 0 ? (
-        <UserInfo address={props.address} />
-      ) : (
-        <div />
-      )}
-    </div>
-  );
-};
+const UserInfo = dynamic(() => import('@/components/UserInfo'), { ssr: false });
+const Home = ({address}) => (
+  <div className="container-xl px-0 pt-5">
+    {address.length !== 0 ? (
+      <UserInfo address={address} />
+    ) : (
+      ''
+    )}
+  </div>
+);
 
 const mapStateToProps = (state) => ({
   address: state.session.address,
