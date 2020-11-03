@@ -95,34 +95,34 @@ export const isAuth = (props) => async (dispatch, getState) => {
     const { session } = getState();
     await dispatch(getAddress());
 
-    // ethereum
-    //   .request({
-    //     id: 1,
-    //     jsonrpc: '2.0',
-    //     method: 'eth_getBalance',
-    //     params: [session.address[0], 'latest'],
-    //   })
-    //   .then((res) => dispatch(setBalance(web3.utils.fromWei(res, 'ether'))))
-    //   .catch((error) => {
-    //     if (error.code === 4001) {
-    //       // EIP-1193 userRejectedRequest error
-    //       console.log('Please connect to MetaMask.');
-    //     } else {
-    //       console.error(error);
-    //     }
-    //   });
-    // await dispatch(setChainId(ethereum.chainId));
-    // await ethereum.on('chainChanged', (chainId) => {
-    //   window.location.reload();
-    // });
-    // await ethereum.on('accountsChanged', (newAccounts) =>
-    //   dispatch(setAddress(newAccounts))
-    // );
-    // return async () => {
-    //   await ethereum.off('accountsChanged', (newAccounts) => {
-    //     dispatch(setAddress(newAccounts));
-    //   });
-    // };
+    ethereum
+      .request({
+        id: 1,
+        jsonrpc: '2.0',
+        method: 'eth_getBalance',
+        params: [session.address[0], 'latest'],
+      })
+      .then((res) => dispatch(setBalance(web3.utils.fromWei(res, 'ether'))))
+      .catch((error) => {
+        if (error.code === 4001) {
+          // EIP-1193 userRejectedRequest error
+          console.log('Please connect to MetaMask.');
+        } else {
+          console.error(error);
+        }
+      });
+    await dispatch(setChainId(ethereum.chainId));
+    await ethereum.on('chainChanged', (chainId) => {
+      window.location.reload();
+    });
+    await ethereum.on('accountsChanged', (newAccounts) =>
+      dispatch(setAddress(newAccounts))
+    );
+    return async () => {
+      await ethereum.off('accountsChanged', (newAccounts) => {
+        dispatch(setAddress(newAccounts));
+      });
+    };
     // if (await _provider()) {
     // }
   } catch (error) {
