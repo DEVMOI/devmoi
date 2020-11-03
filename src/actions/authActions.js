@@ -81,8 +81,8 @@ export const getAddress = () => async (dispatch) => {
   try {
     let address = await web3.eth.getAccounts();
     if (address) {
-      // web3.eth.defaultAccount = await address[0];
-      await console.log(address[0]);
+      web3.eth.defaultAccount = await address[0];
+
       dispatch(setAddress(address[0]));
     }
   } catch (error) {
@@ -90,19 +90,13 @@ export const getAddress = () => async (dispatch) => {
   }
 };
 //
-export const isAuth = (props) => async (dispatch, getState) => {
+export const getBalance = () => async (dispatch) => {
   try {
-    const { session } = getState();
-    await dispatch(getAddress());
-
-    ethereum
-      .request({
-        id: 1,
-        jsonrpc: '2.0',
-        method: 'eth_getBalance',
-        params: [session.address[0], 'latest'],
+    await web3.eth
+      .getBalance(web3.eth.defaultAccount)
+      .then((res) => {
+        dispatch(setBalance(web3.utils.fromWei(res, 'ether')));
       })
-      .then((res) => dispatch(setBalance(web3.utils.fromWei(res, 'ether'))))
       .catch((error) => {
         if (error.code === 4001) {
           // EIP-1193 userRejectedRequest error
@@ -111,7 +105,18 @@ export const isAuth = (props) => async (dispatch, getState) => {
           console.error(error);
         }
       });
-    await dispatch(setChainId(ethereum.chainId));
+  } catch (error) {
+    console.error('getBalance', error);
+  }
+};
+//
+export const initAuth = (props) => async (dispatch, getState) => {
+  try {
+    await dispatch(getAddress());
+    await dispatch(getBalance());
+    await web3.eth.net
+      .getNetworkType()
+      .then((res) => dispatch(setChainId(res)));
     await ethereum.on('chainChanged', (chainId) => {
       window.location.reload();
     });

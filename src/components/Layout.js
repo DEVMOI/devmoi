@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { initWeb3, isAuth, getAddress } from '@/actions';
+import { initWeb3, initAuth} from '@/actions';
 import Navbar from './Navbar';
 
 const Footer = dynamic(() => import('./Footer'), {
@@ -11,7 +11,7 @@ const Layout = (props) => {
   let { isFluid = false, classes, children, session, isAuth } = props;
   useEffect(() => {
     props.initWeb3().then(() => {
-      props.getAddress();
+      props.initAuth();
     });
   }, []);
   return (
@@ -54,4 +54,4 @@ const Layout = (props) => {
 const mapStateToProps = (state) => ({
   session: state.session,
 });
-export default connect(mapStateToProps, { initWeb3, getAddress })(Layout);
+export default connect(mapStateToProps, { initWeb3, initAuth })(Layout);

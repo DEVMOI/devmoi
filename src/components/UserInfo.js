@@ -57,7 +57,7 @@ function UserInfo(props) {
             {props.balance}
           </p>
           <div className="d-flex flex-row">
-            <span className="mt-2 mr-3">Do you want a Display Name?</span>
+            <span className="mt-2 mr-3 text-uppercase">Do you want a Display Name?</span>
             <DMButton
               buttonStyle="btn-success px-3 mr-1"
               onPress={async (e) => {

@@ -2,10 +2,10 @@ import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import DMButton from './common/DMButton';
-import { login, isAuth } from '../actions';
+import { login, initAuth } from '../actions';
 import UserIcon from './common/UserIcon';
 
-function LoginButton({ session, login, isAuth }) {
+function LoginButton({ session, login, initAuth }) {
   let { address } = session;
   const [addr, setaddrBool] = useState(null);
 
@@ -41,4 +41,4 @@ function LoginButton({ session, login, isAuth }) {
 const mapStateToProps = (state) => ({
   session: state.session,
 });
-export default connect(mapStateToProps, { login, isAuth })(LoginButton);
+export default connect(mapStateToProps, { login, initAuth })(LoginButton);
