@@ -1,5 +1,5 @@
 import { Layout } from '../components';
-import { copyToClipboard } from '../utils';
+// import { copyToClipboard } from '../utils';
 export default () => {
   return (
     <Layout classes="minecraft h-100 pt-5 px-0 w-100">
