@@ -3,7 +3,7 @@ import { ObjectID } from 'mongodb';
 
 import middleware from '../../../middleware';
 
-import createUserProfile from '../../../helpers/createUserProfile';
+// import createUserProfile from '../../../helpers/createUserProfile';
 
 const handler = nextConnect();
 
@@ -11,9 +11,9 @@ handler.use(middleware);
 
 handler.post(async (req, res) => {
   try {
-    await createUserProfile(req, res).then(() => {
-      res.json({ message: 'posted' });
-    });
+    res.json({ message: 'posted' });
+    // await createUserProfile(req, res).then(() => {
+    // });
   } catch (error) {
     console.log('POST "api/survey" =>', error);
   }
