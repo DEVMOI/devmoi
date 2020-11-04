@@ -1,25 +1,25 @@
 import { UserIcon } from '@/components/common';
 import RSSFeed from '@/components/RSSFeed';
 
-const handleConversion = async (addr) => {
+const handleConversion = async (addr, value) => {
   try {
     await window.ethereum.enable();
+
+    const response = await fetch(
+      `https://api.0x.org/swap/v1/quote?buyToken=DAI&sellToken=ETH&buyAmount=${value}000000000000000000`
+    );
+    if (ethereum.selectedAddress && response.ok) {
+      let data = await response.json();
+      data.to = await addr;
+      data.from !== undefined ? await web3.eth.sendTransaction(data) : null;
+    } else {
+      const error = await response.json();
+      document.getElementById('error').append(JSON.stringify(error, null, 2));
+    }
   } catch (err) {
     window.alert(
-      'You need to install or enable Metamask for this demo to work.'
+      'You need to install or enable Metamask'
     );
-  }
-
-  const response = await fetch(
-    `https://api.0x.org/swap/v1/quote?buyToken=DAI&sellToken=ETH&buyAmount=1000000000000000000`
-  );
-  if (response.ok) {
-    let data = await response.json();
-    data.to = await addr;
-    await web3.eth.sendTransaction(data);
-  } else {
-    const error = await response.json();
-    document.getElementById('error').append(JSON.stringify(error, null, 2));
   }
 };
 
@@ -30,7 +30,10 @@ function TeamCard(props) {
       <p>{props.role}</p>
       <button
         className="w-100 btn m-0 p-0 border border-top"
-        onClick={() => handleConversion(props.seed)}>
+        onClick={() => {
+          var val = prompt(`How much do you want to tip?`);
+          handleConversion(props.seed, val);
+        }}>
         Donate
       </button>
       <pre id="error" />
