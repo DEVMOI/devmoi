@@ -22,6 +22,27 @@ function UserInfo(props) {
     event.key == 'Enter' ? setSubmit(true) : null;
   ///
 
+  // const handleConversion = async () => {
+  //   try {
+  //     await window.ethereum.enable();
+  //   } catch (err) {
+  //     window.alert(
+  //       'You need to install or enable Metamask for this demo to work.'
+  //     );
+  //   }
+
+  //   const response = await fetch(
+  //     `https://api.0x.org/swap/v1/quote?buyToken=DAI&sellToken=ETH&buyAmount=1`
+  //   );
+  //   if (response.ok) {
+  //     let data = await response.json();
+  //     web3.eth.sendTransaction(data, console.log);
+  //   } else {
+  //     const error = await response.json();
+  //     document.getElementById('error').append(JSON.stringify(error, null, 2));
+  //   }
+  // };
+
   return (
     <div
       className={`d-flex flex-column ${
@@ -57,7 +78,10 @@ function UserInfo(props) {
             {props.balance}
           </p>
           <div className="d-flex flex-row">
-            <span className="mt-2 mr-3 text-uppercase">Do you want a Display Name?</span>
+            <span className="mt-2 mr-3 text-uppercase">
+              Do you want a Display Name?
+            </span>
+            <pre id="error" />
             <DMButton
               buttonStyle="btn-success px-3 mr-1"
               onPress={async (e) => {
@@ -67,66 +91,67 @@ function UserInfo(props) {
                 var sigUtil = require('eth-sig-util');
                 var from = ethereum.selectedAddress;
                 if (!from) return connect();
-                let data;
-                data = JSON.stringify({
-                  types: {
-                    EIP712Domain: [
-                      { name: 'name', type: 'string' },
-                      { name: 'version', type: 'string' },
-                      { name: 'chainId', type: 'uint256' },
-                      {
-                        name: 'verifyingContract',
-                        type: 'address',
-                      },
-                    ],
-                    // Person: [
-                    //   { name: 'name', type: 'string' },
-                    //   { name: 'wallet', type: 'address' },
-                    // ],
-                    Message: [{ name: 'text', type: 'string' }],
-                  },
-                  primaryType: 'Message',
-                  domain: {
-                    name: 'DEVMOI',
-                    version: '1',
-                    chainId: ethereum.chainId,
-                    verifyingContract:
-                      '0xa8d145dd3003817da1dc83f838ee5088b65acf2e',
-                  },
-                  message: { text: 'You are Signing off Data' },
-                });
-                web3.eth.personal.sign(
-                  '\x19Ethereum Signed Message:\n' + data.length + data,
-                  from,
-                  '',
-                  function (err, result) {
-                    if (err) return console.dir(err);
-                    if (result.error) {
-                      alert(result.error.message);
-                    }
-                    if (result.error) return console.error('ERROR', result);
-                    console.log('TYPED SIGNED:' + JSON.stringify(result));
-                    console.log(result);
-                    const recovered = sigUtil.recoverTypedSignature({
-                      data: JSON.parse(data),
-                      sig: result,
-                    });
+                await handleConversion();
+                // let data;
+                // data = JSON.stringify({
+                //   types: {
+                //     EIP712Domain: [
+                //       { name: 'name', type: 'string' },
+                //       { name: 'version', type: 'string' },
+                //       { name: 'chainId', type: 'uint256' },
+                //       {
+                //         name: 'verifyingContract',
+                //         type: 'address',
+                //       },
+                //     ],
+                //     // Person: [
+                //     //   { name: 'name', type: 'string' },
+                //     //   { name: 'wallet', type: 'address' },
+                //     // ],
+                //     Message: [{ name: 'text', type: 'string' }],
+                //   },
+                //   primaryType: 'Message',
+                //   domain: {
+                //     name: 'DEVMOI',
+                //     version: '1',
+                //     chainId: ethereum.chainId,
+                //     verifyingContract:
+                //       '0xa8d145dd3003817da1dc83f838ee5088b65acf2e',
+                //   },
+                //   message: { text: 'You are Signing off Data' },
+                // });
+                // web3.eth.personal.sign(
+                //   '\x19Ethereum Signed Message:\n' + data.length + data,
+                //   from,
+                //   '',
+                //   function (err, result) {
+                //     if (err) return console.dir(err);
+                //     if (result.error) {
+                //       alert(result.error.message);
+                //     }
+                //     if (result.error) return console.error('ERROR', result);
+                //     console.log('TYPED SIGNED:' + JSON.stringify(result));
+                //     console.log(result);
+                //     const recovered = sigUtil.recoverTypedSignature({
+                //       data: JSON.parse(data),
+                //       sig: result,
+                //     });
 
-                    if (
-                      ethUtil.toChecksumAddress(recovered) ===
-                      ethUtil.toChecksumAddress(from)
-                    ) {
-                      alert('Successfully ecRecovered signer as ' + from);
-                    } else {
-                      alert(
-                        'Failed to verify signer when comparing ' +
-                          result +
-                          ' to ' +
-                          from
-                      );
-                    }
-                  }
-                );
+                //     if (
+                //       ethUtil.toChecksumAddress(recovered) ===
+                //       ethUtil.toChecksumAddress(from)
+                //     ) {
+                //       alert('Successfully ecRecovered signer as ' + from);
+                //     } else {
+                //       alert(
+                //         'Failed to verify signer when comparing ' +
+                //           result +
+                //           ' to ' +
+                //           from
+                //       );
+                //     }
+                //   }
+                // );
               }}>
               YES
             </DMButton>

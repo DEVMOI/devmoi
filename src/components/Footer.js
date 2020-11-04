@@ -5,15 +5,19 @@ function Footer(props) {
 
   function Network({ chainID }) {
     switch (chainID) {
-      case '0x1' || 'main':
+      case 'main':
         return <span>Ethereum Main Network</span>;
-      case '0x3' || 'ropsten':
+
+      case 'ropsten':
         return <span>Ropsten Test Network</span>;
-      case '0x4' || 'rinkeby':
+
+      case 'rinkeby':
         return <span>Rinkeby Test Network</span>;
-      case '0x5' || 'goerli':
+
+      case 'goerli':
         return <span>Goerli Test Network</span>;
-      case '0x2a' || 'kovan':
+
+      case 'kovan':
         return <span>Kovan Test Network</span>;
       default:
         return <span>Custom Network</span>;
@@ -42,10 +46,9 @@ function Footer(props) {
         }
       `}</style>
 
-      <span className={`chain ${chainId !== null ? chainId : '0x1'}`}></span>
-      {chainId !== null && chainId !== undefined ? (
+      <span className={`chain ${chainId !== null ? chainId : '0x1'}`}>
         <Network chainID={chainId} />
-      ) : null}
+      </span>
     </footer>
   );
 }

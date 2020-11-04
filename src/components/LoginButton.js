@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import DMButton from './common/DMButton';
-import { login, initAuth } from '../actions';
+import { login, init } from '../actions';
 import UserIcon from './common/UserIcon';
 
 function LoginButton({ session, login, initAuth }) {
@@ -34,11 +34,11 @@ function LoginButton({ session, login, initAuth }) {
   ) : (
     <UserIcon
       id="nav-avatar"
-      userIconStyle={'rounded-circle border border-dark mb-2'}
+      userIconStyle={'rounded-circle border border-dark'}
     />
   );
 }
 const mapStateToProps = (state) => ({
   session: state.session,
 });
-export default connect(mapStateToProps, { login, initAuth })(LoginButton);
+export default connect(mapStateToProps, { login, init })(LoginButton);

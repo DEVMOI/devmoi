@@ -1,18 +1,16 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { initWeb3, initAuth} from '@/actions';
+import { initWeb3, init } from '@/actions';
 import Navbar from './Navbar';
 
 const Footer = dynamic(() => import('./Footer'), {
   ssr: false,
 });
 const Layout = (props) => {
-  let { isFluid = false, classes, children, session, isAuth } = props;
-  useEffect(() => {
-    props.initWeb3().then(() => {
-      props.initAuth();
-    });
+  let { isFluid = false, classes, children, session, init } = props;
+  useEffect(async () => {
+    await init();
   }, []);
   return (
     <div className="layout">
@@ -54,4 +52,4 @@ const Layout = (props) => {
 const mapStateToProps = (state) => ({
   session: state.session,
 });
-export default connect(mapStateToProps, { initWeb3, initAuth })(Layout);
+export default connect(mapStateToProps, { initWeb3, init })(Layout);

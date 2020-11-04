@@ -63,7 +63,6 @@ const onboardUser = async () => {
     console.log('onboardUser: ', error);
   }
 };
-
 //
 export const login = (props) => async (dispatch) => {
   try {
@@ -110,26 +109,33 @@ export const getBalance = () => async (dispatch) => {
   }
 };
 //
-export const initAuth = (props) => async (dispatch, getState) => {
+const getNetwork = () => async (dispatch) => {
+  await web3.eth.net
+    .getNetworkType()
+    .then((res) => dispatch(setChainId(res)))
+    .catch((err) => {
+      console.log('getNetwork', err);
+    });
+};
+//
+export const init = (props) => async (dispatch, getState) => {
   try {
+    await dispatch(initWeb3());
     await dispatch(getAddress());
     await dispatch(getBalance());
-    await web3.eth.net
-      .getNetworkType()
-      .then((res) => dispatch(setChainId(res)));
+    await dispatch(getNetwork());
     await ethereum.on('chainChanged', (chainId) => {
       window.location.reload();
     });
     await ethereum.on('accountsChanged', (newAccounts) =>
-      dispatch(setAddress(newAccounts))
+      {console.log(newAccounts)
+        dispatch(setAddress(newAccounts))}
     );
     return async () => {
       await ethereum.off('accountsChanged', (newAccounts) => {
         dispatch(setAddress(newAccounts));
       });
     };
-    // if (await _provider()) {
-    // }
   } catch (error) {
     console.error('isAuth Error:', error);
   }
