@@ -1,12 +1,12 @@
 import { UserIcon } from '@/components/common';
 import RSSFeed from '@/components/RSSFeed';
 
-const handleConversion = async (addr, value) => {
+const handleConversion = async (addr) => {
   try {
     await window.ethereum.enable();
 
     const response = await fetch(
-      `https://api.0x.org/swap/v1/quote?buyToken=DAI&sellToken=ETH&buyAmount=${value}000000000000000000`
+      `https://api.0x.org/swap/v1/quote?buyToken=DAI&sellToken=ETH&buyAmount=1000000000000000000`
     );
     if (ethereum.selectedAddress && response.ok) {
       let data = await response.json();
@@ -17,9 +17,7 @@ const handleConversion = async (addr, value) => {
       document.getElementById('error').append(JSON.stringify(error, null, 2));
     }
   } catch (err) {
-    window.alert(
-      'You need to install or enable Metamask'
-    );
+    window.alert('You need to install or enable Metamask');
   }
 };
 
@@ -31,8 +29,7 @@ function TeamCard(props) {
       <button
         className="w-100 btn m-0 p-0 border border-top"
         onClick={() => {
-          var val = prompt(`How much do you want to tip?`);
-          handleConversion(props.seed, val);
+          handleConversion(props.seed);
         }}>
         Donate
       </button>
