@@ -8,10 +8,13 @@ const handleConversion = async (addr) => {
     const response = await fetch(
       `https://api.0x.org/swap/v1/quote?buyToken=DAI&sellToken=ETH&buyAmount=1000000000000000000`
     );
-    if (ethereum.selectedAddress && response.ok) {
+    if (response.ok) {
       let data = await response.json();
       data.to = await addr;
-      data.from !== undefined ? await web3.eth.sendTransaction(data) : null;
+
+      if (window.ethereum) {
+        web3.eth.sendTransaction(data);
+      }
     } else {
       const error = await response.json();
       document.getElementById('error').append(JSON.stringify(error, null, 2));
