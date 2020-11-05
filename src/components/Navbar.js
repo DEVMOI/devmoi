@@ -1,9 +1,12 @@
 import { connect } from 'react-redux';
 import { login } from '../actions';
 import NavItem from './common/NavItem';
-import LoginButton from './LoginButton';
+// import LoginButton from './LoginButton';
 import { useRouter } from 'next/router';
-
+import dynamic from 'next/dynamic';
+const LoginButton = dynamic(() => import('./LoginButton'), {
+  ssr: false,
+});
 function Navbar(props) {
   const router = useRouter();
 

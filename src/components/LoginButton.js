@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import DMButton from './common/DMButton';
 import { login, init } from '../actions';
 import UserIcon from './common/UserIcon';
-
+import { MetaMaskButton } from 'rimble-ui';
 function LoginButton({ session, login, initAuth }) {
   let { address } = session;
   const [addr, setaddrBool] = useState(null);
@@ -24,13 +24,13 @@ function LoginButton({ session, login, initAuth }) {
   }, [address]);
 
   return !addr ? (
-    <DMButton
-      buttonStyle="btn-dark"
-      onPress={() => {
+    <MetaMaskButton
+      size="small"
+      onClick={() => {
         login();
       }}>
-      Connect To MetaMask
-    </DMButton>
+      Connect with MetaMask
+    </MetaMaskButton>
   ) : (
     <UserIcon
       id="nav-avatar"
