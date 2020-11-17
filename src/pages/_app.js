@@ -35,7 +35,7 @@ function MyApp({ Component, pageProps }) {
           {/* <ThemeProvider theme={theme}> */}
           <Layout
             isFluid={true}
-            classes="h-100 border border-top-0 border-dark">
+            classes="border border-top-0 border-bottom-0 border-dark">
             <Component {...pageProps} />
           </Layout>
           {/* </ThemeProvider> */}

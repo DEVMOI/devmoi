@@ -26,12 +26,14 @@ function Footer(props) {
 
   return (
     <footer
-      className={`footer pl-2 pt-2 ${
+      className={`footer fixed-bottom py-4 pl-2 ${
         footerContainerStyle !== undefined ? footerContainerStyle : ''
       }`}>
       <style jsx>{`
         .footer {
           height: 1.5625rem;
+          z-index:3;
+          background:#fff;
         }
         .chain {
           border: none;

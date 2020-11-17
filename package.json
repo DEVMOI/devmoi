@@ -12,6 +12,7 @@
     "@metamask/detect-provider": "^1.1.0",
     "@metamask/onboarding": "^1.0.0",
     "@rimble/connection-banner": "^1.2.3",
+    "@transak/transak-sdk": "^1.0.25",
     "@walletconnect/qrcode-modal": "^1.2.2",
     "bcryptjs": "^2.4.3",
     "bootstrap": "latest",

@@ -3,19 +3,28 @@ import { useEffect, useState, useRef } from 'react';
 import { Slider, Input } from 'rimble-ui';
 export default function TeamCard(props) {
   const [donationValue, setDonationValue] = useState(1);
-
-  const donateEth = async (addr, value = 1) => {
+  const [errorState, setErrorState] = useState('');
+  const getQuote = async (coin, value) => {
     try {
-      await window.ethereum.enable();
-
       const response = await fetch(
-        `https://api.0x.org/swap/v1/quote?buyToken=DAI&sellToken=ETH&buyAmount=${web3.utils.toWei(
+        `https://api.0x.org/swap/v1/quote?buyToken=${coin}&sellToken=ETH&buyAmount=${web3.utils.toWei(
           `${value}`,
           'ether'
         )}`
       );
-      if (response.ok) {
-        if (window.ethereum) {
+      return response;
+    } catch (error) {
+      setErrorState(JSON.stringify(error, null, 2));
+    }
+  };
+
+  const donateEth = async (addr, value = 1) => {
+    try {
+      // await window.ethereum.enable();
+      if (window.ethereum) {
+        const response = await getQuote('DAI', value);
+        if (response.ok) {
+          setErrorState('');
           let res = await response.json(),
             data = {};
 
@@ -25,17 +34,21 @@ export default function TeamCard(props) {
           data.gas = await res.gas;
           data.gasPrice = await res.gasPrice;
           await web3.eth.sendTransaction(data);
+        } else {
+          const error = await response.json();
+          error.message ===
+          'MetaMask Tx Signature: User denied transaction signature.'
+            ? setErrorState('Transaction Cancelled')
+            : null;
         }
       } else {
-        const error = await response.json();
-        await document
-          .getElementById('error')
-          .append(JSON.stringify(error, null, 2));
+        setErrorState('Please Connect to MetaMask...');
       }
     } catch (err) {
-      await document
-        .getElementById('error')
-        .append(JSON.stringify(err, null, 2));
+      err.message ===
+      'MetaMask Tx Signature: User denied transaction signature.'
+        ? setErrorState('Transaction Cancelled')
+        : null;
     }
   };
 
@@ -43,12 +56,12 @@ export default function TeamCard(props) {
     <div title={props.seed} className="team-card border border-dark p-3">
       <style jsx>
         {`
-          .team-card{
-            200px;
+          .team-card {
+            width: 21.875rem;
           }
-          `}
+        `}
       </style>
-      <UserIcon seed={props.seed} />
+      {props.showIcon?<UserIcon seed={props.seed} />:null}
       <p>{props.role}</p>
       <div className="d-flex flex-column">
         <div className="d-flex flex-row align-items-center">
@@ -84,6 +97,7 @@ export default function TeamCard(props) {
         Donate
       </button>
       <pre id="error" />
+      <span>{errorState}</span>
     </div>
   );
 }

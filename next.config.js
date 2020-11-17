@@ -33,6 +33,10 @@ const nextConfig = {
         source: '/Live',
         destination: '/live',
       },
+      {
+        source: '/swap',
+        destination: '/Swap',
+      },
     ];
   },
 };

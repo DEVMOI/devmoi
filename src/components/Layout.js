@@ -13,17 +13,26 @@ const Layout = (props) => {
     await init();
   }, []);
   return (
-    <div className="layout">
+    <div className={`layout ${classes !== undefined ? classes : null}`}>
       <style global jsx>{`
         html,
         body,
         #__next {
           height: 100%;
           font-family: monospace;
+          overflow: hidden;
         }
-        .layout,
+        .layout {
+          height: calc(100% - 26px);
+          overflow: scroll;p
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
+        }
+        .layout::-webkit-scrollbar {
+          display: none;
+        }
         main {
-          height: calc(100% - 81px);
+          height: calc(100% - 26px);
         }
         .fnt-size-12 {
           font-size: 12px;
@@ -39,17 +48,19 @@ const Layout = (props) => {
         }
       `}</style>
       <Navbar />
-      <main
-        className={`${isFluid ? 'container-fluid' : 'container'} ${
-          classes !== undefined ? classes : null
-        }`}>
+      <main className={` py-5  ${isFluid ? 'container-fluid' : 'container'} `}>
         {children}
       </main>
-      <Footer />
+      <br className="my-3" />
+      <Footer footerContainerStyle={'border border-dark border-top'} />
     </div>
   );
 };
 const mapStateToProps = (state) => ({
   session: state.session,
 });
-export default connect(mapStateToProps, { initWeb3, init })(Layout);
+const _Layout = dynamic(() => Promise.resolve(Layout), {
+  ssr: false,
+});
+
+export default connect(mapStateToProps, { initWeb3, init })(_Layout);
