@@ -20,7 +20,6 @@ export default function TeamCard(props) {
 
   const donateEth = async (addr, value = 1) => {
     try {
-      // await window.ethereum.enable();
       if (window.ethereum) {
         const response = await getQuote('DAI', value);
         if (response.ok) {
@@ -31,15 +30,15 @@ export default function TeamCard(props) {
           data.to = await addr;
           data.from = await ethereum.selectedAdress;
           data.value = await res.value;
-          data.gas = await res.gas;
-          data.gasPrice = await res.gasPrice;
+          // data.gas = await res.gas;
+          // data.gasPrice = await res.gasPrice;
           await web3.eth.sendTransaction(data);
         } else {
           const error = await response.json();
           error.message ===
           'MetaMask Tx Signature: User denied transaction signature.'
             ? setErrorState('Transaction Cancelled')
-            : null;
+            : setErrorState(error.message);
         }
       } else {
         setErrorState('Please Connect to MetaMask...');
@@ -48,12 +47,12 @@ export default function TeamCard(props) {
       err.message ===
       'MetaMask Tx Signature: User denied transaction signature.'
         ? setErrorState('Transaction Cancelled')
-        : null;
+        : setErrorState(error.message);
     }
   };
 
   return (
-    <div title={props.seed} className="team-card border border-dark p-3">
+    <div title={props.seed} className="team-card card border border-dark p-3">
       <style jsx>
         {`
           .team-card {
@@ -69,6 +68,7 @@ export default function TeamCard(props) {
       <p>{props.role}</p>
       <div className="d-flex flex-column">
         <div className="d-flex flex-row align-items-center mb-4">
+          <span className="font-weight-bold text-uppercase mr-3">~</span>
           <Input
             type="number"
             required={true}
@@ -80,21 +80,8 @@ export default function TeamCard(props) {
                 : null
             }
           />
-          <span className="font-weight-bold text-uppercase mx-3 ml-4">
-            DAI/ETH
-          </span>
+          <span className="font-weight-bold text-uppercase mx-3 ml-4">USD</span>
         </div>
-        {/* <Slider
-        className={`my-3`}
-          width="100%"
-          min={'1'}
-          max={'100'}
-          step={'1'}
-          value={donationValue}
-          onChange={(e) =>
-            e.target.value >= 1 ? setDonationValue(e.target.value) : null
-          }
-        /> */}
       </div>
       <button
         className="w-100 btn m-0 p-0 border border-top"
