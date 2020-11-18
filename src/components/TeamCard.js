@@ -61,7 +61,11 @@ export default function TeamCard(props) {
           }
         `}
       </style>
-      {props.showIcon ? <UserIcon seed={props.seed} /> : <p className={`text-truncate w-75`}>{props.seed}</p>}
+      {props.showIcon ? (
+        <UserIcon seed={props.seed} />
+      ) : (
+        <p className={`text-truncate w-75`}>{props.seed}</p>
+      )}
       <p>{props.role}</p>
       <div className="d-flex flex-column">
         <div className="d-flex flex-row align-items-center mb-4">
@@ -71,7 +75,9 @@ export default function TeamCard(props) {
             placeholder="e.g. 123"
             value={donationValue}
             onChange={(e) =>
-              e.target.value >= 1 ? setDonationValue(e.target.value) : null
+              e.target.value >= 1 && e.target.value <= 9999
+                ? setDonationValue(e.target.value)
+                : null
             }
           />
           <span className="font-weight-bold text-uppercase mx-3 ml-4">
