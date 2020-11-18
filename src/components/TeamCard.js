@@ -64,7 +64,7 @@ export default function TeamCard(props) {
       {props.showIcon ? <UserIcon seed={props.seed} /> : <p className={`text-truncate w-75`}>{props.seed}</p>}
       <p>{props.role}</p>
       <div className="d-flex flex-column">
-        <div className="d-flex flex-row align-items-center">
+        <div className="d-flex flex-row align-items-center mb-4">
           <Input
             type="number"
             required={true}
@@ -78,7 +78,8 @@ export default function TeamCard(props) {
             DAI/ETH
           </span>
         </div>
-        <Slider
+        {/* <Slider
+        className={`my-3`}
           width="100%"
           min={'1'}
           max={'100'}
@@ -87,7 +88,7 @@ export default function TeamCard(props) {
           onChange={(e) =>
             e.target.value >= 1 ? setDonationValue(e.target.value) : null
           }
-        />
+        /> */}
       </div>
       <button
         className="w-100 btn m-0 p-0 border border-top"
