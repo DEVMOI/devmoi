@@ -23,15 +23,12 @@ export default function TeamCard(props) {
       if (window.ethereum) {
         const response = await getQuote('DAI', value);
         if (response.ok) {
-          setErrorState('');
           let res = await response.json(),
             data = {};
 
           data.to = await addr;
           data.from = await ethereum.selectedAdress;
           data.value = await res.value;
-          // data.gas = await res.gas;
-          // data.gasPrice = await res.gasPrice;
           await web3.eth.sendTransaction(data);
         } else {
           const error = await response.json();
@@ -65,7 +62,7 @@ export default function TeamCard(props) {
       ) : (
         <p className={`text-truncate w-75`}>{props.seed}</p>
       )}
-      <p>{props.role}</p>
+      <p className={`text-uppercase`}>{props.role}</p>
       <div className="d-flex flex-column">
         <div className="d-flex flex-row align-items-center mb-4">
           <span className="font-weight-bold text-uppercase mr-3">~</span>
@@ -84,14 +81,15 @@ export default function TeamCard(props) {
         </div>
       </div>
       <button
-        className="w-100 btn m-0 p-0 border border-top"
+        className="w-100 btn btn-outline-dark m-0 p-0 border border-top text-uppercase"
         onClick={() => {
+          setErrorState('');
           donateEth(props.seed, donationValue);
         }}>
-        Donate
+        Send
       </button>
       <pre id="error" />
-      <span>{errorState}</span>
+      <span className={`text-uppercase`}>{errorState}</span>
     </div>
   );
 }

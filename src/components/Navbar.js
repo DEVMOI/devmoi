@@ -34,6 +34,7 @@ function Navbar(props) {
           {/* <NavItem Route={'/projects'} Text={'Projects'} /> */}
           {/* <NavItem Route={'/live'} Text={'Live'} /> */}
           <NavItem Route={'/swap'} Text={'Swap'} />
+          <NavItem Route={'/wallet'} Text={'Wallet'} />
           <NavItem Route={'/about'} Text={'About'} />
         </ul>
         <div className="ml-auto">
