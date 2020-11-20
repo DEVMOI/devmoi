@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "3box": "^1.22.2",
     "@metamask/detect-provider": "^1.1.0",
     "@metamask/onboarding": "^1.0.0",
     "@rimble/connection-banner": "^1.2.3",
