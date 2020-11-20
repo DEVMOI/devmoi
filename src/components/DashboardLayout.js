@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { isAuth } from '../actions';
+// import { isAuth } from '../actions';
 import SideNav from './SideNav';
 const DashboardLayout = ({ isFluid = false, classes, children }) => {
-    useEffect(() => {
-      isAuth();
-    }, []);
+    // useEffect(() => {
+    //   isAuth();
+    // }, []);
 
   return (
     <main>
