@@ -89,7 +89,7 @@ function UserInfo(props) {
                 // alert('Adding Name');
                 var ethUtil = require('ethereumjs-util');
                 var sigUtil = require('eth-sig-util');
-                var from = ethereum.selectedAddress;
+                var from = props.address;
                 if (!from) return connect();
                 await handleConversion();
                 // let data;

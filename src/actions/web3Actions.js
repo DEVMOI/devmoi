@@ -1,4 +1,3 @@
-
 import MetaMaskOnboarding from '@metamask/onboarding';
 import Web3 from 'web3';
 import detectEthereumProvider from '@metamask/detect-provider';
@@ -142,7 +141,6 @@ export const init = (props) => async (dispatch, getState) => {
   }
 };
 //
-
 
 // Setters
 export const setAddress = (addr) => async (dispatch) => {

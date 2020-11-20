@@ -1,7 +1,11 @@
 import { UserIcon } from '@/components/common';
 import { useEffect, useState, useRef } from 'react';
+import { connect } from 'react-redux';
 import { Slider, Input } from 'rimble-ui';
-export default function TeamCard(props) {
+
+import dynamic from 'next/dynamic';
+
+function EthWalletCard(props) {
   const [donationValue, setDonationValue] = useState(1);
   const [errorState, setErrorState] = useState('');
   const getQuote = async (coin, value) => {
@@ -27,7 +31,7 @@ export default function TeamCard(props) {
             data = {};
 
           data.to = await addr;
-          data.from = await ethereum.selectedAdress;
+          data.from = props.address;
           data.value = await res.value;
           await web3.eth.sendTransaction(data);
         } else {
@@ -49,47 +53,61 @@ export default function TeamCard(props) {
   };
 
   return (
-    <div title={props.seed} className="team-card card border border-dark p-3">
+    <div title={props.seed} className="eth-wallet-card card border border-dark p-3 box-shadow">
       <style jsx>
         {`
-          .team-card {
-            width: 21.875rem;
+          .eth-wallet-card {
+            width: 25.7rem;
           }
         `}
       </style>
       {props.showIcon ? (
         <UserIcon seed={props.seed} />
       ) : (
-        <p className={`text-truncate w-75`}>{props.seed}</p>
+        <p className={`${props.seed!==props.address?'text-truncate w-75':''}`}>{props.seed}</p>
       )}
       <p className={`text-uppercase`}>{props.role}</p>
-      <div className="d-flex flex-column">
-        <div className="d-flex flex-row align-items-center mb-4">
-          <span className="font-weight-bold text-uppercase mr-3">~</span>
-          <Input
-            type="number"
-            required={true}
-            placeholder="e.g. 123"
-            value={donationValue}
-            onChange={(e) =>
-              e.target.value >= 1 && e.target.value <= 9999
-                ? setDonationValue(e.target.value)
-                : null
-            }
-          />
-          <span className="font-weight-bold text-uppercase mx-3 ml-4">USD</span>
+      {props.seed !== props.address ? (
+        <div className="d-flex flex-column">
+          <div className="d-flex flex-row align-items-center mb-4">
+            <span className="font-weight-bold text-uppercase mr-3">~</span>
+            <Input
+              type="number"
+              required={true}
+              placeholder="e.g. 123"
+              value={donationValue}
+              onChange={(e) =>
+                e.target.value >= 1 && e.target.value <= 9999
+                  ? setDonationValue(e.target.value)
+                  : null
+              }
+            />
+            <span className="font-weight-bold text-uppercase mx-3 ml-4">
+              USD
+            </span>
+          </div>
+          <button
+            className="w-100 btn btn-outline-dark m-0 p-0 border border-top text-uppercase"
+            onClick={() => {
+              setErrorState('');
+              donateEth(props.seed, donationValue);
+            }}>
+            Send
+          </button>
         </div>
-      </div>
-      <button
-        className="w-100 btn btn-outline-dark m-0 p-0 border border-top text-uppercase"
-        onClick={() => {
-          setErrorState('');
-          donateEth(props.seed, donationValue);
-        }}>
-        Send
-      </button>
+      ) : (
+        <div></div>
+      )}
       <pre id="error" />
       <span className={`text-uppercase`}>{errorState}</span>
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  address: state.session.address,
+});
+const _EthWalletCard = connect(mapStateToProps)(EthWalletCard);
+export default dynamic(() => Promise.resolve(_EthWalletCard), {
+  ssr: false,
+});
