@@ -10,6 +10,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <meta name="robots" content="all"></meta>
           <meta name="application-name" content="Devmoi Site" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
