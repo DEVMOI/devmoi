@@ -112,14 +112,6 @@ async function watchChain() {
 //
 async function watchAccounts(params) {
   try {
-    await ethereum.on('accountsChanged', (newAccounts) => {
-      dispatch(setAddress(newAccounts));
-    });
-    return async () => {
-      await ethereum.off('accountsChanged', (newAccounts) => {
-        dispatch(setAddress(newAccounts));
-      });
-    };
   } catch (error) {
     console.log(error, ': watchAccoutns()');
   }
@@ -129,10 +121,18 @@ export const init = (props) => async (dispatch) => {
   try {
     await dispatch(initWeb3());
     await dispatch(getNetwork());
+    await dispatch(getAddress());
     if (window.ethereum !== undefined) {
       await dispatch(getBalance());
       await watchChain();
-      await watchAccounts();
+      await ethereum.on('accountsChanged', (newAccounts) => {
+        dispatch(setAddress(newAccounts));
+      });
+      return async () => {
+        await ethereum.off('accountsChanged', (newAccounts) => {
+          dispatch(setAddress(newAccounts));
+        });
+      };
     }
   } catch (error) {
     console.error('init():', error);

@@ -11,7 +11,7 @@ function SwaprCard({ name, symbol, decimals, error, watcher }) {
     const _quote = await getQuote(symbol, 1, decimals);
 
     setTimeout(async () => {
-    if (_quote !== undefined) await setQuoteValue(await _quote.price);
+      if (_quote !== undefined) await setQuoteValue(await _quote.price);
     }, 500);
   }, [watcher]);
   return (
@@ -30,7 +30,6 @@ function SwaprCard({ name, symbol, decimals, error, watcher }) {
               if (e.target.value >= 0 && e.target.value <= 999) {
                 await setDonationValue(e.target.value);
                 const _quote = await getQuote(symbol, e.target.value, decimals);
-
                 await setQuote(_quote);
               }
             }}
@@ -43,7 +42,7 @@ function SwaprCard({ name, symbol, decimals, error, watcher }) {
 
       <button
         className="w-100 btn m-0 p-0 border border-top"
-        onClick={() => {
+        onClick={async () => {
           submitTransaction(quote);
         }}>
         Swap

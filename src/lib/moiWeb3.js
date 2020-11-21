@@ -9,16 +9,22 @@ export const getQuote = async (buycoin, value, dec) => {
     const response = await fetch(
       `https://api.0x.org/swap/v1/quote?buyToken=${buycoin}&sellToken=ETH&buyAmount=${
         value * Math.pow(10, dec)
-      }`
+      }&buyTokenPercentageFee=0.01&feeRecipient=${process.env.ADMIN_ID}`
     );
     let quote = await response.json();
-    // console.log(quote)
     return quote;
   } catch (error) {
-    // console.log(error);
+    console.log('getQuote()', error);
   }
 };
-
+/**
+ *
+ * @param {object} trns
+ */
 export async function submitTransaction(trns) {
-  await web3.eth.sendTransaction(trns);
+  try {
+    await web3.eth.sendTransaction(trns);
+  } catch (error) {
+    console.log('submitTransaction()', error);
+  }
 }
