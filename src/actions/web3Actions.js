@@ -117,13 +117,27 @@ const getNetwork = () => async (dispatch) => {
       console.log('getNetwork', err);
     });
 };
-
-async function watchChain(){
+//
+async function watchChain() {
   await ethereum.on('chainChanged', (chainId) => {
     window.location.reload();
   });
 }
-
+//
+async function watchAccounts(params) {
+  try {
+    await ethereum.on('accountsChanged', (newAccounts) => {
+      dispatch(setAddress(newAccounts));
+    });
+    return async () => {
+      await ethereum.off('accountsChanged', (newAccounts) => {
+        dispatch(setAddress(newAccounts));
+      });
+    };
+  } catch (error) {
+    console.log(error, ': watchAccoutns()');
+  }
+}
 //
 export const init = (props) => async (dispatch, getState) => {
   try {
@@ -133,15 +147,7 @@ export const init = (props) => async (dispatch, getState) => {
     if (window.ethereum !== undefined) {
       await dispatch(getBalance());
       await watchChain();
-      await ethereum.on('accountsChanged', (newAccounts) => {
-        console.log(newAccounts);
-        dispatch(setAddress(newAccounts));
-      });
-      return async () => {
-        await ethereum.off('accountsChanged', (newAccounts) => {
-          dispatch(setAddress(newAccounts));
-        });
-      };
+      await watchAccounts();
     }
   } catch (error) {
     console.error('init Error:', error);
