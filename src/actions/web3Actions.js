@@ -34,46 +34,27 @@ const _isMetaMask = async () => {
 };
 
 export const initWeb3 = () => async (dispatch) => {
-  const api = process.env.INFURA_API;
-  // console.log(process.env.INFURA_API,process.env.ADMIN_ID)
   try {
     if (window.ethereum !== undefined) {
       window.web3 = new Web3(window.ethereum);
-
       return true;
     } else {
-      window.web3 = new Web3(new Web3.providers.HttpProvider(api));
-
+      window.web3 = new Web3(
+        new Web3.providers.HttpProvider(process.env.INFURA_API)
+      );
       return true;
     }
   } catch (error) {
     return false;
   }
 };
-/**
- * Handles Onboarding User When connecting to metamask
- * @param {*} params
- */
-const onboardUser = async () => {
-  try {
-    const onboarding = new MetaMaskOnboarding();
-    (await _provider())
-      ? onboarding.stopOnboarding()
-      : onboarding.startOnboarding();
-  } catch (error) {
-    console.log('onboardUser: ', error);
-  }
-};
 //
 export const login = (props) => async (dispatch) => {
   try {
-    web3.currentProvider
-      .enable()
-      .then(() => console.log('Get ETH Connection'))
-      .catch(() => onboardUser());
+    web3.currentProvider.enable();
     dispatch({ type: 'SET_AUTH_STATUS', payload: true });
   } catch (error) {
-    await console.log('Login: ', error);
+    await console.log('Login(): ', error);
   }
 };
 //
@@ -86,7 +67,7 @@ export const getAddress = () => async (dispatch) => {
       dispatch(setAddress(address[0]));
     }
   } catch (error) {
-    console.error('getAddress', error);
+    console.error('getAddress():', error);
   }
 };
 //
@@ -106,7 +87,7 @@ export const getBalance = () => async (dispatch) => {
         }
       });
   } catch (error) {
-    console.error('getBalance', error);
+    console.error('getBalance():', error);
   }
 };
 //
@@ -120,9 +101,13 @@ const getNetwork = () => async (dispatch) => {
 };
 //
 async function watchChain() {
-  await ethereum.on('chainChanged', (chainId) => {
-    window.location.reload();
-  });
+  try {
+    await ethereum.on('chainChanged', (chainId) => {
+      window.location.reload();
+    });
+  } catch (error) {
+    console.log('watchChain()', error);
+  }
 }
 //
 async function watchAccounts(params) {
@@ -140,7 +125,7 @@ async function watchAccounts(params) {
   }
 }
 //
-export const init = (props) => async (dispatch, getState) => {
+export const init = (props) => async (dispatch) => {
   try {
     await dispatch(initWeb3());
     await dispatch(getNetwork());
@@ -150,7 +135,7 @@ export const init = (props) => async (dispatch, getState) => {
       await watchAccounts();
     }
   } catch (error) {
-    console.error('init Error:', error);
+    console.error('init():', error);
   }
 };
 //

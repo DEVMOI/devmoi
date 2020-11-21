@@ -13,7 +13,6 @@ function Swap(props) {
   const [errorState, setErrorState] = useState('');
   useEffect(async () => {
     getTokens();
-    console.log(props.address)
   }, []);
   useEffect(() => {
     let transak = new transakSDK({
