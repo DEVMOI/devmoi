@@ -15,10 +15,6 @@ const nextConfig = {
     };
     return config;
   },
-  webpack(config) {
-    config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
-    return config;
-  },
   async rewrites() {
     return [
       {
@@ -38,10 +34,6 @@ const nextConfig = {
         destination: '/Swap',
       },
     ];
-  },
-  env: {
-    ADMIN_ID: process.env.ADMIN_ID,
-    INFURA_API: process.env.INFURA_API,
   },
 };
 
