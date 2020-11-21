@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import { connect } from 'react-redux';
 
 import EthWalletCard from '@/components/EthWalletCard';

@@ -1,8 +1,5 @@
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-const TeamCard = dynamic(() => import('@/components/TeamCard'), {
-  ssr: false,
-});
+import EthWalletCard from '@/components/EthWalletCard';
 function Wallet(props) {
   const router = useRouter();
   const id = router.query.id || '';
@@ -16,8 +13,8 @@ function Wallet(props) {
           }
         `}
       </style>
-      {id.substring(0,2)==='0x' && id.length === 42 ? (
-        <TeamCard showIcon={false} seed={id} role={'ETH WALLET'} />
+      {id.substring(0, 2) === '0x' && id.length === 42 ? (
+        <EthWalletCard showIcon={false} seed={id} role={'ETH WALLET'} />
       ) : (
         <p
           className={`error-msg position-absolute mx-auto text-uppercase text-center`}>
