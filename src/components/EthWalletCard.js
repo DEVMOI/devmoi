@@ -24,7 +24,7 @@ function EthWalletCard(props) {
 
   const donateEth = async (addr, value = 1) => {
     try {
-      if (window.ethereum) {
+      if (window.web3) {
         const response = await getQuote('DAI', value);
         if (response.ok) {
           let res = await response.json(),
