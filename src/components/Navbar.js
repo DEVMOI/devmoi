@@ -1,7 +1,4 @@
-import { connect } from 'react-redux';
-import { login } from '../actions';
 import NavItem from './common/NavItem';
-// import LoginButton from './LoginButton';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 const LoginButton = dynamic(() => import('./LoginButton'), {
@@ -11,7 +8,7 @@ function Navbar(props) {
   const router = useRouter();
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top border-bottom border-dark">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top border-bottom border-dark px-4">
       <style jsx>
         {`
           .navbar-brand {
@@ -19,7 +16,7 @@ function Navbar(props) {
           }
         `}
       </style>
-      <div className="container-md px-0">
+      <div className="nav-inner d-flex flex-row">
         <a
           className="navbar-brand"
           onClick={(e) => {
@@ -30,16 +27,13 @@ function Navbar(props) {
         </a>
 
         <ul className="navbar-nav mr-auto flex-row ">
-          {/* <NavItem Route={'/activity'} Text={'Activity'} /> */}
-          {/* <NavItem Route={'/projects'} Text={'Projects'} /> */}
-          {/* <NavItem Route={'/live'} Text={'Live'} /> */}
           <NavItem Route={'/swap'} Text={'Swap'} />
           <NavItem Route={'/wallet'} Text={'Wallet'} />
           <NavItem Route={'/about'} Text={'About'} />
         </ul>
-        <div className="ml-auto">
-          <LoginButton />
-        </div>
+      </div>
+      <div className="ml-auto">
+        <LoginButton />
       </div>
     </nav>
   );

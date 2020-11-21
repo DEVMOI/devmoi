@@ -1,11 +1,11 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-
-import DMButton from './common/DMButton';
 import { login, init } from '../actions';
 import UserIcon from './common/UserIcon';
 import { MetaMaskButton } from 'rimble-ui';
-function LoginButton({ session, login, initAuth }) {
+
+function LoginButton(props) {
+  let { session, login } = props;
   let { address } = session;
   const [addr, setaddrBool] = useState(null);
 
@@ -34,6 +34,7 @@ function LoginButton({ session, login, initAuth }) {
   ) : (
     <UserIcon
       id="nav-avatar"
+      seed={address}
       userIconStyle={'rounded-circle border border-dark'}
     />
   );
