@@ -5,6 +5,7 @@ import { getQuote } from '../lib';
 import transakSDK from '@transak/transak-sdk';
 
 import SwaprCard from '@/components/Swaprcard';
+import { connect } from 'react-redux';
 
 function Swap(props) {
   const [page, setPageState] = useState(0);
@@ -12,13 +13,14 @@ function Swap(props) {
   const [errorState, setErrorState] = useState('');
   useEffect(async () => {
     getTokens();
+    console.log(props.address)
   }, []);
   useEffect(() => {
     let transak = new transakSDK({
       apiKey: process.env.TRANSAK_KEY, // Your API Key
       environment: process.env.NODE_ENV, // STAGING/PRODUCTION
       defaultCryptoCurrency: 'ETH',
-      walletAddress: ethereum.currentAddress, // Your customer's wallet address
+      walletAddress: props.address, // Your customer's wallet address
       themeColor: '000000', // App theme color
       fiatCurrency: 'USD', // INR/GBP
       email: '', // Your customer's email address
@@ -156,7 +158,10 @@ function Swap(props) {
     </div>
   );
 }
-
-export default dynamic(() => Promise.resolve(Swap), {
+let mapStateToProps = (state) => ({
+  address: state.session.address,
+});
+let _Swap = connect(mapStateToProps)(Swap);
+export default dynamic(() => Promise.resolve(_Swap), {
   ssr: false,
 });

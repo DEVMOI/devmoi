@@ -1,15 +1,12 @@
-import dynamic from 'next/dynamic';
 import { connect } from 'react-redux';
 
-const TeamCard = dynamic(() => import('@/components/TeamCard'), {
-  ssr: false,
-});
+import EthWalletCard from '@/components/EthWalletCard';
 
 function Wallet(props) {
   let { address } = props.session;
   return (
     <div className={'wallet'}>
-      <TeamCard
+      <EthWalletCard
         seed={address.length !== 0 ? address : process.env.ADMIN_ID}
         role={
           process.env.ADMIN_ID !== address ? 'LEAD DEVELOPER' : 'ETH Wallet'
