@@ -1,24 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { login, init } from '../actions';
 import UserIcon from './common/UserIcon';
 import { MetaMaskButton } from 'rimble-ui';
-
+import MetaMaskOnboarding from '@metamask/onboarding';
 function LoginButton(props) {
   let { session, login } = props;
   let { address } = session;
+  const onboarding = useRef();
   const [addr, setaddrBool] = useState(null);
-
+  useEffect(() => {
+    if (!onboarding.current) {
+      onboarding.current = new MetaMaskOnboarding();
+    }
+  }, []);
   useEffect(() => {
     setaddrBool(address.length > 0);
   }, []);
 
   useEffect(() => {
-    if (address) {
-      if (address.length > 0) {
-        setaddrBool(true);
-      } else {
-        setaddrBool(false);
+    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+      if (address) {
+        if (address.length > 0) {
+          setaddrBool(true);
+          onboarding.current.stopOnboarding();
+        } else {
+          setaddrBool(false);
+        }
       }
     }
   }, [address]);
@@ -27,7 +35,11 @@ function LoginButton(props) {
     <MetaMaskButton
       size="small"
       onClick={() => {
-        login();
+        if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+          login();
+        } else {
+          onboarding.current.startOnboarding();
+        }
       }}>
       Connect with MetaMask
     </MetaMaskButton>
