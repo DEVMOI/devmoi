@@ -15,7 +15,6 @@ services:
     restart: always
     depends_on:
       - ganache
-      - mongo
     command: bash -c "yarn --silent && yarn dev"
     volumes:
       - .:/usr/app

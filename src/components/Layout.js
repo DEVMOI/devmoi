@@ -23,8 +23,8 @@ const Layout = (props) => {
           overflow: hidden;
         }
         .layout {
-          height: calc(100% - 26px);
-          overflow: scroll;p
+          height: calc(100%);
+          overflow: scroll;
           -ms-overflow-style: none; /* IE and Edge */
           scrollbar-width: none; /* Firefox */
         }
@@ -32,7 +32,7 @@ const Layout = (props) => {
           display: none;
         }
         main {
-          height: calc(100% - 26px);
+          height: calc(100% - 87px);
         }
         .fnt-size-12 {
           font-size: 12px;
@@ -48,11 +48,10 @@ const Layout = (props) => {
         }
       `}</style>
       <Navbar />
-      <main className={` py-5  ${isFluid ? 'container-fluid' : 'container'} `}>
+      <main className={` pt-5 pb-3  ${isFluid ? 'container-fluid' : 'container'} `}>
         {children}
       </main>
-      <br className="my-3" />
-      <Footer footerContainerStyle={'border border-dark border-top'} />
+      <Footer footerContainerStyle={'d-flex flex-row w-100 border border-dark border-top'} />
     </div>
   );
 };

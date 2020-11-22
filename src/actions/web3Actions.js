@@ -36,9 +36,11 @@ const _isMetaMask = async () => {
 export const initWeb3 = () => async (dispatch) => {
   try {
     if (window.ethereum !== undefined) {
+      console.log(window.ethereum)
       window.web3 = new Web3(window.ethereum);
       return true;
     } else {
+      console.log(process.env.INFURA_API);
       window.web3 = new Web3(
         new Web3.providers.HttpProvider(process.env.INFURA_API)
       );
