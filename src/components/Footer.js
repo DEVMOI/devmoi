@@ -1,29 +1,27 @@
 import { connect } from 'react-redux';
 
+function Network({ chainID, textStyle }) {
+  switch (chainID) {
+    case 'main':
+      return <span className={`${textStyle}`}>Ethereum Main Network</span>;
+
+    case 'ropsten':
+      return <span className={`${textStyle}`}>Ropsten Test Network</span>;
+
+    case 'rinkeby':
+      return <span className={`${textStyle}`}>Rinkeby Test Network</span>;
+
+    case 'goerli':
+      return <span className={`${textStyle}`}>Goerli Test Network</span>;
+
+    case 'kovan':
+      return <span className={`${textStyle}`}>Kovan Test Network</span>;
+    default:
+      return <span className={`${textStyle}`}>Custom Network</span>;
+  }
+}
 function Footer(props) {
   const { footerContainerStyle, chainId } = props;
-
-  function Network({ chainID, textStyle }) {
-    console.log(chainID)
-    switch (chainID) {
-      case 'main':
-        return <span className={`${textStyle}`}>Ethereum Main Network</span>;
-
-      case 'ropsten':
-        return <span className={`${textStyle}`}>Ropsten Test Network</span>;
-
-      case 'rinkeby':
-        return <span className={`${textStyle}`}>Rinkeby Test Network</span>;
-
-      case 'goerli':
-        return <span className={`${textStyle}`}>Goerli Test Network</span>;
-
-      case 'kovan':
-        return <span className={`${textStyle}`}>Kovan Test Network</span>;
-      default:
-        return <span className={`${textStyle}`}>Custom Network</span>;
-    }
-  }
 
   return (
     <footer

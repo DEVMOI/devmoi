@@ -2,8 +2,6 @@ const { useEffect, useState } = require('react');
 import dynamic from 'next/dynamic';
 import moifetch from 'moifetch';
 function TwitchVideo(props) {
-  const isDev = process.env.NODE_ENV === 'development';
-
   const [twitchUser, setTwitchUser] = useState('moikapy');
   const [isLoading, setIsLoading] = useState(true);
   async function getTwitchEmbed() {
@@ -16,7 +14,7 @@ function TwitchVideo(props) {
   }
   useEffect(() => {
     getTwitchEmbed()
-    
+
       setIsLoading(false);
     
   }, []);

@@ -8,7 +8,7 @@ function Navbar(props) {
   const router = useRouter();
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top border-bottom border-dark px-4">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top border-top border-bottom border-dark px-4">
       <style jsx>
         {`
           .navbar-brand {
