@@ -41,12 +41,12 @@ function LoginButton(props) {
           onboarding.current.startOnboarding();
         }
       }}>
-      Connect with MetaMask
+      Connect
     </MetaMaskButton>
   ) : (
     <UserIcon
       id="nav-avatar"
-      seed={address}
+      seed={Array.isArray(address) ? address[0] : address}
       userIconStyle={'rounded-circle border border-dark'}
     />
   );
