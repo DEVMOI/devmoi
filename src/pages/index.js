@@ -18,7 +18,7 @@ const Home = ({ address }) => (
     <div>
       <p className={`h3 text-capitalize`}>
         Welcome{' '}
-        <span className={`address text-truncate`}>
+        <span title={`${address}`} className={`address text-truncate`}>
           {address !== null &&
           address !== undefined &&
           address.length !== 0 &&
@@ -29,7 +29,7 @@ const Home = ({ address }) => (
         ,
       </p>
       <p className={`text-capitalize fnt-size-16`}>
-        A Portal into the world of Web3.
+        This is a Portal into the world of Web3.
       </p>
       <p className={`text-capitalize fnt-size-16`}>
         Currently an Experimental Site utilizing various api to bring what web3

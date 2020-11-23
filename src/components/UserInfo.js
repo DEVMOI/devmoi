@@ -70,9 +70,16 @@ function UserInfo(props) {
               id="home-avatar"
               userIconStyle={'rounded-circle border border-dark mb-2'}
               scale={15}
+              seed={
+                Array.isArray(props.address) ? props.address[0] : props.address
+              }
             />
           </div>
-          <EthAddress address={props.address} />
+          <EthAddress
+            address={
+              Array.isArray(props.address) ? props.address[0] : props.address
+            }
+          />
           <p className="h5 my-3 ml-1">
             <span className="font-weight-bold">ETH Balance:</span>{' '}
             {props.balance}
@@ -89,7 +96,9 @@ function UserInfo(props) {
                 // alert('Adding Name');
                 var ethUtil = require('ethereumjs-util');
                 var sigUtil = require('eth-sig-util');
-                var from = props.address;
+                var from = Array.isArray(props.address)
+                  ? props.address[0]
+                  : props.address;
                 if (!from) return connect();
                 await handleConversion();
                 // let data;
