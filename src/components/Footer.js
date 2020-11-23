@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-
+import dynamic from 'next/dynamic';
+import { FooterNavItem } from './common';
 function Network({ chainID, textStyle }) {
   switch (chainID) {
     case 'main':
@@ -51,11 +52,14 @@ function Footer(props) {
         textStyle={`chain ${chainId !== null ? chainId : '0x1'}`}
         chainID={chainId}
       />
+      <FooterNavItem Route={'/about'} Text={'About'} />
     </footer>
   );
 }
 const mapStateToProps = (state) => ({
   chainId: state.session.chainId,
 });
-
-export default connect(mapStateToProps)(Footer);
+const _Footer = dynamic(() => Promise.resolve(Footer), {
+  ssr: false,
+});
+export default connect(mapStateToProps)(_Footer);

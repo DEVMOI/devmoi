@@ -2,7 +2,6 @@ const { useEffect, useState } = require('react');
 import dynamic from 'next/dynamic';
 import moifetch from 'moifetch';
 function TwitchVideo(props) {
-  const [twitchUser, setTwitchUser] = useState('moikapy');
   const [isLoading, setIsLoading] = useState(true);
   async function getTwitchEmbed() {
     try {
@@ -13,15 +12,9 @@ function TwitchVideo(props) {
     } catch (error) {}
   }
   useEffect(() => {
-    getTwitchEmbed()
+    getTwitchEmbed();
 
-      setIsLoading(false);
-    
-  }, []);
-  useEffect(() => {
-    props.user !== undefined
-      ? setTwitchUser(props.user)
-      : setTwitchUser('moikpay');
+    setIsLoading(false);
   }, []);
   useEffect(() => {
     // if (isDev) {
@@ -29,17 +22,17 @@ function TwitchVideo(props) {
       console.log(props.user !== undefined);
       console.log(isLoading, typeof Twitch !== 'undefined');
       if (typeof Twitch !== 'undefined' && !isLoading) {
-        console.log(twitchUser, typeof Twitch !== 'undefined' && !isLoading);
+        console.log(typeof Twitch !== 'undefined' && !isLoading, props.user);
         new Twitch.Embed('twitch-embed', {
           width: '100%',
           height: '100%',
-          channel: twitchUser,
+          channel: props.user,
           parent: ['www.devmoi.com', 'devmoi.com'],
         });
       }
     }, 500);
     // }
-  }, [twitchUser]);
+  }, [isLoading]);
   return (
     <div id="twitch-embed" className="mx-auto w-100 border border-dark">
       <style jsx>

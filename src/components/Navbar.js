@@ -29,7 +29,7 @@ function Navbar(props) {
         <ul className="navbar-nav mr-auto flex-row ">
           <NavItem Route={'/swap'} Text={'Swap'} />
           <NavItem Route={'/wallet'} Text={'Wallet'} />
-          <NavItem Route={'/about'} Text={'About'} />
+          
         </ul>
       </div>
       <div className="ml-auto">

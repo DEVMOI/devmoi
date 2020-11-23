@@ -28,3 +28,11 @@ export async function submitTransaction(trns) {
     console.log('submitTransaction()', error);
   }
 }
+
+export function truncateAddress(address) {
+  try {
+    return `${address.substring(0, 15)}...${address.substring(36, 42)}`;
+  } catch (error) {
+    console.log(`truncateAddress(): ${error}`);
+  }
+}

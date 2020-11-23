@@ -1,12 +1,10 @@
 import dynamic from 'next/dynamic';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect,} from 'react';
 import { connect } from 'react-redux';
 import { initWeb3, init } from '@/actions';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
-const Footer = dynamic(() => import('./Footer'), {
-  ssr: false,
-});
 const Layout = (props) => {
   let { isFluid = false, classes, children, session, init } = props;
   useEffect(async () => {
@@ -37,6 +35,9 @@ const Layout = (props) => {
         .fnt-size-12 {
           font-size: 12px;
         }
+        .fnt-size-16 {
+          font-size: 1rem !important;
+        }
         .fnt-color-000 {
           color: #000 !important;
         }
@@ -48,10 +49,15 @@ const Layout = (props) => {
         }
       `}</style>
       <Navbar />
-      <main className={` pt-5 pb-3  ${isFluid ? 'container-fluid' : 'container'} `}>
+      <main
+        className={` pt-5 pb-3  ${isFluid ? 'container-fluid' : 'container'} `}>
         {children}
       </main>
-      <Footer footerContainerStyle={'d-flex flex-row w-100 border border-dark border-top'} />
+      <Footer
+        footerContainerStyle={
+          'd-flex flex-row w-100 border border-dark border-top'
+        }
+      />
     </div>
   );
 };

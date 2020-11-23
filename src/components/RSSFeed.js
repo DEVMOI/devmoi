@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import moifetch from 'moifetch';
 import Parser from 'rss-parser';
-
+import dynamic from 'next/dynamic';
 const parseDate = (date = '', seperator = '/') => {
   let current_datetime = new Date(date);
   let formatted_date =
@@ -137,4 +137,8 @@ const RSSFeed = (props) => {
     </div>
   );
 };
-export default RSSFeed;
+const _RSSFeed = dynamic(() => Promise.resolve(RSSFeed), {
+  ssr: false,
+});
+
+export default _RSSFeed;

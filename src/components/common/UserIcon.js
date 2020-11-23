@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import Blockies from './blockie';
 const UserIcon = (props) => {
+  console.log(props.seed)
   return (
     <Blockies
       canvasStyle={props.userIconStyle !== undefined ? props.userIconStyle : ''}
