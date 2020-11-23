@@ -3,7 +3,7 @@ function Live(props) {
   return (
     <div className={`h-100`}>
       {/* <!-- Twitch Video */}
-      {<TwitchVideo user={'moikapy'}/>}
+      {<TwitchVideo user={props.user||'moikapy'}/>}
     </div>
   );
 }
