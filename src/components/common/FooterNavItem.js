@@ -9,15 +9,13 @@ function NavItem(props) {
   return (
     <li className="nav-item d-flex flex-row mx-3">
       <style jsx>
-        {
-          `
-          .nav-item{
-            cursor:pointer
+        {`
+          .nav-item {
+            cursor: pointer;
           }
-          `
-        }
+        `}
       </style>
-      <a className="nav-link" onClick={handleClick}>
+      <a className="nav-link fnt-color-000" onClick={handleClick}>
         {props.Text}
       </a>
     </li>

@@ -52,7 +52,9 @@ function Footer(props) {
         textStyle={`chain ${chainId !== null ? chainId : '0x1'}`}
         chainID={chainId}
       />
-      <FooterNavItem Route={'/about'} Text={'About'} />
+      <div className={`d-flex flex-column flex-sm-row ml-auto`}>
+        <FooterNavItem Route={'/about'} Text={'About'} />
+      </div>
     </footer>
   );
 }
