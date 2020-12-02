@@ -1,23 +1,27 @@
 import { useRouter } from 'next/router';
 
 function NavItem(props) {
+  let { navItemStyle, navLinkStyle, Route } = props;
   const router = useRouter();
   const handleClick = (e) => {
     e.preventDefault();
-    router.push(props.Route,);
+    router.push(Route);
   };
   return (
-    <li className="nav-item mx-3">
+    <li
+      className={`${
+        navItemStyle !== undefined ? navItemStyle : ''
+      } nav-item mx-3`}>
       <style jsx>
-        {
-          `
-          .nav-item{
-            cursor:pointer
+        {`
+          .nav-item {
+            cursor: pointer;
           }
-          `
-        }
+        `}
       </style>
-      <a className="nav-link" onClick={handleClick}>
+      <a
+        className={`${navLinkStyle !== undefined ? navLinkStyle : ''} nav-link`}
+        onClick={handleClick}>
         {props.Text}
       </a>
     </li>

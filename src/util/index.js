@@ -1,10 +1,9 @@
-export default {
-  toCapitalize: (str = '') => {
-    return str.replace(/\w\S*/g, txt => {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
-  }, 
-  copyToClipboard: str => {
+const toCapitalize = (str = '') => {
+  return str.replace(/\w\S*/g, (txt) => {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+};
+const copyToClipboard = (str) => {
   const el = document.createElement('textarea'); // Create a <textarea> element
   el.value = str; // Set its value to the string that you want copied
   el.setAttribute('readonly', ''); // Make it readonly to be tamper-proof
@@ -23,5 +22,6 @@ export default {
     document.getSelection().removeAllRanges(); // Unselect everything on the HTML document
     document.getSelection().addRange(selected); // Restore the original selection
   }
-}
 };
+
+export { toCapitalize, copyToClipboard };

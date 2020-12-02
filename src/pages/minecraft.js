@@ -1,8 +1,7 @@
-import { Layout } from '../components';
-// import { copyToClipboard } from '../utils';
-export default () => {
+import { copyToClipboard } from 'moihelp';
+const Minecraft = () => {
   return (
-    <Layout classes="minecraft h-100 pt-5 px-0 w-100">
+    <div className="minecraft">
       <style>
         {`
           .minecraft{
@@ -13,11 +12,15 @@ export default () => {
             background:url('/moia.png') center no-repeat;
             background-size:fit;
           }
+          .minecraft-ip{
+            cursor:pointer;
+          }
         `}
       </style>
+
       <div className="minecraft-background w-100 p-5 mb-5">
         <h4 className="text-capitalize display-4 text-center text-monospace">
-          welcome to moia
+          welcome to moia craft
         </h4>
       </div>
       <div className="p-5 d-flex flex-column justify-content-center ">
@@ -31,7 +34,7 @@ export default () => {
             <u>moia.ramshard.net</u>
           </span>
         </p>
-        <p className="w-75 mx-auto">
+        <p className="w-75 mx-auto text-justify">
           We host a Minecraft Server for our Community, and open to the public
           as well as all ages, so we ask that you follow a few rules to keep
           things as chill and as fun as possible.
@@ -45,16 +48,8 @@ export default () => {
             <li>Respect the Mods</li>
           </ol>
         </div>
-        <div className="pt-4 text-center w-100">
-          <a
-            className="btn btn-outline-dark"
-            href="http://moia.ramshard.net:8123/index.html?worldname=Moia&mapname=flat&zoom=5&x=-25&y=64&z=-526"
-            target="_blank"
-            rel="noopener noreferrer">
-            World Map 🌎
-          </a>
-        </div>
       </div>
-    </Layout>
+    </div>
   );
 };
+export default Minecraft;

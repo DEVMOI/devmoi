@@ -4,6 +4,7 @@ import { login, init } from '../actions';
 import UserIcon from './common/UserIcon';
 import { MetaMaskButton } from 'rimble-ui';
 import MetaMaskOnboarding from '@metamask/onboarding';
+import dynamic from 'next/dynamic';
 function LoginButton(props) {
   let { session, login } = props;
   let { address } = session;
@@ -51,7 +52,11 @@ function LoginButton(props) {
     />
   );
 }
+
+const _LoginButton = dynamic(() => Promise.resolve(LoginButton), {
+  ssr: false,
+});
 const mapStateToProps = (state) => ({
   session: state.session,
 });
-export default connect(mapStateToProps, { login, init })(LoginButton);
+export default connect(mapStateToProps, { login, init })(_LoginButton);

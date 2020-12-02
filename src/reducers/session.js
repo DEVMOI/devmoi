@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   chainId: null,
   address: [],
   balance: null,
+  showSidebar: true,
 };
 
 export default function session(state = INITIAL_STATE, action) {
@@ -22,6 +23,8 @@ export default function session(state = INITIAL_STATE, action) {
       return { ...state, chainId: action.payload };
     case 'SET_BALANCE':
       return { ...state, balance: action.payload };
+    case 'SET_SIDEBAR_STATUS':
+      return { ...state, showSidebar: action.payload };
     default:
       return state;
   }

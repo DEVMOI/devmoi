@@ -57,7 +57,7 @@ function EthWalletCard(props) {
       <style jsx>
         {`
           .eth-wallet-card {
-            width: 25.7rem;
+            width: 28rem;
           }
         `}
       </style>
@@ -67,6 +67,7 @@ function EthWalletCard(props) {
         <p className={`${props.seed!==props.address?'text-truncate w-75':''}`}>{props.seed}</p>
       )}
       <p className={`text-uppercase`}>{props.role}</p>
+      <p className={`text-capitalize`}><i>More Coming Soon...</i></p>
       {props.seed !== props.address ? (
         <div className="d-flex flex-column">
           <div className="d-flex flex-row align-items-center mb-4">

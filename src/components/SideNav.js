@@ -1,4 +1,6 @@
-export default function SideNav(props) {
+import { connect } from "mongodb/lib/mongo_client";
+
+function SideNav(props) {
   return (
     <div className="d-flex flex-column px-3 pt-5 mr-3 border border-dark side-nav">
       <style jsx>
@@ -24,3 +26,7 @@ export default function SideNav(props) {
     </div>
   );
 }
+const mapStateToProps=state=>({
+  session:state.session
+})
+export default connect(mapStateToProps)(SideNav);

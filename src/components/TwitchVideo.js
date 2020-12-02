@@ -13,16 +13,12 @@ function TwitchVideo(props) {
   }
   useEffect(() => {
     getTwitchEmbed();
-
     setIsLoading(false);
   }, []);
   useEffect(() => {
     // if (isDev) {
     setTimeout(() => {
-      console.log(props.user !== undefined);
-      console.log(isLoading, typeof Twitch !== 'undefined');
-      if (typeof Twitch !== 'undefined' && !isLoading) {
-        console.log(typeof Twitch !== 'undefined' && !isLoading, props.user);
+      if (typeof Twitch !== 'undefined' && isLoading === false) {
         new Twitch.Embed('twitch-embed', {
           width: '100%',
           height: '100%',
@@ -30,7 +26,7 @@ function TwitchVideo(props) {
           parent: ['www.devmoi.com', 'devmoi.com'],
         });
       }
-    }, 500);
+    }, 250);
     // }
   }, [isLoading]);
   return (

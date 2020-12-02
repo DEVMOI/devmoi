@@ -27,8 +27,24 @@ const nextConfig = {
         destination: '/live',
       },
       {
-        source: '/swap',
-        destination: '/Swap',
+        source: '/Live/:path*',
+        destination: '/live/:path*',
+      },
+      {
+        source: '/Minecraft',
+        destination: '/minecraft',
+      },
+      {
+        source: '/Swap',
+        destination: '/swap',
+      },
+      {
+        source: '/Wallet',
+        destination: '/wallet',
+      },
+      {
+        source: '/About',
+        destination: '/about',
       },
     ];
   },
