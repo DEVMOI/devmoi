@@ -60,8 +60,9 @@ function SideBar(props) {
             <NavItem
               navItemStyle={`border-bottom border-dark w-100`}
               Route={`/wallet/${session.address}`}
-              Text={'My Wallet'}
+              Text={'Wallet'}
             />
+            <NavItem Route={'/swap'} Text={'Swap Toekns'} />
             <NavItem
               navItemStyle={`border-bottom border-dark w-100`}
               Route={'/live'}
@@ -72,7 +73,6 @@ function SideBar(props) {
               Route={'/minecraft'}
               Text={'Minecraft'}
             />
-            {/* <NavItem Route={'/swap'} Text={'Swap'} /> */}
             {/* <NavItem Route={'/wallet'} Text={'Wallet'} /> */}
           </ul>
         </div>
