@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import NavItem from './common/NavItem';
+import {NavItem} from './common/';
 function SideBar(props) {
   const [showMenuState, setShowMenuState] = useState(true);
   const { session } = props;
@@ -25,7 +25,6 @@ function SideBar(props) {
           .sidebar-menu-text {
             cursor: pointer;
           }
-  
 
           @media screen and (max-width: 576px) {
             .hide {
@@ -37,8 +36,8 @@ function SideBar(props) {
             .border-right {
               border-right: none !important;
             }
-          } 
-                  
+          }
+
           @media and (min-width: 575px) {
           }
         `}

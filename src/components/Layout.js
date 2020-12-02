@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { initWeb3, init } from '@/actions';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import SideBar from './sidebar.js';
+import SideBar from './sidebar';
 const Layout = (props) => {
   let { isFluid = false, classes, children, session, init } = props;
   useEffect(async () => {
