@@ -11,11 +11,12 @@ function SvGButton(props) {
       width="1em"
       height="1em"
       viewBox="0 0 16 16"
-      className="svg-button bi bi-octagon h-100 w-100 ml-1 mr-5 fnt-24 rotate fnt-color-000"
+      className="svg-button bi bi-octagon ml-1 mr-5 fnt-24 rotate fnt-color-000"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg">
       <style jsx>
         {`
+        svg,
           .svg-button {
             cursor: pointer;
             width:1.5rem;
