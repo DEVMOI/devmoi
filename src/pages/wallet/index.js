@@ -9,7 +9,7 @@ function Wallet(props) {
       <EthWalletCard
         seed={address.length !== 0 ? address : process.env.ADMIN_ID}
         role={
-          process.env.ADMIN_ID === address ? 'LEAD DEVELOPER' : 'ETH Wallet'
+          process.env.ADMIN_ID !== address ? 'LEAD DEVELOPER' : 'ETH Wallet'
         }
       />
     </div>
