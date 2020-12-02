@@ -1,4 +1,4 @@
-import { connect } from "mongodb/lib/mongo_client";
+// import { connect } from "mongodb/lib/mongo_client";
 
 function SideNav(props) {
   return (
@@ -29,4 +29,4 @@ function SideNav(props) {
 const mapStateToProps=state=>({
   session:state.session
 })
-export default connect(mapStateToProps)(SideNav);
+export default SideNav;

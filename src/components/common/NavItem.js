@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 
 function NavItem(props) {
-  let { navItemStyle, navLinkStyle, Route } = props;
+  let { navItemStyle, navLinkStyle } = props;
   const router = useRouter();
   const handleClick = (e) => {
     e.preventDefault();
-    router.push(Route);
+    router.push(props.Route);
   };
   return (
     <li
