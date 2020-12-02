@@ -62,7 +62,11 @@ function SideBar(props) {
               Route={`/wallet/${session.address}`}
               Text={'Wallet'}
             />
-            <NavItem Route={'/swap'} Text={'Swap Toekns'} />
+            <NavItem
+              navItemStyle={`border-bottom border-dark w-100`}
+              Route={'/swap'}
+              Text={'Swap Toekns'}
+            />
             <NavItem
               navItemStyle={`border-bottom border-dark w-100`}
               Route={'/live'}
