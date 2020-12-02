@@ -18,6 +18,7 @@ function SvGButton(props) {
         {`
           .svg-button {
             cursor: pointer;
+            width:1.5rem;
           }
           .rotate {
             animation: rotation 8s infinite linear;
