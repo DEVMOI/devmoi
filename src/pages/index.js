@@ -19,9 +19,9 @@ const Home = ({ address }) => (
           {address !== null &&
           address !== undefined &&
           address.length !== 0 &&
-          typeof address === 'string' ? (
+          address[0] !== undefined ? (
             <strong>
-              <u>{truncateAddress(address)}</u>
+              <u>{truncateAddress(Array.isArray(address)?address[0]:address)}</u>
             </strong>
           ) : (
             'To Devmoi'

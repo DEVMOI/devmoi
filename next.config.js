@@ -51,6 +51,7 @@ const nextConfig = {
   env: {
     ADMIN_ID: process.env.ADMIN_ID,
     INFURA_API: process.env.INFURA_API,
+    SPACES:process.env.SPACES
   },
 };
 

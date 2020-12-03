@@ -121,6 +121,7 @@ function Swap(props) {
         width={'100%'}
         maxWidth={'420px'}>
         <span id={'moonpay_widget'} />
+        <p><i>Buying Eth Coming Soon...</i></p>
       </Card>
       {/* {token.forEach((group, key) => ( */}
       <div className="d-flex flex-row flex-wrap justify-content-center">

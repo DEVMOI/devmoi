@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import EthWalletCard from '@/components/EthWalletCard';
+import WalletPage from './index'
 function Wallet(props) {
   const router = useRouter();
   const id = router.query.id || '';
@@ -14,7 +15,7 @@ function Wallet(props) {
         `}
       </style>
       {id.substring(0, 2) === '0x' && id.length === 42 ? (
-        <EthWalletCard showIcon={false} seed={id} role={'ETH WALLET'} />
+        <WalletPage showIcon={false} seed={id} role={'ETH WALLET'} />
       ) : (
         <p
           className={`error-msg position-absolute mx-auto text-uppercase text-center`}>

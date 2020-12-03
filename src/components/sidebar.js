@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import {NavItem} from './common/';
+import { NavItem } from './common/';
 function SideBar(props) {
   const [showMenuState, setShowMenuState] = useState(true);
   const { session } = props;
@@ -57,16 +57,24 @@ function SideBar(props) {
             className={`${
               !showMenuState ? 'd-none' : ''
             } navbar-nav sidebar-nav mx-auto flex-row flex-sm-column`}>
-            <NavItem
-              navItemStyle={`border-bottom border-dark w-100`}
-              Route={`/wallet/${session.address}`}
-              Text={'Wallet'}
-            />
-            <NavItem
-              navItemStyle={`border-bottom border-dark w-100`}
-              Route={'/swap'}
-              Text={'Swap Toekns'}
-            />
+            {session.address[0] !== undefined ? (
+              <NavItem
+                navItemStyle={`border-bottom border-dark w-100`}
+                Route={`/wallet/${session.address}`}
+                Text={'Wallet'}
+              />
+            ) : (
+              <div />
+            )}
+            {session.address[0] !== undefined ? (
+              <NavItem
+                navItemStyle={`border-bottom border-dark w-100`}
+                Route={'/swap'}
+                Text={'Swap Toekns'}
+              />
+            ) : (
+              <div />
+            )}
             <NavItem
               navItemStyle={`border-bottom border-dark w-100`}
               Route={'/live'}

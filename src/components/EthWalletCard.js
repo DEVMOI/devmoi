@@ -2,12 +2,22 @@ import { UserIcon } from '@/components/common';
 import { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Slider, Input } from 'rimble-ui';
-
 import dynamic from 'next/dynamic';
+import { getProfile } from '../actions';
+
+import Box from '3box';
 
 function EthWalletCard(props) {
   const [donationValue, setDonationValue] = useState(1);
   const [errorState, setErrorState] = useState('');
+  const { getProfile, profile } = props;
+  useEffect(() => {
+    async function prof() {
+      console.log(profile);
+    }
+    prof();
+  }, []);
+
   const getQuote = async (coin, value) => {
     try {
       const response = await fetch(
@@ -53,7 +63,9 @@ function EthWalletCard(props) {
   };
 
   return (
-    <div title={props.seed} className="eth-wallet-card card border border-dark p-3 box-shadow">
+    <div
+      title={props.seed}
+      className="eth-wallet-card card border border-dark p-3 box-shadow">
       <style jsx>
         {`
           .eth-wallet-card {
@@ -61,13 +73,22 @@ function EthWalletCard(props) {
           }
         `}
       </style>
+      <p className={`text-uppercase fnt-24`}>{profile!==null?profile.name:''}</p>
       {props.showIcon ? (
         <UserIcon seed={props.seed} />
       ) : (
-        <p className={`${props.seed!==props.address?'text-truncate w-75':''}`}>{props.seed}</p>
+        <p
+          className={`${
+            props.seed !== props.address ? 'text-truncate w-75' : ''
+          }`}>
+          {props.seed}
+        </p>
       )}
       <p className={`text-uppercase`}>{props.role}</p>
-      <p className={`text-capitalize`}><i>More Coming Soon...</i></p>
+      <p className={`text-capitalize`}>
+        <span></span>
+        <i>More Coming Soon...</i>
+      </p>
       {props.seed !== props.address ? (
         <div className="d-flex flex-column">
           <div className="d-flex flex-row align-items-center mb-4">
@@ -107,8 +128,9 @@ function EthWalletCard(props) {
 
 const mapStateToProps = (state) => ({
   address: state.session.address,
+  profile: state.session.profile,
 });
-const _EthWalletCard = connect(mapStateToProps)(EthWalletCard);
+const _EthWalletCard = connect(mapStateToProps, { getProfile })(EthWalletCard);
 export default dynamic(() => Promise.resolve(_EthWalletCard), {
   ssr: false,
 });

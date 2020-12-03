@@ -3,13 +3,21 @@ import { connect } from 'react-redux';
 import EthWalletCard from '@/components/EthWalletCard';
 
 function Wallet(props) {
+  let { showIcon, seed, role } = props;
   let { address } = props.session;
   return (
     <div className={'wallet'}>
       <EthWalletCard
-        seed={address.length !== 0 ? address : process.env.ADMIN_ID}
+        showIcon={showIcon}
+        seed={
+          (seed !== undefined &&seed.length) !== 0
+            ? seed
+            : address.length !== 0
+            ? address
+            : process.env.ADMIN_ID
+        }
         role={
-          process.env.ADMIN_ID !== address ? 'LEAD DEVELOPER' : 'ETH Wallet'
+          process.env.ADMIN_ID === address ? 'LEAD DEVELOPER' : 'ETH Wallet'
         }
       />
     </div>

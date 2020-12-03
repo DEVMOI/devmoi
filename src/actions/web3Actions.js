@@ -1,7 +1,8 @@
 import MetaMaskOnboarding from '@metamask/onboarding';
 import Web3 from 'web3';
 import detectEthereumProvider from '@metamask/detect-provider';
-
+import Box from '3box';
+import { getProfile } from './sessionActions';
 /**
  * Detects the window.ethereum var
  */
@@ -33,15 +34,39 @@ const _isMetaMask = async () => {
   return true;
 };
 
+const initBox = async (provider) => {
+  window.box = await Box.create(provider);
+};
+
+const auth3Box = async (addr) => {
+  try {
+    await Box.openBox(addr, window.web3.currentProvider);
+    if (window.box !== undefined)
+      await window.box.auth([process.env.SPACES], {
+        address: addr,
+      });
+    if (window.box !== undefined) {
+      await box.openSpace(process.env.SPACES);
+      await space.syncDone;
+    }
+  } catch (error) {
+    console.log('auth3Box', error);
+  }
+};
+
 export const initWeb3 = () => async (dispatch) => {
   try {
     if (window.ethereum !== undefined) {
+      ethereum.autoRefreshOnsNetworkChange = false;
       window.web3 = new Web3(window.ethereum);
+      initBox(window.ethereum);
       return true;
     } else {
       window.web3 = new Web3(
         new Web3.providers.HttpProvider(process.env.INFURA_API)
       );
+      initBox(process.env.INFURA_API);
+
       return true;
     }
   } catch (error) {
@@ -49,9 +74,13 @@ export const initWeb3 = () => async (dispatch) => {
   }
 };
 //
-export const login = (props) => async (dispatch) => {
+
+export const login = (props) => async (dispatch, getState) => {
   try {
-    web3.currentProvider.enable();
+    let ethereumProvider = await web3.currentProvider;
+    ethereumProvider.enable();
+    dispatch(getAddress());
+
     dispatch({ type: 'SET_AUTH_STATUS', payload: true });
   } catch (error) {
     await console.log('Login(): ', error);
@@ -71,10 +100,12 @@ export const getAddress = () => async (dispatch) => {
   }
 };
 //
-export const getBalance = () => async (dispatch) => {
+
+//
+export const getBalance = (addr) => async (dispatch) => {
   try {
     await web3.eth
-      .getBalance(web3.eth.defaultAccount)
+      .getBalance(addr)
       .then((res) => {
         dispatch(setBalance(web3.utils.fromWei(res, 'ether')));
       })
@@ -110,29 +141,31 @@ async function watchChain() {
   }
 }
 //
-async function watchAccounts(params) {
+export const init = (props) => async (dispatch, getState) => {
   try {
-  } catch (error) {
-    console.log(error, ': watchAccoutns()');
-  }
-}
-//
-export const init = (props) => async (dispatch) => {
-  try {
+    const { session } = getState();
     await dispatch(initWeb3());
     await dispatch(getNetwork());
     await dispatch(getAddress());
+
     if (window.ethereum !== undefined) {
-      await dispatch(getBalance());
       await watchChain();
-      await ethereum.on('accountsChanged', (newAccounts) => {
-        dispatch(setAddress(newAccounts));
+      let address = await web3.eth.getAccounts();
+      if (address !== null && address !== undefined) {
+        await auth3Box(await address[0]);
+
+        await dispatch(getBalance(await address[0]));
+        await dispatch(getProfile(await address[0]));
+      }
+      await ethereum.on('accountsChanged', async (newAccounts) => {
+        await dispatch(setAddress(newAccounts));
+        let address = await web3.eth.getAccounts();
+        if (address !== null && address !== undefined) {
+          await auth3Box(await address[0]);
+          await dispatch(getBalance(await address[0]));
+          await dispatch(getProfile(await address[0]));
+        }
       });
-      return async () => {
-        await ethereum.off('accountsChanged', (newAccounts) => {
-          dispatch(setAddress(newAccounts));
-        });
-      };
     }
   } catch (error) {
     console.error('init():', error);

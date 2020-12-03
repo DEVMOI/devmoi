@@ -7,8 +7,8 @@ import Footer from './Footer';
 import SideBar from './sidebar';
 const Layout = (props) => {
   let { isFluid = false, classes, children, session, init } = props;
-  useEffect(async () => {
-    await init();
+  useEffect(() => {
+    init();
   }, []);
   return (
     <div className={`layout ${classes !== undefined ? classes : null}`}>
@@ -29,7 +29,8 @@ const Layout = (props) => {
         .layout::-webkit-scrollbar {
           display: none;
         }
-        .wrapper, main {
+        .wrapper,
+        main {
           height: calc(100% - 87px);
         }
         .fnt-12,

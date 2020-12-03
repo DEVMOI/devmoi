@@ -18,7 +18,7 @@ const persistConfig = {
   //will not be overwritten by the persisted stuff found in storage
   stateReconciler: autoMergeLevel2,
   whitelist: ['session'],
-  blacklist: ['address'],
+  blacklist: ['address','balance'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

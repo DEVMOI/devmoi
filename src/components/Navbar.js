@@ -52,6 +52,9 @@ function Navbar(props) {
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top border-top border-bottom border-dark px-4">
       <style jsx>
         {`
+        .navbar{
+          z-index:300;
+        }
           .navbar-brand {
             cursor: pointer;
           }
