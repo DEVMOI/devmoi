@@ -46,7 +46,7 @@ const auth3Box = async (addr) => {
         address: addr,
       });
     if (window.box !== undefined) {
-      await box.openSpace(process.env.SPACES);
+      const space = await box.openSpace(process.env.SPACES);
       await space.syncDone;
     }
   } catch (error) {
