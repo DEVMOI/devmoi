@@ -37,7 +37,7 @@ function AnnoucementLetter(props) {
 
   return show ? (
     <div
-      className={`community-letter mx-auto mb-5 p-5 border border-dark position-relative ${props.AnnoucementLetterStyle}`}>
+      className={`community-letter mx-auto my-5 p-5 border border-dark position-relative ${props.AnnoucementLetterStyle}`}>
       <style jsx>
         {`
           .community-letter {
@@ -197,7 +197,14 @@ function FeedItem(props) {
   const { address, date, content } = props;
   return (
     <div
-      className={`feed-item rounded d-flex flex-column border border-dark p-3 my-3`}>
+      className={`feed-item rounded mx-auto d-flex flex-column border border-dark p-3 my-3`}>
+      <style jsx>
+        {`
+          .feed-item {
+            max-width: 650px;
+          }
+        `}
+      </style>
       <div className={`d-flex flex-column`}>
         <p>{truncateAddress(address)}</p>
         <p>Date: {date}</p>
@@ -231,7 +238,7 @@ function Feed(props) {
     <div className={`feed `}>
       <hr />
       {Array.isArray(props.data) && props.data.length >= 1 ? (
-        <div className={`h-100 feed-items overflow-scroll`}>
+        <div className={`h-100 feed-items`}>
           {props.data
             .sort((a, b) => b.nonce - a.nonce)
             .map(({ address, date, text }, i) => {
@@ -297,7 +304,7 @@ const Home = (props) => {
   }
 
   return (
-    <div className="home container h-100">
+    <div className="home container h-100 pt-5">
       <style global jsx>
         {`
           .home {

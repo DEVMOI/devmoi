@@ -75,7 +75,7 @@ const Layout = (props) => {
         <SideBar />
         <div className={`${session.showSidebar ? 'main-show' : 'main-hide'}`}>
           <main
-            className={` pt-5 pb-3 ${
+            className={`${
               isFluid ? 'container-fluid' : 'container' 
             } h-100 `}>
             {children}
