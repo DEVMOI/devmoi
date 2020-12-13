@@ -16,10 +16,10 @@ function SvGButton(props) {
       xmlns="http://www.w3.org/2000/svg">
       <style jsx>
         {`
-        svg,
+          svg,
           .svg-button {
             cursor: pointer;
-            width:1.5rem;
+            width: 1.5rem;
           }
           .rotate {
             animation: rotation 8s infinite linear;
@@ -52,9 +52,12 @@ function Navbar(props) {
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top border-top border-bottom border-dark px-4">
       <style jsx>
         {`
-        .navbar{
-          z-index:300;
-        }
+          .navbar {
+            z-index: 300;
+          }
+          .navbrand-container {
+            width: 100px;
+          }
           .navbar-brand {
             cursor: pointer;
           }
@@ -73,19 +76,22 @@ function Navbar(props) {
           }
         `}
       </style>
-      <div className="nav-inner d-flex flex-row align-items-center">
-        <SvGButton onPress={() => handleSidebar} />
-        <a
-          className="navbar-brand"
-          onClick={(e) => {
-            e.preventDefault();
-            router.push('/');
-          }}>
-          DEVMOI
-        </a>
-      </div>
-      <div className="ml-auto">
-        <LoginButton />
+      <div className="container-fluid d-flex flex-row align-items-center justify-content-between">
+        <div
+          className={`navbrand-container d-flex flex-row align-items-center justify-content-between`}>
+          <SvGButton onPress={() => handleSidebar} />
+          <a
+            className="navbar-brand ml-5"
+            onClick={(e) => {
+              e.preventDefault();
+              router.push('/');
+            }}>
+            <u>DEVMOI</u>
+          </a>
+        </div>
+        <div className="">
+          <LoginButton />
+        </div>
       </div>
     </nav>
   );

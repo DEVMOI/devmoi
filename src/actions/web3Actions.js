@@ -35,14 +35,18 @@ const _isMetaMask = async () => {
 };
 
 const initBox = async (provider) => {
-  window.box = await Box.create(provider);
+  try {
+    window.box = await Box.create(provider);
+  } catch (error) {
+    console.log('initBox()', error);
+  }
 };
 
 const auth3Box = async (addr) => {
   try {
     await Box.openBox(addr, window.web3.currentProvider);
     if (window.box !== undefined)
-      await window.box.auth([process.env.SPACES], {
+      await box.auth([process.env.SPACES], {
         address: addr,
       });
     if (window.box !== undefined) {
@@ -50,7 +54,7 @@ const auth3Box = async (addr) => {
       await space.syncDone;
     }
   } catch (error) {
-    console.log('auth3Box', error);
+    console.log('auth3Box()', error);
   }
 };
 
@@ -70,6 +74,7 @@ export const initWeb3 = () => async (dispatch) => {
       return true;
     }
   } catch (error) {
+    console.log('initWeb3()', error);
     return false;
   }
 };
@@ -143,6 +148,7 @@ async function watchChain() {
 //
 export const init = (props) => async (dispatch, getState) => {
   try {
+    console.log('---init begin---');
     const { session } = getState();
     await dispatch(initWeb3());
     await dispatch(getNetwork());
@@ -151,7 +157,12 @@ export const init = (props) => async (dispatch, getState) => {
     if (window.ethereum !== undefined) {
       await watchChain();
       let address = await web3.eth.getAccounts();
-      if (address !== null && address !== undefined) {
+      if (
+        address !== null &&
+        address !== undefined &&
+        (await address[0]) !== undefined
+      ) {
+        console.log(await address[0]);
         await auth3Box(await address[0]);
 
         await dispatch(getBalance(await address[0]));
@@ -183,7 +194,7 @@ export const setAddress = (addr) => async (dispatch) => {
       payload: addr,
     });
   } catch (error) {
-    console.log(error);
+    console.log('setAddress()', error);
   }
 };
 export const setChainId = (payload) => (dispatch) => {

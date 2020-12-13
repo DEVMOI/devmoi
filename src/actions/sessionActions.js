@@ -12,3 +12,9 @@ export const getProfile = (addr) => async (dispatch, getState) => {
     console.log('getProfile():', error);
   }
 };
+export const toggleShowAnnoucement = (payload) => (dispatch) => {
+  dispatch({
+    type: 'SET_SHOW_ANNOUCEMENT',
+    payload,
+  });
+};

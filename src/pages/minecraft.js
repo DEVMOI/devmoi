@@ -27,11 +27,11 @@ const Minecraft = () => {
         <p
           className="lead pt-3 text-center"
           onClick={() => {
-            copyToClipboard('moia.ramshard.net');
+            copyToClipboard('minecraft.devmoi.com:25642');
           }}>
           Server IP:{` `}
           <span title="Click to Copy" className="minecraft-ip text-monospace">
-            <u>moia.ramshard.net</u>
+            <u>minecraft.devmoi.com:25642</u>
           </span>
         </p>
         <p className="w-75 mx-auto text-justify">

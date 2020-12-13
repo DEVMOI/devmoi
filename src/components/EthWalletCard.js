@@ -73,7 +73,9 @@ function EthWalletCard(props) {
           }
         `}
       </style>
-      <p className={`text-uppercase fnt-24`}>{profile!==null?profile.name:''}</p>
+      <p className={`text-uppercase fnt-24`}>
+        {profile !== null ? profile.name : ''}
+      </p>
       {props.showIcon ? (
         <UserIcon seed={props.seed} />
       ) : (
@@ -89,7 +91,7 @@ function EthWalletCard(props) {
         <span></span>
         <i>More Coming Soon...</i>
       </p>
-      {props.seed !== props.address ? (
+      {props.seed !== undefined && props.seed !== props.address ? (
         <div className="d-flex flex-column">
           <div className="d-flex flex-row align-items-center mb-4">
             <span className="font-weight-bold text-uppercase mr-3">~</span>

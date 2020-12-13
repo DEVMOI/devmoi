@@ -10,7 +10,7 @@ function Wallet(props) {
       <EthWalletCard
         showIcon={showIcon}
         seed={
-          (seed !== undefined &&seed.length) !== 0
+          seed !== undefined && seed.length !== 0
             ? seed
             : address.length !== 0
             ? address

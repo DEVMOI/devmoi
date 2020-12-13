@@ -26,7 +26,7 @@ function TwitchVideo(props) {
           parent: ['www.devmoi.com', 'devmoi.com'],
         });
       }
-    }, 250);
+    }, 500);
     // }
   }, [isLoading]);
   return (

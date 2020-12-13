@@ -7,7 +7,8 @@ const INITIAL_STATE = {
   address: [],
   balance: null,
   showSidebar: true,
-  profile:null
+  profile:null,
+  showAnnoucement:true,
 };
 
 export default function session(state = INITIAL_STATE, action) {
@@ -28,6 +29,8 @@ export default function session(state = INITIAL_STATE, action) {
       return { ...state, showSidebar: action.payload };
     case 'SET_PROFILE':
       return { ...state, profile: action.payload };
+    case 'SET_SHOW_ANNOUCEMENT':
+      return { ...state, showAnnoucement: action.payload };
     default:
       return state;
   }

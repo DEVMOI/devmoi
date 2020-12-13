@@ -8,13 +8,15 @@ function SideBar(props) {
     <div
       className={` ${
         !session.showSidebar ? 'hide' : 'sidebar'
-      } d-flex flex-row flex-sm-column border-right border-dark`}>
+      } d-flex flex-row flex-sm-column border-end border-dark h-100 position-absolute`}>
       <style global jsx>
         {`
           .hide {
             width: 5.5rem;
           }
           .sidebar {
+            z-index:3;
+            background-color:#fff;
             width: 14rem;
           }
           .sidebar-nav a {

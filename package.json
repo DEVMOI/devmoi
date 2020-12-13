@@ -16,7 +16,7 @@
     "@transak/transak-sdk": "^1.0.25",
     "@walletconnect/qrcode-modal": "^1.2.2",
     "bcryptjs": "^2.4.3",
-    "bootstrap": "latest",
+    "bootstrap": "next",
     "dotenv": "^8.2.0",
     "eth-sig-util": "^2.5.3",
     "ethereumjs-util": "^7.0.5",

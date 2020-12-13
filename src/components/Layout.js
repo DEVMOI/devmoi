@@ -21,7 +21,7 @@ const Layout = (props) => {
           overflow: hidden;
         }
         .layout {
-          height: calc(100%);
+          height: 100%;
           overflow: scroll;
           -ms-overflow-style: none; /* IE and Edge */
           scrollbar-width: none; /* Firefox */
@@ -29,9 +29,18 @@ const Layout = (props) => {
         .layout::-webkit-scrollbar {
           display: none;
         }
-        .wrapper,
-        main {
+        .wrapper {
           height: calc(100% - 87px);
+        }
+        .main-show {
+          width: 100%;
+          max-width: calc(100% - 224px);
+          margin-left: auto;
+        }
+        .main-hide {
+          width: 100%;
+          max-width: calc(100% - 88px);
+          margin-left: auto;
         }
         .fnt-12,
         .fnt-size-12 {
@@ -61,18 +70,21 @@ const Layout = (props) => {
         }
       `}</style>
       <Navbar />
-      <div className={`wrapper d-flex flex-column flex-sm-row`}>
+      <div
+        className={`wrapper d-flex flex-column flex-sm-row px-2`}>
         <SideBar />
-        <main
-          className={` pt-5 pb-3  ${
-            isFluid ? 'container-fluid' : 'container'
-          } `}>
-          {children}
-        </main>
+        <div className={`${session.showSidebar ? 'main-show' : 'main-hide'}`}>
+          <main
+            className={` pt-5 pb-3 ${
+              isFluid ? 'container-fluid' : 'container' 
+            } h-100 `}>
+            {children}
+          </main>
+        </div>
       </div>
       <Footer
         footerContainerStyle={
-          'd-flex flex-row w-100 border border-dark border-top'
+          'd-flex flex-row px-2 w-100 border border-dark border-top'
         }
       />
     </div>
