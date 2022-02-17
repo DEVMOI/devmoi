@@ -25,7 +25,7 @@
     "moihelp": "latest",
     "moment": "^2.29.0",
     "mongodb": "^3.6.2",
-    "next": "^10.0.2",
+    "next": "^12.1.0",
     "next-connect": "latest",
     "next-offline": "latest",
     "react": "latest",
