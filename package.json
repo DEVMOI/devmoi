@@ -23,7 +23,7 @@
     "jsonwebtoken": "^8.5.1",
     "moifetch": "latest",
     "moihelp": "latest",
-    "moment": "^2.29.0",
+    "moment": "^2.29.2",
     "mongodb": "^3.6.2",
     "next": "^10.0.2",
     "next-connect": "latest",
